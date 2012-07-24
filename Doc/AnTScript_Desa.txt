@@ -1,25 +1,26 @@
 ============================
->>>> Versión 0.0
+>>>> Versión 0.0.x.x
 
-- Implementar precedencia de operadores
 
+- Organizar mejor la rutina principal del scanner (estructurar la secuencia principal)
+- Poner como tokens las palabras reservadas y los identificadores
 - Implementar Or And Not
+
 - Implementar If
 - Implementar While
-- Crear repositorio
-- Aislar en un proyecto nuevo, poner un espacio de nombres.
-- 
+
 
 
 ============================
->>>> Versión 0.1
+>>>> Versión 0.1.x.x
 - Empotrar el código en ANotas.
 - Incluir los comandos de ANotas.
 - Incluir tipos de datos de ANotas (Nota, Carpeta y colecciones de Notas y Carpetas)
 
 
-
->>>> Versión 0.2
+============================
+>>>> Versión 0.2.x.x
+- Implementar definición y llamadas funciones
 - Adaptar sintáxis estilo C (?)
 
 
@@ -31,7 +32,7 @@ Resueltas
 ////////////////////////////
 
 ============================
->>>> Versión 0.0
+>>>> Versión 0.0.0.1
 X- Estudiar código de ejemplo
 X- Sustituir el compilador por el intérprete
 X- Implementar comentarios
@@ -43,3 +44,7 @@ X- En CodeRun implementar la resolución de las expresiones con factor
 X- Implementar * / - en el evaluador de expresiones
 X- Implementar anidamiento de paréntesis
 X- Implementar operadores unarios
+
+X- Crear repositorio
+X- Aislar en un proyecto nuevo, poner un espacio de nombres.
+X- Implementar precedencia de operadores

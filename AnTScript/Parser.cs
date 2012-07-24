@@ -188,24 +188,58 @@ namespace AnTScript
             return result;
         }
 
+        // TODO: Limpiar
+        //   Versión sin la precedencia de operadores
+        //private Expr ParseExpr()
+        //{
+        //    Expr left = ParseFactor();
+
+        //    while (true)
+        //    {
+        //        if (!IsOperator(tokens[index]))
+        //            return left;
+
+        //        else
+        //        {
+        //            BinExpr binExpr = new BinExpr();
+        //            binExpr.Op = TokenToOp(tokens[index]);
+        //            index++;
+        //            Expr right = ParseExpr();
+        //            binExpr.Left = left;
+        //            binExpr.Right = right;
+        //            return binExpr;
+        //        }
+        //    }
+        //}
+
         private Expr ParseExpr()
+        {
+            return ParseExpr(0);
+        }
+
+        private Expr ParseExpr(int precedence)
         {
             Expr left = ParseFactor();
 
             while (true)
             {
-                if (!IsOperator(this.tokens[this.index]))
+                OperatorToken ot = tokens[index] as OperatorToken;
+                if (ot == null)
                     return left;
-                else
+
+                int prec = ot.Precedence;
+                if (prec >= precedence)
                 {
                     BinExpr binExpr = new BinExpr();
-                    binExpr.Op = TokenToOp(this.tokens[this.index]);
-                    this.index++;
-                    Expr right = ParseExpr();
+                    binExpr.Op = TokenToOp(tokens[index]);
+                    MoveNext();
+                    Expr right = ParseExpr(prec);
                     binExpr.Left = left;
                     binExpr.Right = right;
-                    return binExpr;
+                    left = binExpr;
                 }
+                else
+                    return left;
             }
         }
 
@@ -237,7 +271,6 @@ namespace AnTScript
                 var.Ident = ident;
                 return var;
             }
-
             else if (this.tokens[this.index] == Tokens.LeftParentesis)
             {
                 // Eat LeftParenthesis             
@@ -328,7 +361,6 @@ namespace AnTScript
             else
                 return false;
         }
-
 
         #endregion
 

@@ -9,19 +9,27 @@ namespace AnTScript
     {
         // Constants to represent arithmitic tokens. This could
         // be alternatively written as an enum.
-        public static readonly Token Add = new Token("ADD");
-        public static readonly Token Sub = new Token("SUB");
-        public static readonly Token Mul = new Token("MUL");
-        public static readonly Token Div = new Token("DIV");
-        public static readonly Token Semi = new Token("SEMI");
-        public static readonly Token Assignment = new Token("ASSIGNMENT");
-        public static readonly Token Equal = new Token("EQUAL");
+        public static readonly OperatorToken Add = new OperatorToken("ADD", 1);
+        public static readonly OperatorToken Sub = new OperatorToken("SUB", 1);
+        public static readonly OperatorToken Mul = new OperatorToken("MUL", 2);
+        public static readonly OperatorToken Div = new OperatorToken("DIV", 2);
+        public static readonly OperatorToken Equal = new OperatorToken("EQUAL", 0);
 
         // ....
-        public static readonly Token LessThan = new Token("LESSTHAN");
-        public static readonly Token GreaterThan = new Token("GREATERTHAN");
-        public static readonly Token LessThanOrEqual = new Token("LESSTHANOREQUAL");
-        public static readonly Token GreaterThanOrEqual = new Token("GREATERTHANOREQUAL");
+        public static readonly OperatorToken LessThan = new OperatorToken("LESSTHAN", 0);
+        public static readonly OperatorToken GreaterThan = new OperatorToken("GREATERTHAN", 0);
+        public static readonly OperatorToken LessThanOrEqual = new OperatorToken("LESSTHANOREQUAL", 0);
+        public static readonly OperatorToken GreaterThanOrEqual = new OperatorToken("GREATERTHANOREQUAL", 0);
+
+        public static readonly OperatorToken And = new OperatorToken("AND", 1);
+        public static readonly OperatorToken AndBit = new OperatorToken("ANDBIT", 1);
+        public static readonly OperatorToken Or = new OperatorToken("OR", 0);
+        public static readonly OperatorToken OrBit = new OperatorToken("ORBIT", 0);
+        public static readonly OperatorToken Not = new OperatorToken("NOT", 2);
+        public static readonly OperatorToken NotEqual = new OperatorToken("NOTEQUAL", 2);
+
+        public static readonly Token Semi = new Token("SEMI");
+        public static readonly Token Assignment = new Token("ASSIGNMENT");
 
         public static readonly Token LeftParentesis = new Token("LEFTPARENTESIS");
         public static readonly Token RightParentesis = new Token("RIGHTPARENTESIS");
@@ -30,26 +38,13 @@ namespace AnTScript
         //public static readonly Token Dot = new Token("DOT");
         //public static readonly Token Colon = new Token("COLON");
 
-        public static readonly Token And = new Token("AND");
-        public static readonly Token AndBit = new Token("ANDBIT");
-        public static readonly Token Or = new Token("OR");
-        public static readonly Token OrBit = new Token("ORBIT");
-        public static readonly Token Not = new Token("NOT");
-        public static readonly Token NotEqual = new Token("NOTEQUAL");
-
         public static readonly Token BeginBlock = new Token("BEGINBLOCK");
         public static readonly Token EndBlock = new Token("ENDBLOCK");
 
     }
 
-    public class Token : TokenBase
-    {
-        public Token(string value)
-            : base(value)
-        { }
-    }
-
-    public class OperatorToken : TokenBase
+    // TODO: Cambiar para heredar de TokenBase
+    public class OperatorToken : Token
     {
         private readonly int _precedence = 0;
 
@@ -65,6 +60,12 @@ namespace AnTScript
         }
     }
 
+    public class Token : TokenBase
+    {
+        public Token(string value)
+            : base(value)
+        { }
+    }
 
     public abstract class TokenBase
     {
