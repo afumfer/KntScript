@@ -1,0 +1,45 @@
+============================
+>>>> Versión 0.0
+
+- Implementar precedencia de operadores
+
+- Implementar Or And Not
+- Implementar If
+- Implementar While
+- Crear repositorio
+- Aislar en un proyecto nuevo, poner un espacio de nombres.
+- 
+
+
+============================
+>>>> Versión 0.1
+- Empotrar el código en ANotas.
+- Incluir los comandos de ANotas.
+- Incluir tipos de datos de ANotas (Nota, Carpeta y colecciones de Notas y Carpetas)
+
+
+
+>>>> Versión 0.2
+- Adaptar sintáxis estilo C (?)
+
+
+
+////////////////////////////
+////////////////////////////
+Resueltas
+////////////////////////////
+////////////////////////////
+
+============================
+>>>> Versión 0.0
+X- Estudiar código de ejemplo
+X- Sustituir el compilador por el intérprete
+X- Implementar comentarios
+X- Soportar números de punto flotante
+X- Enriquecer Tokens
+
+X- Que la entrada del Scanner acepte una cadena de texto.
+X- En CodeRun implementar la resolución de las expresiones con factor
+X- Implementar * / - en el evaluador de expresiones
+X- Implementar anidamiento de paréntesis
+X- Implementar operadores unarios

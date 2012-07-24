@@ -1,0 +1,9 @@
+var a = "cadena aa";
+var b = 0;
+var c = "";
+read_int b;
+c = a;
+
+print a;
+print b;
+print c;
