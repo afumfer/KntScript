@@ -5,7 +5,6 @@
 - Organizar mejor la rutina principal del scanner (estructurar la secuencia principal)
 - Poner como tokens las palabras reservadas y los identificadores
 - Implementar Or And Not
-
 - Implementar If
 - Implementar While
 

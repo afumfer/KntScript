@@ -60,6 +60,36 @@ namespace AnTScript
         }
     }
 
+    public class KeywordToken : TokenBase
+    {
+        private string _keyword;
+        public KeywordToken(string value)
+            : base(value)
+        {
+            _keyword = value;
+        }
+
+        public string Keyword
+        {
+            get { return _keyword; }
+        }
+    }
+    
+    public class IdentifierToken : TokenBase
+    {
+        private string _identifier;
+        public IdentifierToken(string value)
+            : base(value)
+        {
+            _identifier = value;
+        }
+
+        public string Identifier
+        {
+            get { return _identifier; }
+        }
+    }
+
     public class Token : TokenBase
     {
         public Token(string value)
