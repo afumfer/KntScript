@@ -10,7 +10,7 @@ namespace AnTScript
 
         public Scanner(TextReader input)
         {
-            _result = new List<object>();
+            _result = new List<Token>();
             Scan(input);
         }
 
@@ -20,8 +20,8 @@ namespace AnTScript
 
         }
 
-        private readonly IList<object> _result;
-        public IList<object> TokensList
+        private readonly IList<Token> _result;
+        public IList<Token> TokensList
         {
             get { return _result; }
         }
@@ -31,208 +31,41 @@ namespace AnTScript
             while (input.Peek() != -1)
             {
                 char ch = (char)input.Peek();
-                char chTmp;
-                Token token;
 
+                //
                 // Scan individual tokens
+                //
+
+                // eat the current char and skip ahead!
                 if (char.IsWhiteSpace(ch))
-                {
-                    // eat the current char and skip ahead!
+                {                    
                     input.Read();
                 }
-
+                //Comment
                 else if (ch.ToString() == "'")
                 {
-                    //Comment
+                    
                     ch = ReadComment(input, ch);
                 }
-
+                // keyword or identifier
                 else if (char.IsLetter(ch) || ch == '_')
-                {
-                    // keyword or identifier
-                    StringBuilder accum = new StringBuilder();
-                    ReadKeywordOrIdentifier(input, ch, accum);
+                {                                        
+                    _result.Add(ReadKeywordOrIdentifier(input, ch));
 
-                    if (accum.ToString().ToLower() == "or")
-                        _result.Add(Tokens.Or);
-                    else if (accum.ToString().ToLower() == "and")
-                        _result.Add(Tokens.And);
-                    else if (accum.ToString().ToLower() == "not")
-                        _result.Add(Tokens.Not);
-                    else if (accum.ToString().ToLower() == "do")
-                        _result.Add(Tokens.BeginBlock);
-                    else if (accum.ToString().ToLower() == "end")
-                        _result.Add(Tokens.EndBlock);
-                    else
-                        _result.Add(accum.ToString());
                 }
+                // string literal
                 else if (ch == '"')
                 {
-                    // string literal
-                    StringBuilder accum = new StringBuilder();
-                    ReadStringLiteral(input, ch, accum);
-                    _result.Add(accum);
+                    _result.Add(ReadStringLiteral(input, ch));
                 }
+                // numeric literal
                 else if (char.IsDigit(ch))
                 {
-                    // numeric literal
-                    StringBuilder accum = new StringBuilder();
-                    ReadNumericLiteral(input, ch, accum);
-                    _result.Add(float.Parse(accum.ToString(),
-                        System.Globalization.CultureInfo.InvariantCulture));
+                    _result.Add(ReadNumericLiteral(input, ch));
                 }
-                else switch (ch)
-                    {
-                        case '+':
-                            input.Read();
-                            _result.Add(Tokens.Add);
-                            break;
-
-                        case '-':
-                            input.Read();
-                            _result.Add(Tokens.Sub);
-                            break;
-
-                        case '*':
-                            input.Read();
-                            _result.Add(Tokens.Mul);
-                            break;
-
-                        case '/':
-                            input.Read();
-                            _result.Add(Tokens.Div);
-                            break;
-
-                        case '=':
-                            input.Read(); // eat =
-                            chTmp = (char)input.Peek();
-                            if (chTmp == '=')
-                            {
-                                input.Read(); // eat =
-                                token = Tokens.Equal;
-                            }
-                            else
-                            {
-                                token = Tokens.Assignment;
-                            }
-                            _result.Add(token);
-                            break;
-
-                        case ';':
-                            input.Read();
-                            _result.Add(Tokens.Semi);
-                            break;
-
-                        case ',':
-                            input.Read();
-                            _result.Add(Tokens.Comma);
-                            break;
-
-                        case '(':
-                            input.Read();
-                            _result.Add(Tokens.LeftParentesis);
-                            break;
-
-                        case ')':
-                            input.Read();
-                            _result.Add(Tokens.RightParentesis);
-                            break;
-
-                        case '{':
-                            input.Read();
-                            _result.Add(Tokens.BeginBlock);
-                            break;
-
-                        case '}':
-                            input.Read();
-                            _result.Add(Tokens.EndBlock);
-                            break;
-
-                        case '<':
-                            input.Read(); // eat <
-                            chTmp = (char)input.Peek();
-                            if (chTmp == '>')
-                            {
-                                input.Read(); // eat >
-                                token = Tokens.NotEqual;
-                            }
-                            else if (chTmp == '=')
-                            {
-                                input.Read(); // eat =
-                                token = Tokens.LessThanOrEqual;
-                            }
-                            else
-                            {
-                                token = Tokens.LessThan;
-                            }
-                            _result.Add(token);
-                            break;
-
-                        case '>':
-                            input.Read(); // eat >
-                            chTmp = (char)input.Peek();
-                            if (chTmp == '=')
-                            {
-                                input.Read(); // eat =
-                                token = Tokens.GreaterThanOrEqual;
-                            }
-                            else
-                            {
-                                token = Tokens.GreaterThan;
-                            }
-                            _result.Add(token);
-                            break;
-
-                        case '!':
-                            input.Read(); // eat !
-                            chTmp = (char)input.Peek();
-                            if (chTmp == '=')
-                            {
-                                input.Read(); // eat =
-                                token = Tokens.NotEqual;
-                            }
-                            else
-                            {
-                                token = Tokens.Not;
-                            }
-                            _result.Add(token);
-                            break;
-
-                        case '&':
-                            input.Read(); // eat &
-                            chTmp = (char)input.Peek();
-                            if (chTmp == '&')
-                            {
-                                input.Read(); // eat &
-                                token = Tokens.And;
-                            }
-                            else
-                            {
-                                token = Tokens.AndBit;
-                            }
-                            _result.Add(token);
-                            break;
-
-                        case '|':
-                            input.Read(); // eat |
-                            chTmp = (char)input.Peek();
-                            if (chTmp == '|')
-                            {
-                                input.Read(); // eat |
-                                token = Tokens.Or;
-                            }
-                            else
-                            {
-                                token = Tokens.OrBit;
-                            }
-                            _result.Add(token);
-                            break;
-
-
-                        default:
-                            throw new System.Exception("Scanner encountered unrecognized character '" + ch + "'");
-                    }
-
+                // operator or symbol 
+                else
+                    _result.Add(ReadOperatorOrSymbol(input, ch));
             }
         }
 
@@ -241,7 +74,7 @@ namespace AnTScript
         private char ReadComment(TextReader input, char ch)
         {
             // Comment, eat full line
-            while ((ch = (char)input.Peek()) != '\n')// || input.Peek() == -1)
+            while ((ch = (char)input.Peek()) != '\n')  
             {
                 if (input.Read() == -1)
                 {
@@ -257,8 +90,11 @@ namespace AnTScript
             return ch;
         }
 
-        private void ReadKeywordOrIdentifier(TextReader input, char ch, StringBuilder accum)
+        private Token ReadKeywordOrIdentifier(TextReader input, char ch)
         {
+            StringBuilder accum = new StringBuilder();
+            Token token;
+
             while (char.IsLetter(ch) || ch == '_')
             {
                 accum.Append(ch);
@@ -273,10 +109,47 @@ namespace AnTScript
                     ch = (char)input.Peek();
                 }
             }
+
+            // literal operators 
+            if (accum.ToString().ToLower() == "or")
+                token = Tokens.Or;
+            else if (accum.ToString().ToLower() == "and")
+                token = Tokens.And;
+            else if (accum.ToString().ToLower() == "not")
+                token = Tokens.Not;
+            else if (accum.ToString().ToLower() == "do")
+                token = Tokens.BeginBlock;
+            else if (accum.ToString().ToLower() == "end")
+                token = Tokens.EndBlock;
+
+            // keywords
+            else if (accum.ToString().ToLower() == "print")
+                token = Tokens.Print;
+            else if (accum.ToString().ToLower() == "var")
+                token = Tokens.Var;
+            else if (accum.ToString().ToLower() == "read_num")
+                token = Tokens.Read_num;
+            else if (accum.ToString().ToLower() == "for")
+                token = Tokens.For;
+            else if (accum.ToString().ToLower() == "to")
+                token = Tokens.To;
+
+            // identifier
+            else
+            {
+                IdentifierToken identifier = new IdentifierToken(accum.ToString());
+                token = identifier;
+            }
+
+            return token;
+
         }
 
-        private void ReadStringLiteral(TextReader input, char ch, StringBuilder accum)
+        private StringToken ReadStringLiteral(TextReader input, char ch)
         {
+            StringBuilder accum = new StringBuilder();
+            
+
             input.Read(); // skip "
 
             if (input.Peek() == -1)
@@ -297,10 +170,14 @@ namespace AnTScript
 
             // skip the terminating "
             input.Read();
+
+            return new StringToken(accum.ToString());
+
         }
 
-        private void ReadNumericLiteral(TextReader input, char ch, StringBuilder accum)
+        private NumberToken ReadNumericLiteral(TextReader input, char ch)
         {
+            StringBuilder accum = new StringBuilder();
             // TODO: controlar ..
             while (char.IsDigit(ch) || ch == '.')
             {
@@ -315,6 +192,163 @@ namespace AnTScript
 
             if (!accum.ToString().Contains("."))
                 accum.Append(".0");
+            
+            return new NumberToken(accum.ToString());
+
+        }
+
+        private Token ReadOperatorOrSymbol(TextReader input, char ch)
+        {
+            char chTmp;
+            Token token;
+
+            switch (ch)
+            {
+                case '+':
+                    input.Read();
+                    token = Tokens.Add;
+                    break;
+
+                case '-':
+                    input.Read();
+                    token = Tokens.Sub;
+                    break;
+
+                case '*':
+                    input.Read();
+                    token = Tokens.Mul;
+                    break;
+
+                case '/':
+                    input.Read();
+                    token = Tokens.Div;
+                    break;
+
+                case '=':
+                    input.Read(); // eat =
+                    chTmp = (char)input.Peek();
+                    if (chTmp == '=')
+                    {
+                        input.Read(); // eat =
+                        token = Tokens.Equal;
+                    }
+                    else
+                    {
+                        token = Tokens.Assignment;
+                    }                    
+                    break;
+
+                case ';':
+                    input.Read();
+                    token = Tokens.Semi;
+                    break;
+
+                case ',':
+                    input.Read();
+                    token = Tokens.Comma;
+                    break;
+
+                case '(':
+                    input.Read();
+                    token = Tokens.LeftParentesis;
+                    break;
+
+                case ')':
+                    input.Read();
+                    token = Tokens.RightParentesis;
+                    break;
+
+                case '{':
+                    input.Read();
+                    token = Tokens.BeginBlock;
+                    break;
+
+                case '}':
+                    input.Read();
+                    token = Tokens.EndBlock;
+                    break;
+
+                case '<':
+                    input.Read(); // eat <
+                    chTmp = (char)input.Peek();
+                    if (chTmp == '>')
+                    {
+                        input.Read(); // eat >
+                        token = Tokens.NotEqual;
+                    }
+                    else if (chTmp == '=')
+                    {
+                        input.Read(); // eat =
+                        token = Tokens.LessThanOrEqual;
+                    }
+                    else
+                    {
+                        token = Tokens.LessThan;
+                    }                    
+                    break;
+
+                case '>':
+                    input.Read(); // eat >
+                    chTmp = (char)input.Peek();
+                    if (chTmp == '=')
+                    {
+                        input.Read(); // eat =
+                        token = Tokens.GreaterThanOrEqual;
+                    }
+                    else
+                    {
+                        token = Tokens.GreaterThan;
+                    }                    
+                    break;
+
+                case '!':
+                    input.Read(); // eat !
+                    chTmp = (char)input.Peek();
+                    if (chTmp == '=')
+                    {
+                        input.Read(); // eat =
+                        token = Tokens.NotEqual;
+                    }
+                    else
+                    {
+                        token = Tokens.Not;
+                    }                    
+                    break;
+
+                case '&':
+                    input.Read(); // eat &
+                    chTmp = (char)input.Peek();
+                    if (chTmp == '&')
+                    {
+                        input.Read(); // eat &
+                        token = Tokens.And;
+                    }
+                    else
+                    {
+                        token = Tokens.AndBit;
+                    }                    
+                    break;
+
+                case '|':
+                    input.Read(); // eat |
+                    chTmp = (char)input.Peek();
+                    if (chTmp == '|')
+                    {
+                        input.Read(); // eat |
+                        token = Tokens.Or;
+                    }
+                    else
+                    {
+                        token = Tokens.OrBit;
+                    }                    
+                    break;
+
+                default:
+                    throw new System.Exception("Scanner encountered unrecognized character '" + ch + "'");
+            }
+
+            return token;
+
         }
 
         #endregion

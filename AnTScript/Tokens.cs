@@ -7,8 +7,7 @@ namespace AnTScript
 
     public sealed class Tokens
     {
-        // Constants to represent arithmitic tokens. This could
-        // be alternatively written as an enum.
+        // Constants to represent arithmitic tokens. 
         public static readonly OperatorToken Add = new OperatorToken("ADD", 1);
         public static readonly OperatorToken Sub = new OperatorToken("SUB", 1);
         public static readonly OperatorToken Mul = new OperatorToken("MUL", 2);
@@ -28,22 +27,27 @@ namespace AnTScript
         public static readonly OperatorToken Not = new OperatorToken("NOT", 2);
         public static readonly OperatorToken NotEqual = new OperatorToken("NOTEQUAL", 2);
 
-        public static readonly Token Semi = new Token("SEMI");
-        public static readonly Token Assignment = new Token("ASSIGNMENT");
+        public static readonly SymbolToken Semi = new SymbolToken("SEMI");
+        public static readonly SymbolToken Assignment = new SymbolToken("ASSIGNMENT");
 
-        public static readonly Token LeftParentesis = new Token("LEFTPARENTESIS");
-        public static readonly Token RightParentesis = new Token("RIGHTPARENTESIS");
+        public static readonly SymbolToken LeftParentesis = new SymbolToken("LEFTPARENTESIS");
+        public static readonly SymbolToken RightParentesis = new SymbolToken("RIGHTPARENTESIS");
 
-        public static readonly Token Comma = new Token("COMMA");
-        //public static readonly Token Dot = new Token("DOT");
-        //public static readonly Token Colon = new Token("COLON");
+        public static readonly SymbolToken Comma = new SymbolToken("COMMA");
+        //public static readonly SymbolToken Dot = new SymbolToken("DOT");
+        //public static readonly SymbolToken Colon = new SymbolToken("COLON");
 
-        public static readonly Token BeginBlock = new Token("BEGINBLOCK");
-        public static readonly Token EndBlock = new Token("ENDBLOCK");
+        public static readonly SymbolToken BeginBlock = new SymbolToken("BEGINBLOCK");
+        public static readonly SymbolToken EndBlock = new SymbolToken("ENDBLOCK");
+
+        public static readonly KeywordToken Print = new KeywordToken("PRINT");
+        public static readonly KeywordToken Var = new KeywordToken("VAR");
+        public static readonly KeywordToken Read_num = new KeywordToken("READ_NUM");
+        public static readonly KeywordToken For = new KeywordToken("FOR");
+        public static readonly KeywordToken To = new KeywordToken("TO");
 
     }
 
-    // TODO: Cambiar para heredar de TokenBase
     public class OperatorToken : Token
     {
         private readonly int _precedence = 0;
@@ -60,55 +64,72 @@ namespace AnTScript
         }
     }
 
-    public class KeywordToken : TokenBase
-    {
-        private string _keyword;
+    public class KeywordToken : Token
+    {        
         public KeywordToken(string value)
-            : base(value)
-        {
-            _keyword = value;
-        }
-
-        public string Keyword
-        {
-            get { return _keyword; }
-        }
+            : base(value) {}
     }
     
-    public class IdentifierToken : TokenBase
-    {
-        private string _identifier;
+    public class IdentifierToken : Token
+    {        
         public IdentifierToken(string value)
-            : base(value)
+            : base(value) { }
+    }
+
+    public class NumberToken : Token
+    {
+        private string _value;
+
+        public NumberToken(string value)
+            : base(value) 
         {
-            _identifier = value;
+            _value = value;
         }
 
-        public string Identifier
+        public float Value
         {
-            get { return _identifier; }
+            get 
+            {
+                return float.Parse(_value.ToString(),
+                            System.Globalization.CultureInfo.InvariantCulture);
+            }            
         }
     }
 
-    public class Token : TokenBase
+    public class StringToken : Token
     {
-        public Token(string value)
-            : base(value)
-        { }
-    }
+        private string _value;
 
-    public abstract class TokenBase
-    {
-        private string name = "";
-
-        public TokenBase(string s)
+        public StringToken(string value)
+            : base(value) 
         {
-            name = s;
+            _value = value;
         }
 
-        public override string ToString()
+        public string Value
         {
-            return name;
+            get { return _value.ToString(); }            
+        }
+    }
+
+    public class SymbolToken : Token
+    {
+        public SymbolToken(string value)
+            : base(value) { }
+    }
+
+    public abstract class Token
+    {
+        private string _name = "";
+
+        public Token(string s)
+        {
+            _name = s;
+        }
+
+        public string Name
+        {
+            get { return _name; }            
         }
 
     }

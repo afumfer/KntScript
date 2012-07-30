@@ -1,5 +1,6 @@
-using Collections = System.Collections.Generic;
-using Text = System.Text;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace AnTScript
 {
@@ -7,16 +8,16 @@ namespace AnTScript
     public sealed class Parser
     {
         private int index;
-        private Collections.IList<object> tokens;
+        private IList<Token> tokens;
         private readonly Stmt result;
 
-        public Parser(Collections.IList<object> tokens)
+        public Parser(IList<Token> tokens)
         {
             this.tokens = tokens;
-            this.index = 0;
-            this.result = this.ParseStmt();
+            index = 0;
+            result = ParseStmt();
 
-            if (this.index != this.tokens.Count)
+            if (index != this.tokens.Count)
                 throw new System.Exception("expected EOF");
         }
 
@@ -29,61 +30,62 @@ namespace AnTScript
         {
             Stmt result;
 
-            if (this.index == this.tokens.Count)
+            if (index == tokens.Count)
             {
                 throw new System.Exception("expected statement, got EOF");
             }
 
-            // <stmt> := print <expr> 
-
-            // <expr> := <string>
-            // | <int>
-            // | <arith_expr>
-            // | <ident>
-            if (this.tokens[this.index].Equals("print"))
+            // print
+            if (tokens[index] == Tokens.Print)
             {
                 MoveNext();
                 Print print = new Print();
-                print.Expr = this.ParseExpr();
+                print.Expr = ParseExpr();
                 result = print;
             }
-            else if (this.tokens[this.index].Equals("var"))
+
+            // var
+            else if (tokens[index] == Tokens.Var)
             {
                 MoveNext();
+                
                 DeclareVar declareVar = new DeclareVar();
 
-                if (this.index < this.tokens.Count &&
-                    this.tokens[this.index] is string)
-                {
-                    declareVar.Ident = (string)this.tokens[this.index];
+                if (index < tokens.Count &&
+                    tokens[index] is IdentifierToken)
+                {                    
+                    declareVar.Ident = ((IdentifierToken)tokens[index]).Name;
                 }
                 else
                 {
                     throw new System.Exception("expected variable name after 'var'");
-                }
+                }                
 
                 MoveNext();
 
-                if (this.index == this.tokens.Count ||
-                    this.tokens[this.index] != Tokens.Assignment)
+                if (index == tokens.Count ||
+                    tokens[index] != Tokens.Assignment)
                 {
                     throw new System.Exception("expected = after 'var ident'");
                 }
 
                 MoveNext();
 
-                declareVar.Expr = this.ParseExpr();
+                declareVar.Expr = ParseExpr();
                 result = declareVar;
             }
-            else if (this.tokens[this.index].Equals("read_num"))
-            {
-                MoveNext();
-                ReadNum readNum = new ReadNum();
 
-                if (this.index < this.tokens.Count &&
-                    this.tokens[this.index] is string)
-                {
-                    readNum.Ident = (string)this.tokens[this.index++];
+            // read_num
+            else if (tokens[index] == Tokens.Read_num)
+            {                
+                ReadNum readNum = new ReadNum();
+                MoveNext();
+
+                if (index < tokens.Count &&
+                    tokens[index] is IdentifierToken)
+                {                    
+                    readNum.Ident = ((IdentifierToken)tokens[index]).Name;
+                    MoveNext();
                     result = readNum;
                 }
                 else
@@ -91,15 +93,17 @@ namespace AnTScript
                     throw new System.Exception("expected variable name after 'read_int'");
                 }
             }
-            else if (this.tokens[this.index].Equals("for"))
-            {
-                MoveNext();
-                ForLoop forLoop = new ForLoop();
 
-                if (this.index < this.tokens.Count &&
-                    this.tokens[this.index] is string)
-                {
-                    forLoop.Ident = (string)this.tokens[this.index];
+            // for
+            else if (tokens[index] == Tokens.For)
+            {                
+                ForLoop forLoop = new ForLoop();
+                MoveNext();
+
+                if (index < tokens.Count &&
+                    tokens[index] is IdentifierToken)
+                {                    
+                    forLoop.Ident = ((IdentifierToken)tokens[index]).Name;
                 }
                 else
                 {
@@ -108,39 +112,39 @@ namespace AnTScript
 
                 MoveNext();
 
-                if (this.index == this.tokens.Count ||
-                    this.tokens[this.index] != Tokens.Assignment)
+                if (index == tokens.Count ||
+                    tokens[index] != Tokens.Assignment)
                 {
                     throw new System.Exception("for missing '='");
                 }
 
                 MoveNext();
 
-                forLoop.From = this.ParseExpr();
+                forLoop.From = ParseExpr();
 
-                if (this.index == this.tokens.Count ||
-                    !this.tokens[this.index].Equals("to"))
+                if (index == tokens.Count || 
+                    tokens[index] != Tokens.To)
                 {
                     throw new System.Exception("expected 'to' after for");
                 }
 
                 MoveNext();
 
-                forLoop.To = this.ParseExpr();
+                forLoop.To = ParseExpr();
 
-                if (this.index == this.tokens.Count ||
-                    this.tokens[this.index] != Tokens.BeginBlock)
+                if (index == tokens.Count ||
+                    tokens[index] != Tokens.BeginBlock)
                 {
                     throw new System.Exception("expected 'do' after from expression in for loop");
                 }
 
                 MoveNext();
 
-                forLoop.Body = this.ParseStmt();
+                forLoop.Body = ParseStmt();
                 result = forLoop;
 
-                if (this.index == this.tokens.Count ||
-                    this.tokens[this.index] != Tokens.EndBlock)
+                if (index == tokens.Count ||
+                    tokens[index] != Tokens.EndBlock)
                 {
                     throw new System.Exception("unterminated 'for' loop body");
                 }
@@ -148,69 +152,47 @@ namespace AnTScript
                 MoveNext();
 
             }
-            else if (this.tokens[this.index] is string)
+                
+            // assignment
+            else if (tokens[index] is IdentifierToken)
             {
-                // assignment
-
                 Assign assign = new Assign();
-                assign.Ident = (string)this.tokens[this.index++];
+                assign.Ident = ((IdentifierToken)tokens[index]).Name;
 
-                if (this.index == this.tokens.Count ||
-                    this.tokens[this.index] != Tokens.Assignment)
+                MoveNext();
+
+                if (index == tokens.Count ||
+                    tokens[index] != Tokens.Assignment)
                 {
                     throw new System.Exception("expected '='");
                 }
 
                 MoveNext();
 
-                assign.Expr = this.ParseExpr();
+                assign.Expr = ParseExpr();
                 result = assign;
             }
             else
             {
-                throw new System.Exception("parse error at token " + this.index + ": " + this.tokens[this.index]);
+                throw new System.Exception("parse error at token " + index + ": " + tokens[index]);
             }
 
-            if ((this.index < this.tokens.Count && this.tokens[this.index] == Tokens.Semi))
+            if ((index < tokens.Count && tokens[index] == Tokens.Semi))
             {
                 MoveNext();
 
-                if (this.index < this.tokens.Count &&
-                    this.tokens[this.index] != Tokens.EndBlock)
+                if (index < tokens.Count &&
+                    tokens[index] != Tokens.EndBlock)
                 {
                     Sequence sequence = new Sequence();
                     sequence.First = result;
-                    sequence.Second = this.ParseStmt();
+                    sequence.Second = ParseStmt();
                     result = sequence;
                 }
             }
 
             return result;
         }
-
-        // TODO: Limpiar
-        //   Versión sin la precedencia de operadores
-        //private Expr ParseExpr()
-        //{
-        //    Expr left = ParseFactor();
-
-        //    while (true)
-        //    {
-        //        if (!IsOperator(tokens[index]))
-        //            return left;
-
-        //        else
-        //        {
-        //            BinExpr binExpr = new BinExpr();
-        //            binExpr.Op = TokenToOp(tokens[index]);
-        //            index++;
-        //            Expr right = ParseExpr();
-        //            binExpr.Left = left;
-        //            binExpr.Right = right;
-        //            return binExpr;
-        //        }
-        //    }
-        //}
 
         private Expr ParseExpr()
         {
@@ -249,26 +231,25 @@ namespace AnTScript
             {
                 throw new System.Exception("expected expression, got EOF");
             }
-
-            if (this.tokens[this.index] is Text.StringBuilder)
-            {
-                string value = ((Text.StringBuilder)this.tokens[this.index++]).ToString();
+            if (this.tokens[this.index] is StringToken)
+            {                
                 StringLiteral stringLiteral = new StringLiteral();
-                stringLiteral.Value = value;
+                stringLiteral.Value = ((StringToken)this.tokens[this.index]).Value;
+                MoveNext();
                 return stringLiteral;
             }
-            else if (this.tokens[this.index] is float)
-            {
-                float floatValue = (float)this.tokens[this.index++];
-                NumericLiteral floatLiteral = new NumericLiteral();
-                floatLiteral.Value = floatValue;
-                return floatLiteral;
+            else if (this.tokens[this.index] is NumberToken)
+            {                
+                NumericLiteral numLiteral = new NumericLiteral();
+                numLiteral.Value = ((NumberToken)this.tokens[this.index]).Value;
+                MoveNext();
+                return numLiteral;
             }
-            else if (this.tokens[this.index] is string)
-            {
-                string ident = (string)this.tokens[this.index++];
+            else if (this.tokens[this.index] is IdentifierToken)
+            {                
                 Variable var = new Variable();
-                var.Ident = ident;
+                var.Ident = ((IdentifierToken)this.tokens[this.index]).Name;
+                MoveNext();
                 return var;
             }
             else if (this.tokens[this.index] == Tokens.LeftParentesis)
@@ -335,13 +316,13 @@ namespace AnTScript
 
         private void MoveNext()
         {
-            if (this.index < tokens.Count)
-                this.index++;
+            if (index < tokens.Count)
+                index++;
             else
                 throw new System.Exception("Token out of range.");
         }
 
-        private bool Eat(Token token)
+        private bool Eat(SymbolToken token)
         {
             if (tokens[index] != token)
                 throw new System.Exception(string.Format(

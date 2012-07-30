@@ -1,112 +1,119 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-/* <stmt> := var <ident> = <expr>
-	| <ident> = <expr>
-	| for <ident> = <expr> to <expr> do <stmt> end
-	| read_int <ident>
-	| print <expr>
-	| <stmt> ; <stmt>
-  */
-public abstract class Stmt
+namespace AnTScript
 {
-}
 
-// var <ident> = <expr>
-public class DeclareVar : Stmt
-{
-    public string Ident;
-    public Expr Expr;
-}
+    /* <stmt> := var <ident> = <expr>
+        | <ident> = <expr>
+        | for <ident> = <expr> to <expr> do <stmt> end
+        | read_int <ident>
+        | print <expr>
+        | <stmt> ; <stmt>
+      */
 
-// print <expr>
-public class Print : Stmt
-{
-    public Expr Expr;
-}
+    public abstract class Stmt
+    {
+    }
 
-// <ident> = <expr>
-public class Assign : Stmt
-{
-    public string Ident;
-    public Expr Expr;
-}
+    // var <ident> = <expr>
+    public class DeclareVar : Stmt
+    {        
+        public string Ident;        
+        public Expr Expr;
+    }
 
-// for <ident> = <expr> to <expr> do <stmt> end
-public class ForLoop : Stmt
-{
-    public string Ident;
-    public Expr From;
-    public Expr To;
-    public Stmt Body;
-}
+    // print <expr>
+    public class Print : Stmt
+    {
+        public Expr Expr;
+    }
 
-// read_int <ident>
-public class ReadNum : Stmt
-{
-    public string Ident;
-}
+    // <ident> = <expr>
+    public class Assign : Stmt
+    {        
+        public string Ident;     
+        public Expr Expr;
+    }
 
-// <stmt> ; <stmt>
-public class Sequence : Stmt
-{
-    public Stmt First;
-    public Stmt Second;
-}
+    // for <ident> = <expr> to <expr> do <stmt> end
+    public class ForLoop : Stmt
+    {        
+        public string Ident;     
+        public Expr From;
+        public Expr To;
+        public Stmt Body;
+    }
 
-/* <expr> := <string>
- *  | <num>
- *  | <bin_expr>
- *  | <ident>
- *  | <unary_expr>
- */
-public abstract class Expr
-{
-}
+    // read_int <ident>
+    public class ReadNum : Stmt
+    {
+        public string Ident;        
+    }
 
-// <string> := " <string_elem>* "
-public class StringLiteral : Expr
-{
-	public string Value;
-}
+    // <stmt> ; <stmt>
+    public class Sequence : Stmt
+    {
+        public Stmt First;
+        public Stmt Second;
+    }
 
-// <int> := <digit>+
-public class IntLiteral : Expr
-{
-    public int Value;    
-}
+    /* <expr> := <string>
+     *  | <num>
+     *  | <bin_expr>
+     *  | <ident>
+     *  | <unary_expr>
+     */
+    public abstract class Expr
+    {
+    }
 
-public class NumericLiteral : Expr
-{    
-	public float Value;
-}
+    // <string> := " <string_elem>* "
+    public class StringLiteral : Expr
+    {        
+        public string Value;     
+    }
 
-// <ident> := <char> <ident_rest>*
-// <ident_rest> := <char> | <digit>
-public class Variable : Expr
-{
-	public string Ident;
-}
+    //// <int> := <digit>+
+    //public class IntLiteral : Expr
+    //{
+    //    public int Value;
+    //}
 
-// <bin_expr> := <expr> <bin_op> <expr>
-public class BinExpr : Expr
-{
-	public Expr Left;
-	public Expr Right;
-	public BinOp Op;
-}
+    public class NumericLiteral : Expr
+    {        
+        public float Value;     
+    }
 
-// <unary_expr> := <bin_op> <expr>
-public class UnaryExpr : Expr
-{
-    public BinOp Op;
-    public Expr Expression;    
-}
+    // <ident> := <char> <ident_rest>*
+    // <ident_rest> := <char> | <digit>
+    public class Variable : Expr
+    {        
+        public string Ident;     
+    }
 
+    // <bin_expr> := <expr> <bin_op> <expr>
+    public class BinExpr : Expr
+    {
+        public BinOp Op;
+        public Expr Left;
+        public Expr Right;        
+    }
 
-// <bin_op> := + | - | * | /
-public enum BinOp
-{
-	Add,
-	Sub,
-	Mul,
-	Div
+    // <unary_expr> := <bin_op> <expr>
+    public class UnaryExpr : Expr
+    {
+        public BinOp Op;
+        public Expr Expression;
+    }
+
+    // <bin_op> := + | - | * | /
+    public enum BinOp
+    {
+        Add,
+        Sub,
+        Mul,
+        Div
+    }
 }

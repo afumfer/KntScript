@@ -47,7 +47,7 @@ namespace AnTScript
                 }
 
                 Parser parser = new Parser(scanner.TokensList);
-                ParserTree astTree = new ParserTree(parser.Result, treeAST);
+                //ParserTree astTree = new ParserTree(parser.Result, treeAST);
 
                 CodeRun codeRun = new CodeRun(parser.Result, textOut);
 
