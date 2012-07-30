@@ -13,8 +13,15 @@ namespace AnTScript
 {
     public sealed class CodeRun
     {
+
+        #region Fields
+
         Dictionary<string, object> symbolTable;
         TextBox textOut;
+
+        #endregion
+
+        #region Constructor
 
         public CodeRun(Stmt stmt, TextBox textOut)
         {
@@ -24,6 +31,10 @@ namespace AnTScript
             // Go Run!
             RunStmt(stmt);
         }
+
+        #endregion
+
+        #region Private Methods
 
         private void RunStmt(Stmt stmt)
         {
@@ -249,6 +260,8 @@ namespace AnTScript
 
         } // GenExpr
 
+        #endregion
+
         #region Utils
 
         private void CodeDeclare(DeclareVar declare)
@@ -290,7 +303,6 @@ namespace AnTScript
 
             return value;
         }
-
 
         private Type TypeOfExpr(Expr expr)
         {

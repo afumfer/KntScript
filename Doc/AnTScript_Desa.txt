@@ -3,18 +3,19 @@
 
 - Implementar operadores relacionales >, >=, <, <=, !=
 - Implementar If
-- Implementar While (Repeat)
+- Implementar While (Repeat - until)
 - Quitar el do al bucle for
 - Implementar break dentro de los bucles
 - Implementar un Read genérico (Read stringLiteral:variable, stringLiteral:variable, .... ;)
 - Implementar asignaciones objeto.propiedad = expresion
 - Implementar el soporte de objetos enumeradores (listas, vectores).
+- Depurar ParserTree
 
 
 ============================
 >>>> Versión 0.1.x.x
-- Empotrar el código en ANotas.
-- Incluir los comandos de ANotas.
+- Empotrar el código en ANotas
+- Incluir los comandos de ANotas, estudiar posibles patrones para ampliar facilmente el lenguaje
 - Incluir tipos de datos de ANotas (Nota, Carpeta y colecciones de Notas y Carpetas)
 
 

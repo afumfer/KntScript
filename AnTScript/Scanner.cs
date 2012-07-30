@@ -8,6 +8,8 @@ namespace AnTScript
     public sealed class Scanner
     {
 
+        #region Constructors
+
         public Scanner(TextReader input)
         {
             _result = new List<Token>();
@@ -20,11 +22,19 @@ namespace AnTScript
 
         }
 
+        #endregion
+
+        #region Properties
+
         private readonly IList<Token> _result;
         public IList<Token> TokensList
         {
             get { return _result; }
         }
+
+        #endregion
+
+        #region Private Methods
 
         private void Scan(TextReader input)
         {
@@ -68,6 +78,8 @@ namespace AnTScript
                     _result.Add(ReadOperatorOrSymbol(input, ch));
             }
         }
+
+        #endregion
 
         #region Utils
 

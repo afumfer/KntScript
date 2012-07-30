@@ -4,27 +4,41 @@ using System.Text;
 
 namespace AnTScript
 {
-
     public sealed class Parser
     {
+
+        #region Private fields
+
         private int index;
         private IList<Token> tokens;
-        private readonly Stmt result;
+
+        #endregion
+
+        #region Constructor
 
         public Parser(IList<Token> tokens)
         {
             this.tokens = tokens;
             index = 0;
-            result = ParseStmt();
+            _result = ParseStmt();
 
             if (index != this.tokens.Count)
                 throw new System.Exception("expected EOF");
         }
 
+        #endregion
+
+        #region Properties
+
+        private readonly Stmt _result;
         public Stmt Result
         {
-            get { return result; }
+            get { return _result; }
         }
+
+        #endregion 
+
+        #region Private methods
 
         private Stmt ParseStmt()
         {
@@ -291,6 +305,8 @@ namespace AnTScript
             }
         }
 
+        #endregion
+
         #region Utils
 
         private bool IsUnaryOperator(object token)
@@ -355,5 +371,4 @@ namespace AnTScript
         #endregion
 
     }
-
 }
