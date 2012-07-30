@@ -47,7 +47,7 @@ namespace AnTScript
                 //Assign assign = new Assign();
                 //assign.Ident = declare.Ident;
                 //assign.Expr = declare.Expr;
-                //this.RunStmt(assign);
+                //RunStmt(assign);
             }
 
             else if (stmt is Assign)
@@ -149,7 +149,19 @@ namespace AnTScript
 
                 object left = GenExpr(be.Left);
                 object right = GenExpr(be.Right);
+                bool boolLeft;
+                bool boolRight;
                 object res;
+
+                if ((float)left != 0)
+                    boolLeft = true;
+                else
+                    boolLeft = false;
+
+                if ((float)right != 0)
+                    boolRight = true;
+                else
+                    boolRight = false;
 
                 switch (be.Op)
                 {
@@ -164,6 +176,18 @@ namespace AnTScript
                         break;
                     case BinOp.Div:
                         res = (float)left / (float)right;
+                        break;
+                    case BinOp.Or:
+                        if (boolLeft || boolRight)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;                        
+                        break;
+                    case BinOp.And:
+                        if (boolLeft && boolRight)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;                         
                         break;
 
                     //
@@ -190,6 +214,13 @@ namespace AnTScript
                     case BinOp.Sub:
                         res = -1 * (float)ex;
                         break;
+                    case BinOp.Not:
+                        if ((float)ex == 0)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;                       
+                        break;
+
                     //
                     default:
                         throw new ApplicationException(string.Format(

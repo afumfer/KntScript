@@ -108,12 +108,15 @@ namespace AnTScript
         public Expr Expression;
     }
 
-    // <bin_op> := + | - | * | /
+    // <bin_op> := + | - | * | / | && | ! | || 
     public enum BinOp
     {
         Add,
         Sub,
         Mul,
-        Div
+        Div,
+        Or,
+        And, 
+        Not
     }
 }

@@ -1,14 +1,14 @@
 ============================
 >>>> Versión 0.0.x.x
 
-
-- Organizar mejor la rutina principal del scanner (estructurar la secuencia principal)
-- Poner como tokens las palabras reservadas y los identificadores
-- Limpiar código
-- Implementar Or And Not
+- Implementar operadores relacionales >, >=, <, <=, !=
 - Implementar If
-- Implementar While
-
+- Implementar While (Repeat)
+- Quitar el do al bucle for
+- Implementar break dentro de los bucles
+- Implementar un Read genérico (Read stringLiteral:variable, stringLiteral:variable, .... ;)
+- Implementar asignaciones objeto.propiedad = expresion
+- Implementar el soporte de objetos enumeradores (listas, vectores).
 
 
 ============================
@@ -21,8 +21,7 @@
 ============================
 >>>> Versión 0.2.x.x
 - Implementar definición y llamadas funciones
-- Adaptar sintáxis estilo C (?)
-
+- ¿Adaptar sintáxis y gramática al estilo C o estilo Basic?
 
 
 ////////////////////////////
@@ -48,3 +47,8 @@ X- Implementar operadores unarios
 X- Crear repositorio
 X- Aislar en un proyecto nuevo, poner un espacio de nombres.
 X- Implementar precedencia de operadores
+
+X- Organizar mejor la rutina principal del scanner (estructurar la secuencia principal)
+X- Poner como tokens las palabras reservadas y los identificadores
+X- Limpiar código
+X- Implementar operadiores lógicos Or, And, Not

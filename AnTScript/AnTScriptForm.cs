@@ -41,9 +41,9 @@ namespace AnTScript
 
                 scanner = new Scanner(textSourceCode.Text);
 
-                foreach (object o in scanner.TokensList)
+                foreach (Token t in scanner.TokensList)
                 {
-                    listScan.Items.Add(o.ToString());
+                    listScan.Items.Add(t.Name);
                 }
 
                 Parser parser = new Parser(scanner.TokensList);

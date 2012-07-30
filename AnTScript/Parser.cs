@@ -213,7 +213,7 @@ namespace AnTScript
                 if (prec >= precedence)
                 {
                     BinExpr binExpr = new BinExpr();
-                    binExpr.Op = TokenToOp(tokens[index]);
+                    binExpr.Op = TokenToBinOp(tokens[index]);
                     MoveNext();
                     Expr right = ParseExpr(prec);
                     binExpr.Left = left;
@@ -260,27 +260,30 @@ namespace AnTScript
                 Eat(Tokens.RightParentesis);
                 return result;
             }
-            else if (IsOperator(this.tokens[index]))
+            else if (IsUnaryOperator(this.tokens[index]))
             {
                 // Unary Expression
                 UnaryExpr result = new UnaryExpr();
 
                 if (MaybeEat(Tokens.Sub))
                 {
-                    result.Op = TokenToOp(Tokens.Sub);
-                    result.Expression = ParseFactor();
-                    return result;
+                    result.Op = TokenToBinOp(Tokens.Sub);
                 }
                 else if (MaybeEat(Tokens.Add))
                 {
-                    result.Op = TokenToOp(Tokens.Add);
-                    result.Expression = ParseFactor();
-                    return result;
+                    result.Op = TokenToBinOp(Tokens.Add);
+                }
+                else if (MaybeEat(Tokens.Not))
+                {
+                    result.Op = TokenToBinOp(Tokens.Not);
                 }
                 else
                     throw new System.Exception(string.Format(
                         "Operator '{0}' is not supported in unary expressions",
                         tokens[index]));
+
+                result.Expression = ParseFactor();
+                return result;
             }
             else
             {
@@ -290,15 +293,15 @@ namespace AnTScript
 
         #region Utils
 
-        private bool IsOperator(object token)
+        private bool IsUnaryOperator(object token)
         {
             return token == Tokens.Add ||
                 token == Tokens.Sub ||
-                token == Tokens.Mul ||
-                token == Tokens.Div;
+                token == Tokens.Not
+                ;
         }
 
-        private BinOp TokenToOp(object token)
+        private BinOp TokenToBinOp(object token)
         {
             if (token == Tokens.Add)
                 return BinOp.Add;
@@ -308,6 +311,12 @@ namespace AnTScript
                 return BinOp.Mul;
             if (token == Tokens.Div)
                 return BinOp.Div;
+            if (token == Tokens.Or)
+                return BinOp.Or;
+            if (token == Tokens.And)
+                return BinOp.And;
+            if (token == Tokens.Not)
+                return BinOp.Not;
 
             else
                 throw new System.Exception("invalid code operator");
