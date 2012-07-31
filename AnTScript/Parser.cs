@@ -166,7 +166,40 @@ namespace AnTScript
                 MoveNext();
 
             }
+
+            // if
+            else if (tokens[index] == Tokens.If)
+            {
+                IfStmt ifStmt = new IfStmt();                
+                MoveNext();
+
+                ifStmt.TestExpr = ParseExpr();
                 
+                if (index == tokens.Count ||
+                    tokens[index] != Tokens.Then)
+                {
+                    throw new System.Exception("expected 'then' after if");
+                }
+                MoveNext();
+
+                ifStmt.BodyIf = ParseStmt();
+
+                // Does else
+                ifStmt.DoElse = MaybeEat(Tokens.Else);
+                if (ifStmt.DoElse)
+                    ifStmt.BodyElse = ParseStmt();
+
+                result = ifStmt;
+
+                if (index == tokens.Count ||
+                    tokens[index] != Tokens.EndBlock)
+                {
+                    throw new System.Exception("unterminated 'if' body");
+                }
+                MoveNext();
+            }
+
+
             // assignment
             else if (tokens[index] is IdentifierToken)
             {
@@ -186,17 +219,25 @@ namespace AnTScript
                 assign.Expr = ParseExpr();
                 result = assign;
             }
+
+            //else if (tokens[index] == Tokens.Else)
+            //{
+
+            //}
+
             else
             {
-                throw new System.Exception("parse error at token " + index + ": " + tokens[index]);
+                throw new System.Exception("parse error at token " + index + ": " + tokens[index].Name);
             }
 
             if ((index < tokens.Count && tokens[index] == Tokens.Semi))
             {
                 MoveNext();
 
-                if (index < tokens.Count &&
-                    tokens[index] != Tokens.EndBlock)
+                //if (index < tokens.Count &&
+                //    tokens[index] != Tokens.EndBlock)
+                if ((index < tokens.Count && tokens[index] != Tokens.EndBlock)
+                    && tokens[index] != Tokens.Else)
                 {
                     Sequence sequence = new Sequence();
                     sequence.First = result;
@@ -333,7 +374,18 @@ namespace AnTScript
                 return BinOp.And;
             if (token == Tokens.Not)
                 return BinOp.Not;
-
+            if (token == Tokens.Equal)
+                return BinOp.Equal;
+            if (token == Tokens.NotEqual)
+                return BinOp.NotEqual;
+            if (token == Tokens.LessThan)
+                return BinOp.LessThan;
+            if (token == Tokens.GreaterThan)
+                return BinOp.GreaterThan;
+            if (token == Tokens.LessThanOrEqual)
+                return BinOp.LessThanOrEqual;
+            if (token == Tokens.GreaterThanOrEqual)
+                return BinOp.GreaterThanOrEqual;
             else
                 throw new System.Exception("invalid code operator");
 

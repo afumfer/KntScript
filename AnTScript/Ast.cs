@@ -46,6 +46,17 @@ namespace AnTScript
         public Stmt Body;
     }
 
+    // if <expr> then <stmt> end |
+    // if <expr> then <stmt> else <stmt> end
+    public class IfStmt : Stmt
+    {        
+        public Expr TestExpr;        
+        public Stmt BodyIf;
+        public Stmt BodyElse;
+        public bool DoElse;
+    }
+
+
     // read_int <ident>
     public class ReadNum : Stmt
     {
@@ -117,6 +128,13 @@ namespace AnTScript
         Div,
         Or,
         And, 
-        Not
+        Not,
+        Equal,
+        NotEqual,
+        LessThan,
+        GreaterThan,
+        LessThanOrEqual,
+        GreaterThanOrEqual
     }
 }
+

@@ -1,8 +1,6 @@
 ============================
 >>>> Versión 0.0.x.x
 
-- Implementar operadores relacionales >, >=, <, <=, !=
-- Implementar If
 - Implementar While (Repeat - until)
 - Quitar el do al bucle for
 - Implementar break dentro de los bucles
@@ -53,3 +51,7 @@ X- Organizar mejor la rutina principal del scanner (estructurar la secuencia pri
 X- Poner como tokens las palabras reservadas y los identificadores
 X- Limpiar código
 X- Implementar operadiores lógicos Or, And, Not
+
+X- Implementar operadores relacionales >, >=, <, <=, !=
+X- Implementar operadores entre expresiones de cadena
+X- Implementar If

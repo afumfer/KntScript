@@ -12,21 +12,21 @@ namespace AnTScript
         public static readonly OperatorToken Sub = new OperatorToken("SUB", 1);
         public static readonly OperatorToken Mul = new OperatorToken("MUL", 2);
         public static readonly OperatorToken Div = new OperatorToken("DIV", 2);
-        public static readonly OperatorToken Equal = new OperatorToken("EQUAL", 0);
-
+        
         // ....
         public static readonly OperatorToken LessThan = new OperatorToken("LESSTHAN", 0);
         public static readonly OperatorToken GreaterThan = new OperatorToken("GREATERTHAN", 0);
         public static readonly OperatorToken LessThanOrEqual = new OperatorToken("LESSTHANOREQUAL", 0);
         public static readonly OperatorToken GreaterThanOrEqual = new OperatorToken("GREATERTHANOREQUAL", 0);
+        public static readonly OperatorToken Equal = new OperatorToken("EQUAL", 0);
+        public static readonly OperatorToken NotEqual = new OperatorToken("NOTEQUAL", 2);
 
         public static readonly OperatorToken And = new OperatorToken("AND", 1);
         public static readonly OperatorToken AndBit = new OperatorToken("ANDBIT", 1);
         public static readonly OperatorToken Or = new OperatorToken("OR", 0);
         public static readonly OperatorToken OrBit = new OperatorToken("ORBIT", 0);
         public static readonly OperatorToken Not = new OperatorToken("NOT", 2);
-        public static readonly OperatorToken NotEqual = new OperatorToken("NOTEQUAL", 2);
-
+        
         public static readonly SymbolToken Semi = new SymbolToken("SEMI");
         public static readonly SymbolToken Assignment = new SymbolToken("ASSIGNMENT");
 
@@ -45,7 +45,9 @@ namespace AnTScript
         public static readonly KeywordToken Read_num = new KeywordToken("READ_NUM");
         public static readonly KeywordToken For = new KeywordToken("FOR");
         public static readonly KeywordToken To = new KeywordToken("TO");
-
+        public static readonly KeywordToken If = new KeywordToken("IF");
+        public static readonly KeywordToken Then = new KeywordToken("THEN");
+        public static readonly KeywordToken Else = new KeywordToken("Else");
     }
 
     public class OperatorToken : Token
@@ -130,6 +132,11 @@ namespace AnTScript
         public string Name
         {
             get { return _name; }            
+        }
+
+        public override string ToString()
+        {
+            return _name;
         }
 
     }

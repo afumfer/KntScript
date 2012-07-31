@@ -129,6 +129,8 @@ namespace AnTScript
                 token = Tokens.And;
             else if (accum.ToString().ToLower() == "not")
                 token = Tokens.Not;
+
+            // block 
             else if (accum.ToString().ToLower() == "do")
                 token = Tokens.BeginBlock;
             else if (accum.ToString().ToLower() == "end")
@@ -145,6 +147,12 @@ namespace AnTScript
                 token = Tokens.For;
             else if (accum.ToString().ToLower() == "to")
                 token = Tokens.To;
+            else if (accum.ToString().ToLower() == "if")
+                token = Tokens.If;
+            else if (accum.ToString().ToLower() == "then")
+                token = Tokens.Then;
+            else if (accum.ToString().ToLower() == "else")
+                token = Tokens.Else;
 
             // identifier
             else
