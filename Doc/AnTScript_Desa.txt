@@ -1,13 +1,13 @@
 ============================
 >>>> Versión 0.0.x.x
 
-- Implementar While (Repeat - until)
-- Quitar el do al bucle for
+- Depurar ParserTree
 - Implementar break dentro de los bucles
 - Implementar un Read genérico (Read stringLiteral:variable, stringLiteral:variable, .... ;)
 - Implementar asignaciones objeto.propiedad = expresion
 - Implementar el soporte de objetos enumeradores (listas, vectores).
-- Depurar ParserTree
+
+- Deputar tokens (quitar {, }, do, ... ) 
 
 
 ============================
@@ -55,3 +55,7 @@ X- Implementar operadiores lógicos Or, And, Not
 X- Implementar operadores relacionales >, >=, <, <=, !=
 X- Implementar operadores entre expresiones de cadena
 X- Implementar If
+
+X- Implementar While
+X- Quitar el do al bucle for
+X- Poner cierres como end if, end for, end while

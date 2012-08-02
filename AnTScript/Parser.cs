@@ -131,28 +131,25 @@ namespace AnTScript
                 {
                     throw new System.Exception("for missing '='");
                 }
-
                 MoveNext();
 
                 forLoop.From = ParseExpr();
 
-                if (index == tokens.Count || 
+                if (index == tokens.Count ||
                     tokens[index] != Tokens.To)
                 {
                     throw new System.Exception("expected 'to' after for");
                 }
-
                 MoveNext();
 
                 forLoop.To = ParseExpr();
 
-                if (index == tokens.Count ||
-                    tokens[index] != Tokens.BeginBlock)
-                {
-                    throw new System.Exception("expected 'do' after from expression in for loop");
-                }
-
-                MoveNext();
+                //if (index == tokens.Count ||
+                //    tokens[index] != Tokens.BeginBlock)
+                //{
+                //    throw new System.Exception("expected 'do' after from expression in for loop");
+                //}
+                //MoveNext();
 
                 forLoop.Body = ParseStmt();
                 result = forLoop;
@@ -162,8 +159,9 @@ namespace AnTScript
                 {
                     throw new System.Exception("unterminated 'for' loop body");
                 }
-
                 MoveNext();
+                if (!MaybeEat(Tokens.For))
+                    throw new System.Exception("unterminated 'for' body");
 
             }
 
@@ -197,8 +195,41 @@ namespace AnTScript
                     throw new System.Exception("unterminated 'if' body");
                 }
                 MoveNext();
+                if(!MaybeEat(Tokens.If))
+                    throw new System.Exception("unterminated 'if' body");
             }
 
+            // while
+            else if (tokens[index] == Tokens.While)
+            {
+                WhileStmt whileStmt = new WhileStmt();
+                MoveNext();
+
+                whileStmt.TestExpr = ParseExpr();
+                whileStmt.Body = ParseStmt();
+                
+                result = whileStmt;
+
+                if (index == tokens.Count ||
+                    tokens[index] != Tokens.EndBlock)
+                {
+                    throw new System.Exception("unterminated 'while' body");
+                }
+                MoveNext();
+                if (!MaybeEat(Tokens.While))
+                    throw new System.Exception("unterminated 'while' body");
+            }
+
+            // break
+            else if (tokens[index] == Tokens.Break)
+            {
+                BreakStmt breakStmt = new BreakStmt();
+                MoveNext();
+
+                breakStmt.Tag = "XX";
+
+                result = breakStmt;
+            }
 
             // assignment
             else if (tokens[index] is IdentifierToken)
@@ -219,11 +250,6 @@ namespace AnTScript
                 assign.Expr = ParseExpr();
                 result = assign;
             }
-
-            //else if (tokens[index] == Tokens.Else)
-            //{
-
-            //}
 
             else
             {

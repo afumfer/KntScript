@@ -153,6 +153,10 @@ namespace AnTScript
                 token = Tokens.Then;
             else if (accum.ToString().ToLower() == "else")
                 token = Tokens.Else;
+            else if (accum.ToString().ToLower() == "while")
+                token = Tokens.While;
+            else if (accum.ToString().ToLower() == "break")
+                token = Tokens.Break;
 
             // identifier
             else

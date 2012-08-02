@@ -56,6 +56,19 @@ namespace AnTScript
         public bool DoElse;
     }
 
+    // while <expr> <stmt> end
+    public class WhileStmt : Stmt
+    {
+        public Expr TestExpr;
+        public Stmt Body;
+    }
+
+    // break
+    public class BreakStmt : Stmt
+    {
+        public string Tag;        
+    }
+
 
     // read_int <ident>
     public class ReadNum : Stmt

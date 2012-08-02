@@ -18,7 +18,7 @@ namespace AnTScript
 
         Dictionary<string, object> symbolTable;
         TextBox textOut;
-
+        
         #endregion
 
         #region Constructor
@@ -43,7 +43,7 @@ namespace AnTScript
             {
                 Sequence seq = (Sequence)stmt;
                 RunStmt(seq.First);
-                RunStmt(seq.Second);
+                RunStmt(seq.Second);                
             }
 
             else if (stmt is DeclareVar)
@@ -145,6 +145,26 @@ namespace AnTScript
                 }
             }
 
+            else if (stmt is WhileStmt)
+            {
+                // example: 
+                // if x > 0 then
+                //   print "hello";
+                // else
+                //   print "world";
+                // end;
+
+                WhileStmt whileStmt = (WhileStmt)stmt;
+                NumericLiteral whileExp = new NumericLiteral();
+
+                while(true)
+                {
+                    whileExp.Value = (float)GenExpr(whileStmt.TestExpr);
+                    if (whileExp.Value == 0)
+                        break;                
+                    RunStmt(whileStmt.Body);
+                }
+            }
 
             else
             {

@@ -47,7 +47,9 @@ namespace AnTScript
         public static readonly KeywordToken To = new KeywordToken("TO");
         public static readonly KeywordToken If = new KeywordToken("IF");
         public static readonly KeywordToken Then = new KeywordToken("THEN");
-        public static readonly KeywordToken Else = new KeywordToken("Else");
+        public static readonly KeywordToken Else = new KeywordToken("ELSE");
+        public static readonly KeywordToken While = new KeywordToken("WHILE");
+        public static readonly KeywordToken Break = new KeywordToken("BREAK");
     }
 
     public class OperatorToken : Token
