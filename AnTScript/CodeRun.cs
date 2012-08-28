@@ -18,6 +18,7 @@ namespace AnTScript
 
         Dictionary<string, object> symbolTable;
         TextBox textOut;
+        bool flagBreak = false;
         
         #endregion
 
@@ -38,6 +39,8 @@ namespace AnTScript
 
         private void RunStmt(Stmt stmt)
         {
+            if (flagBreak)
+                return;
 
             if (stmt is Sequence)
             {
@@ -88,20 +91,26 @@ namespace AnTScript
                 RunStmt(assign);
             }
 
+            //flagBreak
+            else if (stmt is BreakStmt)
+            {
+                flagBreak = true;
+                return;
+            }
+
             else if (stmt is ForLoop)
             {
                 // example: 
                 // for x = 0 to 100 do
                 //   print "hello";
-                // end;
+                // end for;
 
                 ForLoop forLoop = (ForLoop)stmt;
 
                 NumericLiteral numFrom = new NumericLiteral();
                 NumericLiteral numTo = new NumericLiteral();
 
-                Assign assignFrom = new Assign();
-                //assignFrom.Identifier = forLoop.Identifier;
+                Assign assignFrom = new Assign();                
                 assignFrom.Ident = forLoop.Ident;
 
                 assignFrom.Expr = forLoop.From;
@@ -112,24 +121,25 @@ namespace AnTScript
 
                 while (numFrom.Value <= numTo.Value)
                 {
+                    if (flagBreak)
+                        break;
                     RunStmt(forLoop.Body);
                     numFrom.Value++;
                     assignFrom.Expr = numFrom;
                     RunStmt(assignFrom);
                 }
+                if (flagBreak)
+                    flagBreak = false;
             }
 
             else if (stmt is IfStmt)
             {
                 // example: 
-                // if x > 0 then
+                // if a == 10 then 
                 //   print "hello";
-                // else
-                //   print "world";
-                // end;
+                // end if;
 
                 IfStmt ifStmt = (IfStmt)stmt;
-
                 NumericLiteral ifExp = new NumericLiteral();
 
                 ifExp.Value = (float)GenExpr(ifStmt.TestExpr);
@@ -139,8 +149,8 @@ namespace AnTScript
                     RunStmt(ifStmt.BodyIf);
                 }
                 else
-                { 
-                    if(ifStmt.DoElse)
+                {
+                    if (ifStmt.DoElse)
                         RunStmt(ifStmt.BodyElse);
                 }
             }
@@ -148,22 +158,25 @@ namespace AnTScript
             else if (stmt is WhileStmt)
             {
                 // example: 
-                // if x > 0 then
+                // while a <= 10
                 //   print "hello";
-                // else
-                //   print "world";
-                // end;
+                //   a = a + 1;
+                // end while;
 
                 WhileStmt whileStmt = (WhileStmt)stmt;
                 NumericLiteral whileExp = new NumericLiteral();
 
-                while(true)
+                while (true)
                 {
+                    if (flagBreak)
+                        break;
                     whileExp.Value = (float)GenExpr(whileStmt.TestExpr);
                     if (whileExp.Value == 0)
-                        break;                
+                        break;
                     RunStmt(whileStmt.Body);
                 }
+                if (flagBreak)
+                    flagBreak = false;
             }
 
             else
@@ -172,6 +185,7 @@ namespace AnTScript
             }
 
         } // RunStmt
+
 
         // TODO: pendiente de implmentar la comprobación de tipos.
         // Apadir el parámetro, ... System.Type expectedType)
