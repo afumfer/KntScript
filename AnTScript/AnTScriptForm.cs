@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Reflection;
 
 namespace AnTScript
 {
@@ -47,11 +48,11 @@ namespace AnTScript
                 }
 
                 Parser parser = new Parser(scanner.TokensList);
-                //ParserTree astTree = new ParserTree(parser.Result, treeAST);
+                ////ParserTree astTree = new ParserTree(parser.Result, treeAST);
 
                 CodeRun codeRun = new CodeRun(parser.Result, textOut);
 
-                treeAST.ExpandAll();
+                //treeAST.ExpandAll();
             }
             catch (Exception err)
             {
@@ -71,6 +72,44 @@ namespace AnTScript
             using (TextReader input = File.OpenText(sourceCode))
             {
                 textSourceCode.Text = input.ReadToEnd().ToString();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Get metadata for the Minivan type.                
+                //Type t = Type.GetType("AnTScript._Node", false, true);
+                Type t = typeof(_Node);
+
+                
+
+                // Create the Minivan on the fly.
+                object obj = Activator.CreateInstance(t);                
+
+                //((_Node)obj).Asunto = "bla bla ";
+                
+                //MethodInfo mi = miniVan.GetMethod("TurboBoost");
+                //// Invoke method ('null' for no parameters).
+                //mi.Invoke(obj, null);
+
+                PropertyInfo pi = t.GetProperty("Asunto");
+               
+                pi.SetValue(obj, "XXX Blabla XXXX", null);
+
+                MessageBox.Show(string.Format("Set Value > {0} !", obj.ToString()));
+
+                object x;
+
+                x = pi.GetValue(obj, null);
+
+                MessageBox.Show(string.Format("Get Value {0} !", x.ToString()));
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }

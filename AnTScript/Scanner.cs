@@ -73,6 +73,11 @@ namespace AnTScript
                 {
                     _result.Add(ReadNumericLiteral(input, ch));
                 }
+                // node literal
+                else if (ch == '$')
+                {
+                    _result.Add(ReadNodeLiteral(input, ch));
+                }
                 // operator or symbol 
                 else
                     _result.Add(ReadOperatorOrSymbol(input, ch));
@@ -107,7 +112,7 @@ namespace AnTScript
             StringBuilder accum = new StringBuilder();
             Token token;
 
-            while (char.IsLetter(ch) || ch == '_')
+            while (char.IsLetter(ch) || ch == '_' || ch == '.')
             {
                 accum.Append(ch);
                 input.Read();
@@ -173,7 +178,6 @@ namespace AnTScript
         {
             StringBuilder accum = new StringBuilder();
             
-
             input.Read(); // skip "
 
             if (input.Peek() == -1)
@@ -220,6 +224,37 @@ namespace AnTScript
             return new NumberToken(accum.ToString());
 
         }
+
+        private NodeToken ReadNodeLiteral(TextReader input, char ch)
+        {
+            StringBuilder accum = new StringBuilder();
+
+            input.Read(); // skip $
+
+            if (input.Peek() == -1)
+            {
+                throw new System.Exception("unterminated string literal");
+            }
+
+            while ((ch = (char)input.Peek()) != '$')
+            {
+                accum.Append(ch);
+                input.Read();
+
+                if (input.Peek() == -1)
+                {
+                    throw new System.Exception("unterminated string literal");
+                }
+            }
+
+            // skip the terminating $
+            input.Read();
+
+            return new NodeToken(accum.ToString());
+
+        }
+
+
 
         private Token ReadOperatorOrSymbol(TextReader input, char ch)
         {

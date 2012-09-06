@@ -80,23 +80,43 @@ namespace AnTScript
             : base(value) { }
     }
 
+    //public class NumberToken : Token
+    //{
+    //    private string _value;
+
+    //    public NumberToken(string value)
+    //        : base(value) 
+    //    {
+    //        _value = value;
+    //    }
+
+    //    public float Value
+    //    {
+    //        get 
+    //        {
+    //            return float.Parse(_value.ToString(),
+    //                        System.Globalization.CultureInfo.InvariantCulture);
+    //        }            
+    //    }
+    //}
+
     public class NumberToken : Token
     {
-        private string _value;
+        private float _value;
 
         public NumberToken(string value)
-            : base(value) 
+            : base(value)
         {
-            _value = value;
+            _value = float.Parse(value.ToString(),
+                            System.Globalization.CultureInfo.InvariantCulture);
         }
 
         public float Value
         {
-            get 
+            get
             {
-                return float.Parse(_value.ToString(),
-                            System.Globalization.CultureInfo.InvariantCulture);
-            }            
+                return _value;
+            }
         }
     }
 
@@ -115,6 +135,26 @@ namespace AnTScript
             get { return _value.ToString(); }            
         }
     }
+
+    // @node
+    public class NodeToken : Token
+    {
+        private _Node _value;
+
+        public NodeToken(string value)
+            : base(value)
+        {
+            _value = new _Node();
+            _value.Asunto = value;
+        }
+
+        public _Node Value
+        {
+            get { return _value; }
+        }
+    }
+
+
 
     public class SymbolToken : Token
     {

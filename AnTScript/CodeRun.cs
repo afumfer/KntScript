@@ -17,9 +17,14 @@ namespace AnTScript
         #region Fields
 
         Dictionary<string, object> symbolTable;
-        TextBox textOut;
         bool flagBreak = false;
         
+        // TODO: El tipo de objeto para la salida debería ser un objeto abstracto y
+        //       la instancia concreta debería venir vía inyección de código.
+        //       Ahora está así para salir del paso.
+        //       (Arreglar esto en el futuro).
+        TextBox textOut;
+                
         #endregion
 
         #region Constructor
@@ -54,7 +59,7 @@ namespace AnTScript
                 // declare
                 DeclareVar declare = (DeclareVar)stmt;
 
-                CodeDeclare(declare);
+                CodeDeclareSymbol(declare);
 
                 //// set the initial value, no hace falta, ya se hace en CodDeclare,
                 //// esto es otra forma de hacerlo.
@@ -67,7 +72,7 @@ namespace AnTScript
             else if (stmt is Assign)
             {
                 Assign assign = (Assign)stmt;
-                CodeStore(assign);
+                CodeStoreSymbol(assign);
             }
 
             else if (stmt is Print)
@@ -205,14 +210,16 @@ namespace AnTScript
                 return ((NumericLiteral)expr).Value;
             }
 
-            else if (expr is Variable)
+            else if (expr is NodeLiteral)
             {
-                string ident = ((Variable)expr).Ident;
-                deliveredType = this.TypeOfExpr(expr);
-                if (this.symbolTable.ContainsKey(ident))
-                {
-                    return symbolTable[ident];
-                }
+                deliveredType = typeof(NodeLiteral);                
+                return ((NodeLiteral)expr).Value;
+            }
+
+            else if (expr is Variable)
+            {                
+                deliveredType = this.TypeOfExpr((Variable)expr);
+                return CodeReadSymbol((Variable)expr);
             }
 
             else if (expr is BinExpr)
@@ -308,7 +315,7 @@ namespace AnTScript
                 else 
                 {
                     // TODO: Implementar más operadores aquí con tipos de datos distintos
-                    //       a float
+                    //       a float (string)
                     switch (be.Op)
                     {
                         case BinOp.Add:
@@ -382,7 +389,6 @@ namespace AnTScript
                             res = 0.0f;                       
                         break;
 
-                    //
                     default:
                         throw new ApplicationException(string.Format(
                             "The operator '{0}' is not supported", ue.Op));
@@ -391,7 +397,7 @@ namespace AnTScript
                 return res;
             }
 
-            // Para Boxing o para deover error ?? 
+            // TODO: Para Boxing o para devolver error ?? 
             //if (deliveredType != expectedType)
             //{
             //    if (deliveredType == typeof(int) &&
@@ -414,7 +420,7 @@ namespace AnTScript
 
         #region Utils
 
-        private void CodeDeclare(DeclareVar declare)
+        private void CodeDeclareSymbol(DeclareVar declare)
         {
             if (!this.symbolTable.ContainsKey(declare.Ident))
                 symbolTable.Add(declare.Ident, GenExpr(declare.Expr));
@@ -422,12 +428,21 @@ namespace AnTScript
                 throw new System.Exception(" variable '" + declare.Ident + "' already declared");
         }
 
-        private void CodeStore(Assign assign)
+        private void CodeStoreSymbol(Assign assign)
         {
             if (this.symbolTable.ContainsKey(assign.Ident))
                 symbolTable[assign.Ident] = GenExpr(assign.Expr);
             else
                 throw new System.Exception(" undeclared variable '" + assign.Ident);
+        }
+
+        private object CodeReadSymbol(Variable variable)
+        {
+            string ident = variable.Ident;            
+            if (this.symbolTable.ContainsKey(ident))            
+                return symbolTable[ident];
+            else
+                throw new System.Exception("Variable " + ident + " undeclared");            
         }
 
         private void CodePrint(Print print)
@@ -464,14 +479,17 @@ namespace AnTScript
             {
                 return typeof(float);
             }
+            else if (expr is NodeLiteral)
+            {
+                return typeof(_Node);
+            }
             else if (expr is Variable)
             {
                 Variable var = (Variable)expr;
                 if (this.symbolTable.ContainsKey(var.Ident))
                 {
-                    //Emit.LocalBuilder locb = this.symbolTable[var.Ident];
-                    //return locb.LocalType;
-                    // TODO: !!! arreglar esto, tiene que devolver el tipo real.
+                    // TODO: !!! arreglar esto, tiene que devolver el tipo real,
+                    //       ahora devuelve un objeto genérico.
                     return typeof(object);
                 }
                 else

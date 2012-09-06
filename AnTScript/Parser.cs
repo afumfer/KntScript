@@ -104,7 +104,7 @@ namespace AnTScript
                 }
                 else
                 {
-                    throw new System.Exception("expected variable name after 'read_int'");
+                    throw new System.Exception("expected variable name after 'read_num'");
                 }
             }
 
@@ -144,6 +144,7 @@ namespace AnTScript
 
                 forLoop.To = ParseExpr();
 
+                // TODO: Eliminar el inicio de bloque de la gramática del for
                 //if (index == tokens.Count ||
                 //    tokens[index] != Tokens.BeginBlock)
                 //{
@@ -157,7 +158,7 @@ namespace AnTScript
                 if (index == tokens.Count ||
                     tokens[index] != Tokens.EndBlock)
                 {
-                    throw new System.Exception("unterminated 'for' loop body");
+                    throw new System.Exception("unterminated 'end for' loop body");
                 }
                 MoveNext();
                 if (!MaybeEat(Tokens.For))
@@ -192,7 +193,7 @@ namespace AnTScript
                 if (index == tokens.Count ||
                     tokens[index] != Tokens.EndBlock)
                 {
-                    throw new System.Exception("unterminated 'if' body");
+                    throw new System.Exception("unterminated 'end if' body");
                 }
                 MoveNext();
                 if(!MaybeEat(Tokens.If))
@@ -213,7 +214,7 @@ namespace AnTScript
                 if (index == tokens.Count ||
                     tokens[index] != Tokens.EndBlock)
                 {
-                    throw new System.Exception("unterminated 'while' body");
+                    throw new System.Exception("unterminated 'end while' body");
                 }
                 MoveNext();
                 if (!MaybeEat(Tokens.While))
@@ -326,6 +327,14 @@ namespace AnTScript
                 MoveNext();
                 return numLiteral;
             }
+            else if (this.tokens[this.index] is NodeToken)
+            {
+                NodeLiteral nodLiteral = new NodeLiteral();
+                nodLiteral.Value = ((NodeToken)this.tokens[this.index]).Value;
+                MoveNext();
+                return nodLiteral;
+            }
+
             else if (this.tokens[this.index] is IdentifierToken)
             {                
                 Variable var = new Variable();

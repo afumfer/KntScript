@@ -40,6 +40,7 @@
             this.listScan = new System.Windows.Forms.ListBox();
             this.treeAST = new System.Windows.Forms.TreeView();
             this.buttonLoadFile = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -189,11 +190,22 @@
             this.buttonLoadFile.UseVisualStyleBackColor = true;
             this.buttonLoadFile.Click += new System.EventHandler(this.buttonLoadFile_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(741, 13);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(106, 19);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // AnTScriptForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1014, 766);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonLoadFile);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.textFileSourceCode);
@@ -233,5 +245,6 @@
         private System.Windows.Forms.ListBox listScan;
         private System.Windows.Forms.TreeView treeAST;
         private System.Windows.Forms.Button buttonLoadFile;
+        private System.Windows.Forms.Button button1;
     }
 }

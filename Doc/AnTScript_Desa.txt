@@ -1,26 +1,28 @@
 ============================
 >>>> Versión 0.0.x.x
 
-- Depurar ParserTree
-- Implementar break dentro de los bucles
 - Implementar un Read genérico (Read stringLiteral:variable, stringLiteral:variable, .... ;)
+
+- Implementar asignación de objetos en la tabla de símbolos mediente una factory de objetos.
 - Implementar asignaciones objeto.propiedad = expresion
 - Implementar el soporte de objetos enumeradores (listas, vectores).
-
+- Depurar ParserTree
 - Deputar tokens (quitar {, }, do, ... ) 
 
 
 ============================
 >>>> Versión 0.1.x.x
 - Empotrar el código en ANotas
-- Incluir los comandos de ANotas, estudiar posibles patrones para ampliar facilmente el lenguaje
-- Incluir tipos de datos de ANotas (Nota, Carpeta y colecciones de Notas y Carpetas)
-
+- Incluir tipos de datos de ANotas (Nota, Carpeta y colecciones de Notas y coleeciones de Carpetas)
+- Incluir los comandos principales de ANotas 
+- Cambiar el tipo base de las variables numéricas a "decimal" de .net (en lugar de float)
 
 ============================
 >>>> Versión 0.2.x.x
+- Estudiar posibles patrones para ampliar facilmente el lenguaje
+- Implementar comprobación de tipos
 - Implementar definición y llamadas funciones
-- ¿Adaptar sintáxis y gramática al estilo C o estilo Basic?
+
 
 
 ////////////////////////////
@@ -59,3 +61,5 @@ X- Implementar If
 X- Implementar While
 X- Quitar el do al bucle for
 X- Poner cierres como end if, end for, end while
+
+X- Implementar break dentro de los bucles

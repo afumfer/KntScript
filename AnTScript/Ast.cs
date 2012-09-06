@@ -110,6 +110,11 @@ namespace AnTScript
         public float Value;     
     }
 
+    public class NodeLiteral : Expr
+    {
+        public _Node Value;
+    }
+
     // <ident> := <char> <ident_rest>*
     // <ident_rest> := <char> | <digit>
     public class Variable : Expr
