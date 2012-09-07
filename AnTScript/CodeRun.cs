@@ -422,27 +422,85 @@ namespace AnTScript
 
         private void CodeDeclareSymbol(DeclareVar declare)
         {
-            if (!this.symbolTable.ContainsKey(declare.Ident))
+            // TODO: Eliminar, código antiguo
+            //if (!this.symbolTable.ContainsKey(declare.Ident))
+            //    symbolTable.Add(declare.Ident, GenExpr(declare.Expr));
+            //else
+            //    throw new System.Exception(" variable '" + declare.Ident + "' already declared");
+
+            IdentObject id = new IdentObject(declare.Ident);
+
+            if (!string.IsNullOrEmpty(id.Prop))
+                throw new System.Exception(" variable declaration '" + declare.Ident + "' incorrect ");
+
+
+            if (!this.symbolTable.ContainsKey(id.Obj))
                 symbolTable.Add(declare.Ident, GenExpr(declare.Expr));
             else
-                throw new System.Exception(" variable '" + declare.Ident + "' already declared");
+                throw new System.Exception(" variable '" + id.Obj + "' already declared");
         }
 
         private void CodeStoreSymbol(Assign assign)
         {
-            if (this.symbolTable.ContainsKey(assign.Ident))
-                symbolTable[assign.Ident] = GenExpr(assign.Expr);
+            // TODO: Limpiar este código antiguo
+            //if (this.symbolTable.ContainsKey(assign.Ident))
+            //    symbolTable[assign.Ident] = GenExpr(assign.Expr);
+            //else
+            //    throw new System.Exception(" undeclared variable '" + assign.Ident);
+
+            IdentObject id = new IdentObject(assign.Ident);
+
+            if (this.symbolTable.ContainsKey(id.Obj))
+                if (string.IsNullOrEmpty(id.Prop))
+                    symbolTable[id.Obj] = GenExpr(assign.Expr);
+                else
+                {
+                    try
+                    {
+                        Type t = typeof(_Node);
+                        PropertyInfo pi = t.GetProperty(id.Prop);
+                        pi.SetValue(symbolTable[id.Obj], GenExpr(assign.Expr), null);
+                    }
+                    catch
+                    {
+                        throw new System.Exception(" object property undeclared '" + id.Prop);
+                    }
+                }
             else
-                throw new System.Exception(" undeclared variable '" + assign.Ident);
+                throw new System.Exception(" undeclared variable '" + id.Obj);
+
         }
 
         private object CodeReadSymbol(Variable variable)
         {
-            string ident = variable.Ident;            
-            if (this.symbolTable.ContainsKey(ident))            
-                return symbolTable[ident];
+            // TODO: Limpiar este código antiguo
+            //string ident = variable.Ident;            
+            //if (this.symbolTable.ContainsKey(ident))            
+            //    return symbolTable[ident];
+            //else
+            //    throw new System.Exception("Variable " + ident + " undeclared");            
+
+            IdentObject id = new IdentObject(variable.Ident);
+
+            if (this.symbolTable.ContainsKey(id.Obj))
+                if (string.IsNullOrEmpty(id.Prop))
+                    return symbolTable[id.Obj];
+                else
+                {
+                    try
+                    {
+                        Type t = typeof(_Node);
+                        PropertyInfo pi = t.GetProperty(id.Prop);                        
+                        return pi.GetValue(symbolTable[id.Obj], null);
+                    }
+                    catch
+                    {
+                        throw new System.Exception(" object property undeclared '" + id.Prop);
+                    }
+                }
             else
-                throw new System.Exception("Variable " + ident + " undeclared");            
+                throw new System.Exception(" undeclared variable '" + id.Obj);
+
         }
 
         private void CodePrint(Print print)
@@ -451,7 +509,7 @@ namespace AnTScript
             if (s == @"\")
                 textOut.AppendText("\r\n");
             else
-                textOut.AppendText(@s);
+                textOut.AppendText(@s);            
         }
 
         private float CodeReadNum()
@@ -486,7 +544,8 @@ namespace AnTScript
             else if (expr is Variable)
             {
                 Variable var = (Variable)expr;
-                if (this.symbolTable.ContainsKey(var.Ident))
+                IdentObject io = new IdentObject(var.Ident);
+                if (this.symbolTable.ContainsKey(io.Obj))
                 {
                     // TODO: !!! arreglar esto, tiene que devolver el tipo real,
                     //       ahora devuelve un objeto genérico.
@@ -496,6 +555,18 @@ namespace AnTScript
                 {
                     throw new System.Exception("undeclared variable '" + var.Ident + "'");
                 }
+
+                //Variable var = (Variable)expr;
+                //if (this.symbolTable.ContainsKey(var.Ident))
+                //{
+                //    // TODO: !!! arreglar esto, tiene que devolver el tipo real,
+                //    //       ahora devuelve un objeto genérico.
+                //    return typeof(object);
+                //}
+                //else
+                //{
+                //    throw new System.Exception("undeclared variable '" + var.Ident + "'");
+                //}
             }
             else if (expr is BinExpr)
             {
@@ -514,5 +585,25 @@ namespace AnTScript
         #endregion
 
     } // CodeRun class
+
+    // TODO: Provisional, esto debe ir en los token.
+    class IdentObject
+    { 
+        public string Obj {get; set;}
+        public string Prop {get; set;}
+
+        public IdentObject (string ident)
+        {       
+            string[] tmp;
+            if (ident != string.Empty)
+            {
+                tmp = ident.Split('.');
+                Obj = tmp[0];
+                if (tmp.Length > 1)
+                    Prop = tmp[1];
+            }
+        }
+    }
+
 
 } // namespace

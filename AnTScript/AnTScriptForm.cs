@@ -81,9 +81,7 @@ namespace AnTScript
             {
                 // Get metadata for the Minivan type.                
                 //Type t = Type.GetType("AnTScript._Node", false, true);
-                Type t = typeof(_Node);
-
-                
+                Type t = typeof(_Node);                
 
                 // Create the Minivan on the fly.
                 object obj = Activator.CreateInstance(t);                
