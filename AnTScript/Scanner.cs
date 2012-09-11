@@ -76,7 +76,7 @@ namespace AnTScript
                 // node literal
                 else if (ch == '$')
                 {
-                    _result.Add(ReadNodeLiteral(input, ch));
+                    _result.Add(ReadObjectLiteral(input, ch));
                 }
                 // operator or symbol 
                 else
@@ -225,7 +225,7 @@ namespace AnTScript
 
         }
 
-        private NodeToken ReadNodeLiteral(TextReader input, char ch)
+        private ObjectToken ReadObjectLiteral(TextReader input, char ch)
         {
             StringBuilder accum = new StringBuilder();
 
@@ -250,7 +250,7 @@ namespace AnTScript
             // skip the terminating $
             input.Read();
 
-            return new NodeToken(accum.ToString());
+            return new ObjectToken(accum.ToString());
 
         }
 

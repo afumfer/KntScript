@@ -1,10 +1,13 @@
 ============================
 >>>> Versión 0.0.x.x
 
-- Implementar un Read genérico (Read stringLiteral:variable, stringLiteral:variable, .... ;)
+- Resolver problema de conversión de float a int.
 
-- Implementar asignación de objetos en la tabla de símbolos mediente una factory de objetos.
-- Implementar asignaciones objeto.propiedad = expresion
+- Implementar asignación de objetos en la tabla de símbolos mediente una factory de objetos o creación de tipos dinámicos.
+
+- Implementar asignación de fechas
+
+- Implementar un Read genérico (Read stringLiteral:variable, stringLiteral:variable, .... ;)
 - Implementar el soporte de objetos enumeradores (listas, vectores).
 - Depurar ParserTree
 - Deputar tokens (quitar {, }, do, ... ) 
@@ -63,3 +66,7 @@ X- Quitar el do al bucle for
 X- Poner cierres como end if, end for, end while
 
 X- Implementar break dentro de los bucles
+
+X- Implementar asignaciones objeto.propiedad = expresion
+
+X- Definir clases de varios tipos (en función de una cadena en la definición).

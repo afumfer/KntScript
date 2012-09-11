@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
+using System.Runtime.Remoting;
 
 namespace AnTScript
 {
@@ -79,30 +80,55 @@ namespace AnTScript
         {
             try
             {
-                // Get metadata for the Minivan type.                
-                //Type t = Type.GetType("AnTScript._Node", false, true);
-                Type t = typeof(_Node);                
 
-                // Create the Minivan on the fly.
-                object obj = Activator.CreateInstance(t);                
+
+                //string CadenaObjeto = "AnTScript._Node";
+                
+                //var obj = AppDomain.CurrentDomain.CreateInstance("AnTScript", CadenaObjeto);
+                //string basura = obj.GetType().ToString();     
+                //obj.
+
+
+                //MessageBox.Show(basura);
+
+                //PropertyInfo pi = t.GetProperty("IdNota");
+                //int x1 = 1;
+                //pi.SetValue(obj, x1, null);
+
+                //MessageBox.Show(string.Format("Set Value > {0} !", obj.ToString()));
+
+
+
+
+
+
+
+
+                // Get metadata for the Minivan type.                
+                Type t = Type.GetType("AnTScript._Node", false, true);
+                //Type t = typeof(_Node);                
+                
+                object obj = Activator.CreateInstance(t);
 
                 //((_Node)obj).Asunto = "bla bla ";
-                
+
                 //MethodInfo mi = miniVan.GetMethod("TurboBoost");
                 //// Invoke method ('null' for no parameters).
                 //mi.Invoke(obj, null);
 
-                PropertyInfo pi = t.GetProperty("Asunto");
-               
-                pi.SetValue(obj, "XXX Blabla XXXX", null);
+                PropertyInfo pi = t.GetProperty("IdNota");
+
+                int x1 = 1;
+
+                pi.SetValue(obj, x1, null);
 
                 MessageBox.Show(string.Format("Set Value > {0} !", obj.ToString()));
 
-                object x;
+                //object x;
 
-                x = pi.GetValue(obj, null);
+                //x = pi.GetValue(obj, null);
 
-                MessageBox.Show(string.Format("Get Value {0} !", x.ToString()));
+                //MessageBox.Show(string.Format("Get Value {0} !", x.ToString()));
 
             }
             catch (Exception ex)

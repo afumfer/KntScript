@@ -210,10 +210,10 @@ namespace AnTScript
                 return ((NumericLiteral)expr).Value;
             }
 
-            else if (expr is NodeLiteral)
+            else if (expr is ObjectLiteral)
             {
-                deliveredType = typeof(NodeLiteral);                
-                return ((NodeLiteral)expr).Value;
+                deliveredType = typeof(ObjectLiteral);                
+                return ((ObjectLiteral)expr).Value;
             }
 
             else if (expr is Variable)
@@ -422,17 +422,10 @@ namespace AnTScript
 
         private void CodeDeclareSymbol(DeclareVar declare)
         {
-            // TODO: Eliminar, código antiguo
-            //if (!this.symbolTable.ContainsKey(declare.Ident))
-            //    symbolTable.Add(declare.Ident, GenExpr(declare.Expr));
-            //else
-            //    throw new System.Exception(" variable '" + declare.Ident + "' already declared");
-
             IdentObject id = new IdentObject(declare.Ident);
 
             if (!string.IsNullOrEmpty(id.Prop))
                 throw new System.Exception(" variable declaration '" + declare.Ident + "' incorrect ");
-
 
             if (!this.symbolTable.ContainsKey(id.Obj))
                 symbolTable.Add(declare.Ident, GenExpr(declare.Expr));
@@ -442,12 +435,6 @@ namespace AnTScript
 
         private void CodeStoreSymbol(Assign assign)
         {
-            // TODO: Limpiar este código antiguo
-            //if (this.symbolTable.ContainsKey(assign.Ident))
-            //    symbolTable[assign.Ident] = GenExpr(assign.Expr);
-            //else
-            //    throw new System.Exception(" undeclared variable '" + assign.Ident);
-
             IdentObject id = new IdentObject(assign.Ident);
 
             if (this.symbolTable.ContainsKey(id.Obj))
@@ -457,9 +444,9 @@ namespace AnTScript
                 {
                     try
                     {
-                        Type t = typeof(_Node);
-                        PropertyInfo pi = t.GetProperty(id.Prop);
-                        pi.SetValue(symbolTable[id.Obj], GenExpr(assign.Expr), null);
+                        Type t = symbolTable[id.Obj].GetType();
+                        PropertyInfo pi = t.GetProperty(id.Prop);                        
+                        pi.SetValue(symbolTable[id.Obj], GenExpr(assign.Expr), null);                        
                     }
                     catch
                     {
@@ -473,13 +460,6 @@ namespace AnTScript
 
         private object CodeReadSymbol(Variable variable)
         {
-            // TODO: Limpiar este código antiguo
-            //string ident = variable.Ident;            
-            //if (this.symbolTable.ContainsKey(ident))            
-            //    return symbolTable[ident];
-            //else
-            //    throw new System.Exception("Variable " + ident + " undeclared");            
-
             IdentObject id = new IdentObject(variable.Ident);
 
             if (this.symbolTable.ContainsKey(id.Obj))
@@ -489,7 +469,7 @@ namespace AnTScript
                 {
                     try
                     {
-                        Type t = typeof(_Node);
+                        Type t = symbolTable[id.Obj].GetType();
                         PropertyInfo pi = t.GetProperty(id.Prop);                        
                         return pi.GetValue(symbolTable[id.Obj], null);
                     }
@@ -537,9 +517,10 @@ namespace AnTScript
             {
                 return typeof(float);
             }
-            else if (expr is NodeLiteral)
+            else if (expr is ObjectLiteral)
             {
-                return typeof(_Node);
+                // TODO: Devolver e tipo exacto que está dentro de ObjectLiteral
+                return typeof(object);
             }
             else if (expr is Variable)
             {
@@ -547,26 +528,12 @@ namespace AnTScript
                 IdentObject io = new IdentObject(var.Ident);
                 if (this.symbolTable.ContainsKey(io.Obj))
                 {
-                    // TODO: !!! arreglar esto, tiene que devolver el tipo real,
-                    //       ahora devuelve un objeto genérico.
-                    return typeof(object);
+                    return symbolTable[io.Obj].GetType();
                 }
                 else
                 {
                     throw new System.Exception("undeclared variable '" + var.Ident + "'");
                 }
-
-                //Variable var = (Variable)expr;
-                //if (this.symbolTable.ContainsKey(var.Ident))
-                //{
-                //    // TODO: !!! arreglar esto, tiene que devolver el tipo real,
-                //    //       ahora devuelve un objeto genérico.
-                //    return typeof(object);
-                //}
-                //else
-                //{
-                //    throw new System.Exception("undeclared variable '" + var.Ident + "'");
-                //}
             }
             else if (expr is BinExpr)
             {

@@ -327,12 +327,13 @@ namespace AnTScript
                 MoveNext();
                 return numLiteral;
             }
-            else if (this.tokens[this.index] is NodeToken)
+            else if (this.tokens[this.index] is ObjectToken)
             {
-                NodeLiteral nodLiteral = new NodeLiteral();
-                nodLiteral.Value = ((NodeToken)this.tokens[this.index]).Value;
+                ObjectLiteral objLiteral = new ObjectLiteral();
+                objLiteral.Value = ((ObjectToken)this.tokens[this.index]).Value;
+                objLiteral.ObjectType = ((ObjectToken)this.tokens[this.index]).Name;
                 MoveNext();
-                return nodLiteral;
+                return objLiteral;
             }
 
             else if (this.tokens[this.index] is IdentifierToken)

@@ -110,9 +110,13 @@ namespace AnTScript
         public float Value;     
     }
 
-    public class NodeLiteral : Expr
+    public class ObjectLiteral : Expr
     {
-        public _Node Value;
+        // public _Node Value;
+        public object Value;
+
+        // TODO: ????
+        public string ObjectType;
     }
 
     // <ident> := <char> <ident_rest>*
