@@ -7,7 +7,7 @@ namespace AnTScript
 {
     public class _Node
     {
-        public int IdNota { get; set; }
+        public decimal IdNota { get; set; }
         public string Asunto { get; set; }
         public string Nota { get; set; }
 
@@ -30,7 +30,6 @@ namespace AnTScript
         public string Descripcion { get; set; }
         public string Nota { get; set; }
         
-
         public _Folder()
         {
             IdCarpeta = 1;

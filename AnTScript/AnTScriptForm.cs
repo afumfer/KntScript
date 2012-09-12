@@ -81,6 +81,12 @@ namespace AnTScript
             try
             {
 
+                decimal c;
+                object f = 1.1f;
+
+                c = (decimal)(float)f;
+
+                return;
 
                 //string CadenaObjeto = "AnTScript._Node";
                 

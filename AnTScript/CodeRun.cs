@@ -89,10 +89,10 @@ namespace AnTScript
                 //assign.Identifier = read.Identifier;
                 assign.Ident = read.Ident;
 
-                NumericLiteral numLiteral = new NumericLiteral();
-                numLiteral.Value = CodeReadNum();
+                DecimalLiteral decLiteral = new DecimalLiteral();
+                decLiteral.Value = CodeReadNum();
 
-                assign.Expr = numLiteral;
+                assign.Expr = decLiteral;
                 RunStmt(assign);
             }
 
@@ -112,8 +112,8 @@ namespace AnTScript
 
                 ForLoop forLoop = (ForLoop)stmt;
 
-                NumericLiteral numFrom = new NumericLiteral();
-                NumericLiteral numTo = new NumericLiteral();
+                DecimalLiteral numFrom = new DecimalLiteral();
+                DecimalLiteral numTo = new DecimalLiteral();
 
                 Assign assignFrom = new Assign();                
                 assignFrom.Ident = forLoop.Ident;
@@ -145,7 +145,7 @@ namespace AnTScript
                 // end if;
 
                 IfStmt ifStmt = (IfStmt)stmt;
-                NumericLiteral ifExp = new NumericLiteral();
+                DecimalLiteral ifExp = new DecimalLiteral();
 
                 ifExp.Value = (float)GenExpr(ifStmt.TestExpr);
 
@@ -169,7 +169,7 @@ namespace AnTScript
                 // end while;
 
                 WhileStmt whileStmt = (WhileStmt)stmt;
-                NumericLiteral whileExp = new NumericLiteral();
+                DecimalLiteral whileExp = new DecimalLiteral();
 
                 while (true)
                 {
@@ -204,10 +204,10 @@ namespace AnTScript
                 return ((StringLiteral)expr).Value;
             }
 
-            else if (expr is NumericLiteral)
+            else if (expr is DecimalLiteral)
             {
                 deliveredType = typeof(float);
-                return ((NumericLiteral)expr).Value;
+                return ((DecimalLiteral)expr).Value;
             }
 
             else if (expr is ObjectLiteral)
@@ -444,13 +444,25 @@ namespace AnTScript
                 {
                     try
                     {
+                        object obj;
+                        
                         Type t = symbolTable[id.Obj].GetType();
-                        PropertyInfo pi = t.GetProperty(id.Prop);                        
-                        pi.SetValue(symbolTable[id.Obj], GenExpr(assign.Expr), null);                        
+                        PropertyInfo pi = t.GetProperty(id.Prop);
+                        obj = GenExpr(assign.Expr);
+
+                        // TODO: Provisional, para el casting a enteros o a decimal hasta que se soporte
+                        //       los tipos int, decimal, ... (ahora las expresiones sólo devuelven tipos float cuando 
+                        //       el resultado es numérico
+                        if (pi.PropertyType == typeof(int) && obj.GetType() == typeof(float))                            
+                            obj = (int)Math.Ceiling((float)obj);
+                        else if (pi.PropertyType == typeof(decimal) && obj.GetType() == typeof(float))
+                            obj = (decimal)(float)obj;                         
+
+                        pi.SetValue(symbolTable[id.Obj], obj, null);                        
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        throw new System.Exception(" object property undeclared '" + id.Prop);
+                        throw new System.Exception(" error in assign code  '" + id.Prop + " :" + ex.Message);
                     }
                 }
             else
@@ -473,9 +485,9 @@ namespace AnTScript
                         PropertyInfo pi = t.GetProperty(id.Prop);                        
                         return pi.GetValue(symbolTable[id.Obj], null);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        throw new System.Exception(" object property undeclared '" + id.Prop);
+                        throw new System.Exception(" error in read code  '" + id.Prop + " :" + ex.Message);
                     }
                 }
             else
@@ -513,7 +525,7 @@ namespace AnTScript
             {
                 return typeof(string);
             }
-            else if (expr is NumericLiteral)
+            else if (expr is DecimalLiteral)
             {
                 return typeof(float);
             }
@@ -553,6 +565,8 @@ namespace AnTScript
 
     } // CodeRun class
 
+    #region auxiliary types
+
     // TODO: Provisional, esto debe ir en los token.
     class IdentObject
     { 
@@ -569,8 +583,9 @@ namespace AnTScript
                 if (tmp.Length > 1)
                     Prop = tmp[1];
             }
-        }
+        }        
     }
 
+    #endregion
 
 } // namespace

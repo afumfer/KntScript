@@ -105,7 +105,7 @@ namespace AnTScript
     //    public int Value;
     //}
 
-    public class NumericLiteral : Expr
+    public class DecimalLiteral : Expr
     {        
         public float Value;     
     }

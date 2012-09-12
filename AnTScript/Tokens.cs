@@ -139,28 +139,16 @@ namespace AnTScript
     // @ObjectX@
     public class ObjectToken : Token
     {
-        
-        // TODO: refactorizar
-        //private _Node _value;
         private object _value;
-
         public ObjectToken(string value)
             : base(value)
         {
-            // TODO Refactorizar
-            //_value = new _Node();
-
-            string idObj = "AnTScript." + value;
+            //string idObj = "AnTScript." + value;
+            string idObj = value;
             Type t = Type.GetType(idObj, false, true);            
             _value = Activator.CreateInstance(t);
    
         }
-
-        // TODO: Refactorizar
-        //public _Node Value
-        //{
-        //    get { return _value; }
-        //}
 
         public object Value
         {

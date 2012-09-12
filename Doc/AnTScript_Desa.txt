@@ -1,32 +1,32 @@
 ============================
 >>>> Versión 0.0.x.x
 
-- Resolver problema de conversión de float a int.
-
-- Implementar asignación de objetos en la tabla de símbolos mediente una factory de objetos o creación de tipos dinámicos.
-
-- Implementar asignación de fechas
+- Implementar asignación de fechas, literal fecha.
 
 - Implementar un Read genérico (Read stringLiteral:variable, stringLiteral:variable, .... ;)
-- Implementar el soporte de objetos enumeradores (listas, vectores).
-- Depurar ParserTree
+- Implementar mecanismo para llamar a métodos de obetos. 
+
+- Volcar salida en un Html control.
 - Deputar tokens (quitar {, }, do, ... ) 
+- Depurar ParserTree
 
 
 ============================
 >>>> Versión 0.1.x.x
 - Empotrar el código en ANotas
-- Incluir tipos de datos de ANotas (Nota, Carpeta y colecciones de Notas y coleeciones de Carpetas)
+- Incluir tipos de datos de ANotas (Nota, Carpeta)
+- Mecanismos para trabajar con colecciones de Notas y coleeciones de Carpetas. 
 - Incluir los comandos principales de ANotas 
 - Cambiar el tipo base de las variables numéricas a "decimal" de .net (en lugar de float)
 
 ============================
 >>>> Versión 0.2.x.x
+- Refactorizar código empleando patrónes para la ampliación del lenguaje. 
 - Estudiar posibles patrones para ampliar facilmente el lenguaje
 - Implementar comprobación de tipos
+- Implementar el soporte de objetos enumeradores (listas, vectores).
 - Implementar definición y llamadas funciones
-
-
+- Implementar tipo locales
 
 ////////////////////////////
 ////////////////////////////
@@ -68,5 +68,5 @@ X- Poner cierres como end if, end for, end while
 X- Implementar break dentro de los bucles
 
 X- Implementar asignaciones objeto.propiedad = expresion
-
 X- Definir clases de varios tipos (en función de una cadena en la definición).
+X- Resolver problema de conversión de float a int/decimal

@@ -322,10 +322,10 @@ namespace AnTScript
             }
             else if (this.tokens[this.index] is NumberToken)
             {                
-                NumericLiteral numLiteral = new NumericLiteral();
-                numLiteral.Value = ((NumberToken)this.tokens[this.index]).Value;
+                DecimalLiteral decLiteral = new DecimalLiteral();
+                decLiteral.Value = ((NumberToken)this.tokens[this.index]).Value;
                 MoveNext();
-                return numLiteral;
+                return decLiteral;
             }
             else if (this.tokens[this.index] is ObjectToken)
             {
