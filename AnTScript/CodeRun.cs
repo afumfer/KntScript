@@ -210,6 +210,12 @@ namespace AnTScript
                 return ((DecimalLiteral)expr).Value;
             }
 
+            else if (expr is DateTimeLiteral)
+            {
+                deliveredType = typeof(DateTime);
+                return ((DateTimeLiteral)expr).Value;
+            }
+
             else if (expr is ObjectLiteral)
             {
                 deliveredType = typeof(ObjectLiteral);                
@@ -309,7 +315,7 @@ namespace AnTScript
                             break;
                         default:
                             throw new ApplicationException(string.Format(
-                                "The operator '{0}' is not supported", be.Op));
+                                "The operator '{0}' is not supported  in this expression ", be.Op));
                     }
                 }
                 else 
@@ -360,7 +366,7 @@ namespace AnTScript
 
                         default:
                             throw new ApplicationException(string.Format(
-                                "The operator '{0}' is not supported", be.Op));
+                                "The operator '{0}' is not supported in this expression ", be.Op));
                     }                
                 } 
                 
@@ -391,7 +397,7 @@ namespace AnTScript
 
                     default:
                         throw new ApplicationException(string.Format(
-                            "The operator '{0}' is not supported", ue.Op));
+                            "The operator '{0}' is not supported in this expression ", ue.Op));
                 }
 
                 return res;
@@ -528,6 +534,10 @@ namespace AnTScript
             else if (expr is DecimalLiteral)
             {
                 return typeof(float);
+            }
+            else if (expr is DateTimeLiteral)
+            {
+                return typeof(DateTime);
             }
             else if (expr is ObjectLiteral)
             {

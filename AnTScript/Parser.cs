@@ -327,11 +327,18 @@ namespace AnTScript
                 MoveNext();
                 return decLiteral;
             }
+            else if (this.tokens[this.index] is DateTimeToken)
+            {
+                DateTimeLiteral datLiteral = new DateTimeLiteral();
+                datLiteral.Value = ((DateTimeToken)this.tokens[this.index]).Value;
+                MoveNext();
+                return datLiteral;
+            }
             else if (this.tokens[this.index] is ObjectToken)
             {
                 ObjectLiteral objLiteral = new ObjectLiteral();
                 objLiteral.Value = ((ObjectToken)this.tokens[this.index]).Value;
-                objLiteral.ObjectType = ((ObjectToken)this.tokens[this.index]).Name;
+                objLiteral.ClassName = ((ObjectToken)this.tokens[this.index]).Name;
                 MoveNext();
                 return objLiteral;
             }

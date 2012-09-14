@@ -81,10 +81,13 @@ namespace AnTScript
             try
             {
 
-                decimal c;
-                object f = 1.1f;
+                //DateTime x;
+                //x.Ma
 
-                c = (decimal)(float)f;
+                //decimal c;
+                //object f = 1.1f;
+
+                //c = (decimal)(float)f;
 
                 return;
 

@@ -78,6 +78,11 @@ namespace AnTScript
                 {
                     _result.Add(ReadObjectLiteral(input, ch));
                 }
+                // node literal
+                else if (ch == '#')
+                {
+                    _result.Add(ReadDateTimeLiteral(input, ch));
+                }
                 // operator or symbol 
                 else
                     _result.Add(ReadOperatorOrSymbol(input, ch));
@@ -200,7 +205,6 @@ namespace AnTScript
             input.Read();
 
             return new StringToken(accum.ToString());
-
         }
 
         private NumberToken ReadNumericLiteral(TextReader input, char ch)
@@ -251,9 +255,35 @@ namespace AnTScript
             input.Read();
 
             return new ObjectToken(accum.ToString());
-
         }
 
+        private DateTimeToken ReadDateTimeLiteral(TextReader input, char ch)
+        {
+            StringBuilder accum = new StringBuilder();
+
+            input.Read(); // skip #
+
+            if (input.Peek() == -1)
+            {
+                throw new System.Exception("unterminated datetime literal");
+            }
+
+            while ((ch = (char)input.Peek()) != '#')
+            {
+                accum.Append(ch);
+                input.Read();
+
+                if (input.Peek() == -1)
+                {
+                    throw new System.Exception("unterminated datetime literal");
+                }
+            }
+
+            // skip the terminating #
+            input.Read();
+
+            return new DateTimeToken(accum.ToString());
+        }
 
 
         private Token ReadOperatorOrSymbol(TextReader input, char ch)

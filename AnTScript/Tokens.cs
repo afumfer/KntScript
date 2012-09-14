@@ -80,26 +80,22 @@ namespace AnTScript
             : base(value) { }
     }
 
-    //public class NumberToken : Token
-    //{
-    //    private string _value;
+    public class StringToken : Token
+    {
+        private string _value;
 
-    //    public NumberToken(string value)
-    //        : base(value) 
-    //    {
-    //        _value = value;
-    //    }
+        public StringToken(string value)
+            : base(value)
+        {
+            _value = value;
+        }
 
-    //    public float Value
-    //    {
-    //        get 
-    //        {
-    //            return float.Parse(_value.ToString(),
-    //                        System.Globalization.CultureInfo.InvariantCulture);
-    //        }            
-    //    }
-    //}
-
+        public string Value
+        {
+            get { return _value.ToString(); }
+        }
+    }
+    
     public class NumberToken : Token
     {
         private float _value;
@@ -120,19 +116,26 @@ namespace AnTScript
         }
     }
 
-    public class StringToken : Token
+    //#dd/mm/yyyy#
+    public class DateTimeToken : Token
     {
-        private string _value;
+        private DateTime _value;
 
-        public StringToken(string value)
-            : base(value) 
+        public DateTimeToken(string value)
+            : base(value)
         {
-            _value = value;
+            _value = DateTime.Parse(value);
+
+            //_value = float.Parse(value.ToString(),
+            //                System.Globalization.CultureInfo.InvariantCulture);
         }
 
-        public string Value
+        public DateTime Value
         {
-            get { return _value.ToString(); }            
+            get
+            {
+                return _value;
+            }
         }
     }
 
@@ -140,24 +143,20 @@ namespace AnTScript
     public class ObjectToken : Token
     {
         private object _value;
+
         public ObjectToken(string value)
             : base(value)
-        {
-            //string idObj = "AnTScript." + value;
+        {            
             string idObj = value;
             Type t = Type.GetType(idObj, false, true);            
-            _value = Activator.CreateInstance(t);
-   
+            _value = Activator.CreateInstance(t);   
         }
 
         public object Value
         {
             get { return _value; }
         }
-
     }
-
-
 
     public class SymbolToken : Token
     {

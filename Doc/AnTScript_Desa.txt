@@ -1,7 +1,10 @@
 ============================
 >>>> Versión 0.0.x.x
 
-- Implementar asignación de fechas, literal fecha.
+- Implementar distintos operadores con datos dipos fechas (>, >=, <, <=, !=). Ver primero cómo son los operadores de fechas de .net.
+
+- Implementar llamadas a funciones de librería en las expresiones. (Que puedan ser llamads con número variable de parámetros).
+- Permitir llamada a métodos de variables de tipo objeto.
 
 - Implementar un Read genérico (Read stringLiteral:variable, stringLiteral:variable, .... ;)
 - Implementar mecanismo para llamar a métodos de obetos. 
@@ -70,3 +73,4 @@ X- Implementar break dentro de los bucles
 X- Implementar asignaciones objeto.propiedad = expresion
 X- Definir clases de varios tipos (en función de una cadena en la definición).
 X- Resolver problema de conversión de float a int/decimal
+X- Implementar asignación de fechas, literal fecha.

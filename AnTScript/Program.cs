@@ -16,14 +16,19 @@ namespace AnTScript
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);                      
 
+            string strFich = ""; 
             // Debug
             //if (args.Length != 1)
             //{
             //    Console.WriteLine("Usage: gfn.exe program.gfn");
             //    return;
             //}
-
-            string strFich = args[0];
+            
+            // test.ats
+            
+            if(args.Length > 0 )
+                strFich = args[0];
+            
            
             if (string.IsNullOrEmpty(strFich))
                 strFich = Application.StartupPath + @"\test.ats";

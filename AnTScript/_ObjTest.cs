@@ -10,12 +10,14 @@ namespace AnTScript
         public decimal IdNota { get; set; }
         public string Asunto { get; set; }
         public string Nota { get; set; }
+        public DateTime FechaCreacion { get; set; }
 
         public _Node()
         {
             IdNota = 1;
             Asunto = string.Empty;
             Nota = string.Empty;
+            FechaCreacion = DateTime.Now;
         }
 
         public override string ToString()
