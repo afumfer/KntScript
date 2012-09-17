@@ -142,6 +142,8 @@ namespace AnTScript
                 // example: 
                 // if a == 10 then 
                 //   print "hello";
+                // else
+                //   print "bye";
                 // end if;
 
                 IfStmt ifStmt = (IfStmt)stmt;
@@ -318,7 +320,55 @@ namespace AnTScript
                                 "The operator '{0}' is not supported  in this expression ", be.Op));
                     }
                 }
-                else 
+
+                else if (left.GetType() == typeof(DateTime) && right.GetType() == typeof(DateTime))
+                {                    
+                    switch (be.Op)
+                    {
+                        case BinOp.Equal:
+                            if ((DateTime)left == (DateTime)right)
+                                res = 1.0f;
+                            else
+                                res = 0.0f;
+                            break;
+                        case BinOp.NotEqual:
+                            if ((DateTime)left == (DateTime)right)
+                                res = 0.0f;
+                            else
+                                res = 1.0f;
+                            break;
+                        case BinOp.LessThan:
+                            if ((DateTime)left < (DateTime)right)
+                                res = 1.0f;
+                            else
+                                res = 0.0f;
+                            break;
+                        case BinOp.LessThanOrEqual:
+                            if ((DateTime)left <= (DateTime)right)
+                                res = 1.0f;
+                            else
+                                res = 0.0f;
+                            break;
+                        case BinOp.GreaterThan:
+                            if ((DateTime)left > (DateTime)right)
+                                res = 1.0f;
+                            else
+                                res = 0.0f;
+                            break;
+                        case BinOp.GreaterThanOrEqual:
+                            if ((DateTime)left >= (DateTime)right)
+                                res = 1.0f;
+                            else
+                                res = 0.0f;
+                            break;
+
+                        default:
+                            throw new ApplicationException(string.Format(
+                                "The operator '{0}' is not supported in this expression ", be.Op));
+                    }                
+                }
+
+                else
                 {
                     // TODO: Implementar más operadores aquí con tipos de datos distintos
                     //       a float (string)
@@ -340,7 +390,7 @@ namespace AnTScript
                                 res = 1.0f;
                             break;
                         case BinOp.LessThan:
-                            if (string.Compare(left.ToString(),right.ToString())<0)
+                            if (string.Compare(left.ToString(), right.ToString()) < 0)
                                 res = 1.0f;
                             else
                                 res = 0.0f;
@@ -363,11 +413,10 @@ namespace AnTScript
                             else
                                 res = 0.0f;
                             break;
-
                         default:
                             throw new ApplicationException(string.Format(
                                 "The operator '{0}' is not supported in this expression ", be.Op));
-                    }                
+                    }
                 } 
                 
                 return res;
