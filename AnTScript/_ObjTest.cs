@@ -45,4 +45,18 @@ namespace AnTScript
         }
     }
 
+    public static class Library
+    {
+        public static float DemoSumNum(float x, float y)
+        {
+            return x + y;
+        }
+
+        public static void Dummy(string a)
+        {
+            return;
+        }
+
+    }
+
 }
