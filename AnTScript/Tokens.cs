@@ -30,9 +30,9 @@ namespace AnTScript
         public static readonly SymbolToken Semi = new SymbolToken("SEMI");
         public static readonly SymbolToken Assignment = new SymbolToken("ASSIGNMENT");
 
-        public static readonly SymbolToken LeftParentesis = new SymbolToken("LEFTPARENTESIS");
-        public static readonly SymbolToken RightParentesis = new SymbolToken("RIGHTPARENTESIS");
-
+        public static readonly SymbolToken LeftBracket = new SymbolToken("LEFTBRACKET");
+        public static readonly SymbolToken RightBracket = new SymbolToken("RIGHBRACKET");
+                 
         public static readonly SymbolToken Comma = new SymbolToken("COMMA");
         //public static readonly SymbolToken Dot = new SymbolToken("DOT");
         //public static readonly SymbolToken Colon = new SymbolToken("COLON");

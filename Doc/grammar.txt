@@ -4,7 +4,8 @@
 	| read_int <ident>
 	| print <expr>
 	| <stmt> ; <stmt>
-
+    | <func_call>
+ 
 <expr> := <string>
 	| <int>
 	| <arith_expr>
@@ -15,6 +16,8 @@
 
 <ident> := <char> <ident_rest>*
 <ident_rest> := <char> | <digit>
+
+<func_call> := <ident> (<args>)
 
 <int> := <digit>+
 <digit> := 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9

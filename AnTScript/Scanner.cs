@@ -339,12 +339,12 @@ namespace AnTScript
 
                 case '(':
                     input.Read();
-                    token = Tokens.LeftParentesis;
+                    token = Tokens.LeftBracket;
                     break;
 
                 case ')':
                     input.Read();
-                    token = Tokens.RightParentesis;
+                    token = Tokens.RightBracket;
                     break;
 
                 case '{':

@@ -227,29 +227,56 @@ namespace AnTScript
                 BreakStmt breakStmt = new BreakStmt();
                 MoveNext();
 
-                breakStmt.Tag = "XX";
+                breakStmt.Tag = "_Break_";  // for debug
 
                 result = breakStmt;
             }
 
-            // assignment
+            // TODO: Limpiar versión antigua, aquí ahora se debe procesar
+            //       la asignación o la llamada a función;
+            //// assignment 
+            //else if (tokens[index] is IdentifierToken)
+            //{
+            //    Assign assign = new Assign();
+            //    assign.Ident = ((IdentifierToken)tokens[index]).Name;
+
+            //    MoveNext();
+
+            //    if (index == tokens.Count ||
+            //        tokens[index] != Tokens.Assignment)
+            //    {
+            //        throw new System.Exception("expected '='");
+            //    }
+
+            //    MoveNext();
+
+            //    assign.Expr = ParseExpr();
+            //    result = assign;
+            //}
+
+            // assignment or funcionStmt
             else if (tokens[index] is IdentifierToken)
             {
-                Assign assign = new Assign();
-                assign.Ident = ((IdentifierToken)tokens[index]).Name;
+                string ident = ((IdentifierToken)tokens[index]).Name;
 
                 MoveNext();
 
-                if (index == tokens.Count ||
-                    tokens[index] != Tokens.Assignment)
+                if(MaybeEat(Tokens.Assignment))
                 {
-                    throw new System.Exception("expected '='");
+                    Assign assign = new Assign();
+                    assign.Ident = ident;
+                    assign.Expr = ParseExpr();
+                    result = assign;
                 }
+                else if(MaybeEat(Tokens.LeftBracket))
+                {
+                    FunctionStmt functionStmt = new FunctionStmt();                    
+                    functionStmt.Function = ParseFunction(ident);
+                    result = functionStmt;
+                }
+                else
+                    throw new System.Exception("expected assing or function call");
 
-                MoveNext();
-
-                assign.Expr = ParseExpr();
-                result = assign;
             }
 
             else
@@ -342,20 +369,41 @@ namespace AnTScript
                 MoveNext();
                 return objLiteral;
             }
-
             else if (this.tokens[this.index] is IdentifierToken)
-            {                
-                Variable var = new Variable();
-                var.Ident = ((IdentifierToken)this.tokens[this.index]).Name;
+            {            
+                // TODO: versión antigua, cuando los identificadores eran variables,
+                //       ahora pueden ser también llamadas a funciones.
+                //Variable var = new Variable();
+                //var.Ident = ((IdentifierToken)tokens[index]).Name;
+                //MoveNext();
+                //return var;
+
+                string ident = ((IdentifierToken)tokens[index]).Name;
+                
                 MoveNext();
-                return var;
+
+                // function expr
+                if (MaybeEat(Tokens.LeftBracket))
+                {                                                          
+                    FunctionExpr fun = new FunctionExpr();
+                    fun = ParseFunction(ident);
+                    return fun;
+                }
+                // variable
+                else
+                {
+                    Variable var = new Variable();
+                    var.Ident = ident;                    
+                    return var;                
+                }
+
             }
-            else if (this.tokens[this.index] == Tokens.LeftParentesis)
+            else if (this.tokens[this.index] == Tokens.LeftBracket)
             {
                 // Eat LeftParenthesis             
                 MoveNext();
                 Expr result = ParseExpr();
-                Eat(Tokens.RightParentesis);
+                Eat(Tokens.RightBracket);
                 return result;
             }
             else if (IsUnaryOperator(this.tokens[index]))
@@ -388,6 +436,35 @@ namespace AnTScript
                 throw new System.Exception("expected string literal, int literal, or variable");
             }
         }
+
+        private FunctionExpr ParseFunction(string name) 
+        {             
+            FunctionExpr func = new FunctionExpr(); 
+
+            func.FunctionName = name; 
+
+            while ((tokens[index] != Tokens.RightBracket) 
+                && (index < tokens.Count)) 
+            { 
+                func.Args.Add(ParseExpr());
+                if (tokens[index] == Tokens.Comma) 
+                     MoveNext(); // Skip comma 
+                else if (tokens[index] == Tokens.RightBracket) 
+                    break; 
+                else 
+                    throw new System.Exception("unexpected character in arg list"); 
+            } 
+
+            if (index == tokens.Count ||
+                tokens[index] != Tokens.RightBracket) 
+            { 
+                throw new System.Exception("expect close bracket after open bracket/args"); 
+            } 
+            
+            MoveNext();   // Skip RightBracket 
+
+            return func; 
+        } 
 
         #endregion
 

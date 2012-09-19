@@ -11,6 +11,8 @@ namespace AnTScript
         | read_int <ident>
         | print <expr>
         | <stmt> ; <stmt>
+        | <func_call>        
+
       */
 
     public abstract class Stmt
@@ -37,7 +39,7 @@ namespace AnTScript
         public Expr Expr;
     }
 
-    // for <ident> = <expr> to <expr> do <stmt> end
+    // for <ident> = <expr> to <expr> do <stmt> end for
     public class ForLoop : Stmt
     {        
         public string Ident;     
@@ -46,8 +48,8 @@ namespace AnTScript
         public Stmt Body;
     }
 
-    // if <expr> then <stmt> end |
-    // if <expr> then <stmt> else <stmt> end
+    // if <expr> then <stmt> end if |
+    // if <expr> then <stmt> else <stmt> end if 
     public class IfStmt : Stmt
     {        
         public Expr TestExpr;        
@@ -56,7 +58,7 @@ namespace AnTScript
         public bool DoElse;
     }
 
-    // while <expr> <stmt> end
+    // while <expr> <stmt> end while
     public class WhileStmt : Stmt
     {
         public Expr TestExpr;
@@ -69,8 +71,13 @@ namespace AnTScript
         public string Tag;        
     }
 
+    // <FunctionStmt(<arg>)
+    public class FunctionStmt : Stmt
+    {
+        public FunctionExpr Function;
+    }
 
-    // read_int <ident>
+    // read_num <ident>
     public class ReadNum : Stmt
     {
         public string Ident;        
@@ -82,6 +89,7 @@ namespace AnTScript
         public Stmt First;
         public Stmt Second;
     }
+
 
     /* <expr> := <string>
      *  | <num>
@@ -127,6 +135,19 @@ namespace AnTScript
     {        
         public string Ident;     
     }
+
+    // <func_call> := <ident> (<args>)
+    public class FunctionExpr : Expr
+    {
+        public string FunctionName;
+        public List<Expr> Args;
+
+        public FunctionExpr()
+        {
+            Args = new List<Expr>();
+        }
+    }
+
 
     // <bin_expr> := <expr> <bin_op> <expr>
     public class BinExpr : Expr

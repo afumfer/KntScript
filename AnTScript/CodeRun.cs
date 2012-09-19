@@ -81,6 +81,12 @@ namespace AnTScript
                 CodePrint(print);
             }
 
+            else if (stmt is FunctionStmt)
+            {
+                FunctionStmt fun = (FunctionStmt)stmt;
+                CodeExecuteFunction(fun.Function);
+            }
+
             else if (stmt is ReadNum)
             {
                 ReadNum read = (ReadNum)stmt;
@@ -226,8 +232,14 @@ namespace AnTScript
 
             else if (expr is Variable)
             {                
-                deliveredType = this.TypeOfExpr((Variable)expr);
+                deliveredType = TypeOfExpr((Variable)expr);
                 return CodeReadSymbol((Variable)expr);
+            }
+
+            else if (expr is FunctionExpr)
+            {
+                deliveredType = TypeOfExpr((FunctionExpr)expr);
+                return CodeExecuteFunction((FunctionExpr)expr);
             }
 
             else if (expr is BinExpr)
@@ -550,6 +562,31 @@ namespace AnTScript
 
         }
 
+        private object CodeExecuteFunction(FunctionExpr function)
+        {
+            // TODO: Ejecutar por reflexión la función invocada, devolver el valor de retorno
+            //       o falso 0.0.
+
+            // TODO: Código dummy
+            textOut.AppendText("\r\n");
+            textOut.AppendText("----");
+            textOut.AppendText("\r\n");
+            textOut.AppendText("Llamada a la función: " + function.FunctionName);
+            textOut.AppendText("\r\n");
+            textOut.AppendText("Parámetros: ");
+            textOut.AppendText("\r\n");
+            foreach(Expr o in function.Args)
+            {                
+                textOut.AppendText("  " + GenExpr(o).ToString());
+                textOut.AppendText("\r\n");
+            }
+            textOut.AppendText("----");
+            textOut.AppendText("\r\n");
+
+            // TODO: por ahora retorna esto siempre, el valor va depender de la función
+            return 0f;
+        }
+
         private void CodePrint(Print print)
         {
             string s = GenExpr(print.Expr).ToString();
@@ -605,6 +642,12 @@ namespace AnTScript
                 {
                     throw new System.Exception("undeclared variable '" + var.Ident + "'");
                 }
+            }
+            else if (expr is FunctionExpr)
+            {
+                // TODO: averiguar el valor de retorno de la 
+                //       función que viene en expr y devolver ese tipo                
+                return typeof(object);
             }
             else if (expr is BinExpr)
             {

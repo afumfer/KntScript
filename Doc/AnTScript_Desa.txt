@@ -1,8 +1,9 @@
 ============================
 >>>> Versión 0.0.x.x
 
-- Implementar llamadas a funciones de librería en las expresiones. (Que puedan ser llamads con número variable de parámetros).
-/ Permitir llamada a métodos de objetos.
+- Implementar llamadas a funciones (en sentencias y expresiones): CodeGen (código real)
+
+- Estudiar error, los identificadores pueden contener dígitos.
 
 - Implementar un Read genérico (Read stringLiteral:variable, stringLiteral:variable, .... ;)
 
@@ -72,3 +73,5 @@ X- Definir clases de varios tipos (en función de una cadena en la definición).
 X- Resolver problema de conversión de float a int/decimal
 X- Implementar asignación de fechas, literal fecha.
 X- Implementar distintos operadores con datos dipos fechas (>, >=, <, <=, !=, ==). 
+X- Implementar llamadas a funciones (en sentencias y expresiones): scanner y parser.
+X- Implementar llamadas a funciones (en sentencias y expresiones): CodeGen (maqueta)
