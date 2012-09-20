@@ -27,6 +27,44 @@ namespace AnTScript
                 
         #endregion
 
+        #region Properties
+
+        private object _defaultFunctionLibrary;
+        public object DefaultFunctionLibrary
+        {
+            get 
+            {
+                if (_defaultFunctionLibraryType == null || _defaultFunctionLibrary == null)
+                {
+                    _defaultFunctionLibraryType = Type.GetType("AnTScript.Library", false, true);
+                    _defaultFunctionLibrary = Activator.CreateInstance(_defaultFunctionLibraryType);
+                }
+                return _defaultFunctionLibrary;
+            }
+            set
+            {
+                _defaultFunctionLibrary = value;
+                _defaultFunctionLibraryType = _defaultFunctionLibrary.GetType();
+            }
+
+        }
+
+        private Type _defaultFunctionLibraryType;
+        public Type DefaultFunctionLibraryType
+        {
+            get
+            {
+                if (_defaultFunctionLibraryType == null || _defaultFunctionLibrary == null)
+                {
+                    _defaultFunctionLibraryType = Type.GetType("AnTScript.Library", false, true);
+                    _defaultFunctionLibrary = Activator.CreateInstance(_defaultFunctionLibraryType);
+                }
+                return _defaultFunctionLibraryType;
+            }
+        }
+
+        #endregion
+
         #region Constructor
 
         public CodeRun(Stmt stmt, TextBox textOut)
@@ -244,6 +282,8 @@ namespace AnTScript
 
             else if (expr is BinExpr)
             {
+                // TODO: Refactorizar este código
+                //       estructurarlo en métodos CodeXxxxXXXX() domo el resto de expresiones.
                 BinExpr be = (BinExpr)expr;
 
                 object left = GenExpr(be.Left);
@@ -564,27 +604,57 @@ namespace AnTScript
 
         private object CodeExecuteFunction(FunctionExpr function)
         {
-            // TODO: Ejecutar por reflexión la función invocada, devolver el valor de retorno
-            //       o falso 0.0.
+            try
+            {
+                Type t;
+                object obj;
+                string funName;
 
-            // TODO: Código dummy
-            textOut.AppendText("\r\n");
-            textOut.AppendText("----");
-            textOut.AppendText("\r\n");
-            textOut.AppendText("Llamada a la función: " + function.FunctionName);
-            textOut.AppendText("\r\n");
-            textOut.AppendText("Parámetros: ");
-            textOut.AppendText("\r\n");
-            foreach(Expr o in function.Args)
-            {                
-                textOut.AppendText("  " + GenExpr(o).ToString());
-                textOut.AppendText("\r\n");
+                // TODO: arreglar esto (Ident Object tiene que servier para capturar métodos también)
+                IdentObject id = new IdentObject(function.FunctionName);
+               
+                // lo que viene es sólo el nombre del método
+                if (string.IsNullOrEmpty(id.Prop))
+                {
+                    t = DefaultFunctionLibraryType;
+                    obj = DefaultFunctionLibrary;                    
+                    funName = id.Obj;
+                }
+                else
+                {
+                    t = symbolTable[id.Obj].GetType();
+                    obj = symbolTable[id.Obj];
+                    funName = id.Prop;
+                }
+
+                MethodInfo mi = t.GetMethod(funName);
+                
+                // Params
+                object[] param;
+                if (function.Args.Count > 0)
+                {
+                    param = new object[function.Args.Count];
+                    for (int i = 0; i < function.Args.Count; i++)
+                    {
+                        param[i] = GenExpr(function.Args[i]);
+                    }
+                }
+                else
+                    param = null;
+                                
+                object ret;
+                ret = mi.Invoke(obj, param);
+                if (ret != null)
+                    return ret;
+                else
+                    return 1;
+
             }
-            textOut.AppendText("----");
-            textOut.AppendText("\r\n");
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
-            // TODO: por ahora retorna esto siempre, el valor va depender de la función
-            return 0f;
         }
 
         private void CodePrint(Print print)

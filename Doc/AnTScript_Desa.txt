@@ -1,15 +1,19 @@
 ============================
 >>>> Versión 0.0.x.x
 
-- Implementar llamadas a funciones (en sentencias y expresiones): CodeGen (código real)
 
+- Susituir el mecanismo de definición de variables tipo objeto ($xxx$ por "new Objeto(parámetros constructor))
+
+- Estructurar código de CodeGen, sección de resolución de expresiones binarias y unarias. 
 - Estudiar error, los identificadores pueden contener dígitos.
 
 - Implementar un Read genérico (Read stringLiteral:variable, stringLiteral:variable, .... ;)
-
 - Volcar salida en un Html control.
 - Deputar tokens (quitar {, }, do, ... ) 
-- Depurar ParserTree
+- Depurar o limpiar ParserTree
+- Generalizar la definición del ensamblado que contiene la librería de funciones por defecto. Emplear inyección de código para definir esa librería. Por defecto puede existir una. 
+- Limpiar los TODO's
+
 
 
 ============================
@@ -75,3 +79,4 @@ X- Implementar asignación de fechas, literal fecha.
 X- Implementar distintos operadores con datos dipos fechas (>, >=, <, <=, !=, ==). 
 X- Implementar llamadas a funciones (en sentencias y expresiones): scanner y parser.
 X- Implementar llamadas a funciones (en sentencias y expresiones): CodeGen (maqueta)
+X- Implementar llamadas a funciones (en sentencias y expresiones): CodeGen (código real)

@@ -80,82 +80,64 @@ namespace AnTScript
         {
             try
             {
+                //Form a = new System.Windows.Forms.Form();
+                //a.Show();
 
-                DateTime d1 = new DateTime(2012,01,01);
-                DateTime d3 = new DateTime(2012, 01, 01);
-                DateTime d2 = DateTime.Now.AddDays(1);
-
-                // d1 = d1 + TimeSpan.FromHours(2); ;
-
+                Type t = Type.GetType("System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", false, true);
+                object obj = Activator.CreateInstance(t);
 
 
-                if (d1 == d3)
-                    MessageBox.Show("True");
-                else
-                    MessageBox.Show("False");
-
+                ////=======================================================
+                //// --- Pruebas invocación a un método por reflexión
+                //Type t = Type.GetType("AnTScript._Node", false, true);
+                //object obj = Activator.CreateInstance(t);
+                //MethodInfo mi = t.GetMethod("PruebaMetodoB");
+                //// Invoke method ('null' for no parameters)
+                //object[] param = new object[1];
+                //param[0] = "bla bla bla ";
+                //object ret;
+                //ret = mi.Invoke(obj, param);
+                //if (ret != null)
+                //    MessageBox.Show(ret.ToString());
+                //// ---
+                ////=======================================================
 
                 return;
 
                 #region Pruebas - Basura
 
-                //DateTime x;
-                //x.Ma
-
-                //decimal c;
-                //object f = 1.1f;
-
-                //c = (decimal)(float)f;
-
-                //return;
-
-                //string CadenaObjeto = "AnTScript._Node";
-                
-                //var obj = AppDomain.CurrentDomain.CreateInstance("AnTScript", CadenaObjeto);
-                //string basura = obj.GetType().ToString();     
-                //obj.
-
-                //MessageBox.Show(basura);
-
+                ////=======================================================
+                //// --- Pruebas manipulación propiedades por reflexión
+                //string CadenaObjeto = "AnTScript._Node";                
+                //var obj = AppDomain.CurrentDomain.CreateInstance("AnTScript", CadenaObjeto);                
                 //PropertyInfo pi = t.GetProperty("IdNota");
                 //int x1 = 1;
                 //pi.SetValue(obj, x1, null);
-
                 //MessageBox.Show(string.Format("Set Value > {0} !", obj.ToString()));
 
 
                 //// Get metadata for the Minivan type.                
                 //Type t = Type.GetType("AnTScript._Node", false, true);
-                ////Type t = typeof(_Node);                
-                
+                ////Type t = typeof(_Node);                                
                 //object obj = Activator.CreateInstance(t);
-
-                ////((_Node)obj).Asunto = "bla bla ";
-
-                ////MethodInfo mi = miniVan.GetMethod("TurboBoost");
-                ////// Invoke method ('null' for no parameters).
-                ////mi.Invoke(obj, null);
-
                 //PropertyInfo pi = t.GetProperty("IdNota");
-
                 //int x1 = 1;
-
                 //pi.SetValue(obj, x1, null);
-
                 //MessageBox.Show(string.Format("Set Value > {0} !", obj.ToString()));
 
                 ////object x;
-
                 ////x = pi.GetValue(obj, null);
 
                 ////MessageBox.Show(string.Format("Get Value {0} !", x.ToString()));
+                ////=======================================================
 
                 #endregion
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+
+                MessageBox.Show(ex.Message);
             }
         }
     }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using System.Windows.Forms;
+
 namespace AnTScript
 {
     public class _Node
@@ -24,6 +26,20 @@ namespace AnTScript
         {
             return IdNota.ToString() + " : " + Asunto.ToString() + " : " + Nota.ToString() ;            
         }
+
+        public float PruebaMetodoA(string parametro)
+        {
+            MessageBox.Show("Cadena de parámetro = " + parametro);
+            return 9;
+        }
+
+        public void PruebaMetodoB(object parametro)
+        {
+            Form a = new Form();
+            a.Show();
+        }
+
+
     }
 
     public class _Folder
@@ -45,14 +61,14 @@ namespace AnTScript
         }
     }
 
-    public static class Library
+    public class Library
     {
-        public static float DemoSumNum(float x, float y)
+        public float DemoSumNum(float x, float y)
         {
             return x + y;
         }
 
-        public static void Dummy(string a)
+        public void Dummy(string a)
         {
             return;
         }
