@@ -262,11 +262,12 @@ namespace AnTScript
                 return ((DateTimeLiteral)expr).Value;
             }
 
-            else if (expr is ObjectLiteral)
-            {
-                deliveredType = typeof(ObjectLiteral);                
-                return ((ObjectLiteral)expr).Value;
-            }
+            // TODO: Basura ahora los objetos se crear con new xxxx
+            //else if (expr is ObjectLiteral)
+            //{
+            //    deliveredType = typeof(ObjectLiteral);                
+            //    return ((ObjectLiteral)expr).Value;
+            //}
 
             else if (expr is Variable)
             {                
@@ -278,6 +279,12 @@ namespace AnTScript
             {
                 deliveredType = TypeOfExpr((FunctionExpr)expr);
                 return CodeExecuteFunction((FunctionExpr)expr);
+            }
+
+            else if (expr is NewObjectExpr)
+            {
+                deliveredType = TypeOfExpr((NewObjectExpr)expr);
+                return CodeExecuteNewObject((NewObjectExpr)expr);
             }
 
             else if (expr is BinExpr)
@@ -551,6 +558,7 @@ namespace AnTScript
                 {
                     try
                     {
+                        // TODO: esta variable podría ser un campo dentro de esta clase
                         object obj;
                         
                         Type t = symbolTable[id.Obj].GetType();
@@ -588,9 +596,23 @@ namespace AnTScript
                 {
                     try
                     {
+                        // TODO: esta variable podría ser un campo dentro de esta clase
+                        object obj;
                         Type t = symbolTable[id.Obj].GetType();
                         PropertyInfo pi = t.GetProperty(id.Prop);                        
-                        return pi.GetValue(symbolTable[id.Obj], null);
+                        obj = pi.GetValue(symbolTable[id.Obj], null);
+
+                        // TODO: Provisional, para el casting a enteros o a decimal hasta que se soporte
+                        //       los tipos int, decimal, ... (ahora las expresiones sólo devuelven tipos float cuando 
+                        //       el resultado es numérico
+                        if (obj.GetType() == typeof(int))
+                            obj = (float)obj;
+                        else if (obj.GetType() == typeof(decimal))                                                
+                            obj = (float)Math.Ceiling((decimal)obj);
+                        else if (obj.GetType() == typeof(double))
+                            obj = (float)Math.Ceiling((double)obj);
+                        
+                        return obj;
                     }
                     catch (Exception ex)
                     {
@@ -657,6 +679,37 @@ namespace AnTScript
 
         }
 
+        private object CodeExecuteNewObject(NewObjectExpr newObject)
+        {
+            try
+            {
+                Type t;
+                                                
+                t = Type.GetType(newObject.ClassName, false, true);
+            
+                // Params
+                object[] param;
+                if (newObject.Args.Count > 0)
+                {
+                    param = new object[newObject.Args.Count];
+                    for (int i = 0; i < newObject.Args.Count; i++)
+                    {
+                        param[i] = GenExpr(newObject.Args[i]);
+                    }
+                }
+                else
+                    param = null;
+
+                return Activator.CreateInstance(t, param);   
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
         private void CodePrint(Print print)
         {
             string s = GenExpr(print.Expr).ToString();
@@ -695,11 +748,12 @@ namespace AnTScript
             {
                 return typeof(DateTime);
             }
-            else if (expr is ObjectLiteral)
-            {
-                // TODO: Devolver e tipo exacto que está dentro de ObjectLiteral
-                return typeof(object);
-            }
+            // TODO: Basura ahora los objetos se crear con new xxxx
+            //else if (expr is ObjectLiteral)
+            //{
+            //    // TODO: Devolver e tipo exacto que está dentro de ObjectLiteral
+            //    return typeof(object);
+            //}
             else if (expr is Variable)
             {
                 Variable var = (Variable)expr;
@@ -717,6 +771,12 @@ namespace AnTScript
             {
                 // TODO: averiguar el valor de retorno de la 
                 //       función que viene en expr y devolver ese tipo                
+                return typeof(object);
+            }
+            else if (expr is NewObjectExpr)
+            {
+                // TODO: averiguar el valor de retorno de la 
+                //       objeto que viene en expr y devolver ese tipo                
                 return typeof(object);
             }
             else if (expr is BinExpr)

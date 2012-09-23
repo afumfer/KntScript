@@ -123,11 +123,12 @@ namespace AnTScript
         public DateTime Value;
     }
 
-    public class ObjectLiteral : Expr
-    {        
-        public object Value;        
-        public string ClassName;
-    }
+    // TODO: Basura, ahora los objetos se crear con new xxxx
+    //public class ObjectLiteral : Expr
+    //{        
+    //    public object Value;        
+    //    public string ClassName;
+    //}
 
     // <ident> := <char> <ident_rest>*
     // <ident_rest> := <char> | <digit>
@@ -148,6 +149,17 @@ namespace AnTScript
         }
     }
 
+    // <new_object> := new <ident> (<args>)
+    public class NewObjectExpr : Expr
+    {
+        public string ClassName;
+        public List<Expr> Args;
+
+        public NewObjectExpr()
+        {
+            Args = new List<Expr>();
+        }
+    }
 
     // <bin_expr> := <expr> <bin_op> <expr>
     public class BinExpr : Expr

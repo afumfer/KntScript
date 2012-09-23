@@ -9,7 +9,7 @@ namespace AnTScript
 {
     public class _Node
     {
-        public decimal IdNota { get; set; }
+        public float IdNota { get; set; }
         public string Asunto { get; set; }
         public string Nota { get; set; }
         public DateTime FechaCreacion { get; set; }
@@ -21,6 +21,15 @@ namespace AnTScript
             Nota = string.Empty;
             FechaCreacion = DateTime.Now;
         }
+
+        public _Node(float id)
+        {
+            IdNota = id;
+            Asunto = string.Empty;
+            Nota = "Versión sobrecargada";
+            FechaCreacion = DateTime.Now;
+        }
+
 
         public override string ToString()
         {
@@ -38,7 +47,6 @@ namespace AnTScript
             Form a = new Form();
             a.Show();
         }
-
 
     }
 

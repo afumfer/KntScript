@@ -1,37 +1,32 @@
 ============================
 >>>> Versión 0.0.x.x
 
-
-- Susituir el mecanismo de definición de variables tipo objeto ($xxx$ por "new Objeto(parámetros constructor))
-
 - Estructurar código de CodeGen, sección de resolución de expresiones binarias y unarias. 
-- Estudiar error, los identificadores pueden contener dígitos.
+- En Scanner, rectificar el análisis de los identificadores para que puedan contener dígitos en medio o al final.
 
 - Implementar un Read genérico (Read stringLiteral:variable, stringLiteral:variable, .... ;)
 - Volcar salida en un Html control.
-- Deputar tokens (quitar {, }, do, ... ) 
+- Deputar tokens (quitar do, ... ) 
 - Depurar o limpiar ParserTree
 - Generalizar la definición del ensamblado que contiene la librería de funciones por defecto. Emplear inyección de código para definir esa librería. Por defecto puede existir una. 
 - Limpiar los TODO's
-
 
 
 ============================
 >>>> Versión 0.1.x.x
 - Empotrar el código en ANotas
 - Incluir tipos de datos de ANotas (Nota, Carpeta)
-- Mecanismos para trabajar con pseudo-colecciones de Notas y coleeciones de Carpetas. 
+- Mecanismos para trabajar con colecciones de Notas y coleeciones de Carpetas (arrays, foreach ...)
 - Incluir los comandos principales de ANotas 
-- Cambiar el tipo base de las variables numéricas a "decimal" de .net (en lugar de float)
+- Cambiar el tipo base interno de AntScript de las variables numéricas a "decimal" de .net ??? (en lugar de float)
 
 ============================
 >>>> Versión 0.2.x.x
-- Refactorizar código empleando patrónes para la ampliación del lenguaje. 
-- Estudiar posibles patrones para ampliar facilmente el lenguaje
+- Refactorizar código empleando patrónes para la ampliación del lenguaje. Estudiar posibles patrones para ampliar facilmente el lenguaje
 - Implementar comprobación de tipos
-- Implementar el soporte de objetos enumeradores (listas, vectores).
-- Implementar definición y llamadas funciones
+- Implementar definición de funciones.
 - Implementar tipo locales
+
 
 ////////////////////////////
 ////////////////////////////
@@ -80,3 +75,4 @@ X- Implementar distintos operadores con datos dipos fechas (>, >=, <, <=, !=, ==
 X- Implementar llamadas a funciones (en sentencias y expresiones): scanner y parser.
 X- Implementar llamadas a funciones (en sentencias y expresiones): CodeGen (maqueta)
 X- Implementar llamadas a funciones (en sentencias y expresiones): CodeGen (código real)
+X- Susituir el mecanismo de definición de variables tipo objeto ($xxx$ por "new Objeto(parámetros constructor))

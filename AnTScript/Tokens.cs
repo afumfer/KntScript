@@ -35,11 +35,11 @@ namespace AnTScript
                  
         public static readonly SymbolToken Comma = new SymbolToken("COMMA");
         //public static readonly SymbolToken Dot = new SymbolToken("DOT");
-        //public static readonly SymbolToken Colon = new SymbolToken("COLON");
+        public static readonly SymbolToken Colon = new SymbolToken("COLON");
+        public static readonly SymbolToken LeftCurlyBracket = new SymbolToken("LEFTCURLYBRACKET");
+        public static readonly SymbolToken RightCurlyBracket = new SymbolToken("RIGHTCURLYBRACKET");
 
-        public static readonly SymbolToken BeginBlock = new SymbolToken("BEGINBLOCK");
-        public static readonly SymbolToken EndBlock = new SymbolToken("ENDBLOCK");
-
+        public static readonly KeywordToken EndSequence = new KeywordToken("ENDSEQUENCE");
         public static readonly KeywordToken Print = new KeywordToken("PRINT");
         public static readonly KeywordToken Var = new KeywordToken("VAR");
         public static readonly KeywordToken Read_num = new KeywordToken("READ_NUM");
@@ -50,6 +50,7 @@ namespace AnTScript
         public static readonly KeywordToken Else = new KeywordToken("ELSE");
         public static readonly KeywordToken While = new KeywordToken("WHILE");
         public static readonly KeywordToken Break = new KeywordToken("BREAK");
+        public static readonly KeywordToken New = new KeywordToken("NEW");
     }
 
     public class OperatorToken : Token
@@ -99,7 +100,7 @@ namespace AnTScript
     public class NumberToken : Token
     {
         private float _value;
-
+        
         public NumberToken(string value)
             : base(value)
         {
@@ -139,24 +140,27 @@ namespace AnTScript
         }
     }
 
-    // @ObjectX@
-    public class ObjectToken : Token
-    {
-        private object _value;
 
-        public ObjectToken(string value)
-            : base(value)
-        {            
-            string idObj = value;
-            Type t = Type.GetType(idObj, false, true);            
-            _value = Activator.CreateInstance(t);   
-        }
 
-        public object Value
-        {
-            get { return _value; }
-        }
-    }
+    // TODO: Basura, ahora los objetos se crear con new Xxxx
+    //// @ObjectX@
+    //public class ObjectToken : Token
+    //{
+    //    private object _value;
+
+    //    public ObjectToken(string value)
+    //        : base(value)
+    //    {            
+    //        string idObj = value;
+    //        Type t = Type.GetType(idObj, false, true);            
+    //        _value = Activator.CreateInstance(t);   
+    //    }
+
+    //    public object Value
+    //    {
+    //        get { return _value; }
+    //    }
+    //}
 
     public class SymbolToken : Token
     {

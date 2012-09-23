@@ -156,7 +156,7 @@ namespace AnTScript
                 result = forLoop;
 
                 if (index == tokens.Count ||
-                    tokens[index] != Tokens.EndBlock)
+                    tokens[index] != Tokens.EndSequence)
                 {
                     throw new System.Exception("unterminated 'end for' loop body");
                 }
@@ -191,7 +191,7 @@ namespace AnTScript
                 result = ifStmt;
 
                 if (index == tokens.Count ||
-                    tokens[index] != Tokens.EndBlock)
+                    tokens[index] != Tokens.EndSequence)
                 {
                     throw new System.Exception("unterminated 'end if' body");
                 }
@@ -212,7 +212,7 @@ namespace AnTScript
                 result = whileStmt;
 
                 if (index == tokens.Count ||
-                    tokens[index] != Tokens.EndBlock)
+                    tokens[index] != Tokens.EndSequence)
                 {
                     throw new System.Exception("unterminated 'end while' body");
                 }
@@ -288,9 +288,7 @@ namespace AnTScript
             {
                 MoveNext();
 
-                //if (index < tokens.Count &&
-                //    tokens[index] != Tokens.EndBlock)
-                if ((index < tokens.Count && tokens[index] != Tokens.EndBlock)
+                if ((index < tokens.Count && tokens[index] != Tokens.EndSequence)
                     && tokens[index] != Tokens.Else)
                 {
                     Sequence sequence = new Sequence();
@@ -361,14 +359,15 @@ namespace AnTScript
                 MoveNext();
                 return datLiteral;
             }
-            else if (this.tokens[this.index] is ObjectToken)
-            {
-                ObjectLiteral objLiteral = new ObjectLiteral();
-                objLiteral.Value = ((ObjectToken)this.tokens[this.index]).Value;
-                objLiteral.ClassName = ((ObjectToken)this.tokens[this.index]).Name;
-                MoveNext();
-                return objLiteral;
-            }
+            // TODO: Basura ahora los objetos se crear con new xxxx
+            //else if (this.tokens[this.index] is ObjectToken)
+            //{
+            //    ObjectLiteral objLiteral = new ObjectLiteral();
+            //    objLiteral.Value = ((ObjectToken)this.tokens[this.index]).Value;
+            //    objLiteral.ClassName = ((ObjectToken)this.tokens[this.index]).Name;
+            //    MoveNext();
+            //    return objLiteral;
+            //}
             else if (this.tokens[this.index] is IdentifierToken)
             {            
                 // TODO: versión antigua, cuando los identificadores eran variables,
@@ -396,7 +395,11 @@ namespace AnTScript
                     var.Ident = ident;                    
                     return var;                
                 }
-
+            }
+            else if (this.tokens[this.index] == Tokens.New)
+            {                
+                MoveNext(); // eat new                                             
+                return ParseNewObject();
             }
             else if (this.tokens[this.index] == Tokens.LeftBracket)
             {
@@ -464,7 +467,41 @@ namespace AnTScript
             MoveNext();   // Skip RightBracket 
 
             return func; 
+        }
+
+        private NewObjectExpr ParseNewObject()
+        {
+            NewObjectExpr newObj = new NewObjectExpr();
+
+            newObj.ClassName = ((IdentifierToken)tokens[index]).Name;
+            
+            MoveNext();
+            Eat(Tokens.LeftBracket);
+
+            while ((tokens[index] != Tokens.RightBracket)
+                && (index < tokens.Count))
+            {
+                newObj.Args.Add(ParseExpr());
+                if (tokens[index] == Tokens.Comma)
+                    MoveNext(); // Skip comma 
+                else if (tokens[index] == Tokens.RightBracket)
+                    break;
+                else
+                    throw new System.Exception("unexpected character in arg list");
+            }
+
+            if (index == tokens.Count ||
+                tokens[index] != Tokens.RightBracket)
+            {
+                throw new System.Exception("expect close bracket after open bracket/args");
+            }
+
+            MoveNext();   // Skip RightBracket 
+
+            return newObj;
         } 
+
+
 
         #endregion
 

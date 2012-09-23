@@ -73,12 +73,13 @@ namespace AnTScript
                 {
                     _result.Add(ReadNumericLiteral(input, ch));
                 }
-                // node literal
-                else if (ch == '$')
-                {
-                    _result.Add(ReadObjectLiteral(input, ch));
-                }
-                // node literal
+                // TODO: Basura ahora los objetos se crear con new xxxx
+                //// node literal
+                //else if (ch == '$')
+                //{
+                //    _result.Add(ReadObjectLiteral(input, ch));
+                //}
+                // datetime literal
                 else if (ch == '#')
                 {
                     _result.Add(ReadDateTimeLiteral(input, ch));
@@ -141,10 +142,10 @@ namespace AnTScript
                 token = Tokens.Not;
 
             // block 
-            else if (accum.ToString().ToLower() == "do")
-                token = Tokens.BeginBlock;
+            //else if (accum.ToString().ToLower() == "do")
+            //    token = Tokens.BeginBlock;
             else if (accum.ToString().ToLower() == "end")
-                token = Tokens.EndBlock;
+                token = Tokens.EndSequence;
 
             // keywords
             else if (accum.ToString().ToLower() == "print")
@@ -167,6 +168,8 @@ namespace AnTScript
                 token = Tokens.While;
             else if (accum.ToString().ToLower() == "break")
                 token = Tokens.Break;
+            else if (accum.ToString().ToLower() == "new")
+                token = Tokens.New;
 
             // identifier
             else
@@ -229,33 +232,34 @@ namespace AnTScript
 
         }
 
-        private ObjectToken ReadObjectLiteral(TextReader input, char ch)
-        {
-            StringBuilder accum = new StringBuilder();
+        // TODO: Basura, ahora los objetos se crear con new xxxx
+        //private ObjectToken ReadObjectLiteral(TextReader input, char ch)
+        //{
+        //    StringBuilder accum = new StringBuilder();
 
-            input.Read(); // skip $
+        //    input.Read(); // skip $
 
-            if (input.Peek() == -1)
-            {
-                throw new System.Exception("unterminated string literal");
-            }
+        //    if (input.Peek() == -1)
+        //    {
+        //        throw new System.Exception("unterminated string literal");
+        //    }
 
-            while ((ch = (char)input.Peek()) != '$')
-            {
-                accum.Append(ch);
-                input.Read();
+        //    while ((ch = (char)input.Peek()) != '$')
+        //    {
+        //        accum.Append(ch);
+        //        input.Read();
 
-                if (input.Peek() == -1)
-                {
-                    throw new System.Exception("unterminated string literal");
-                }
-            }
+        //        if (input.Peek() == -1)
+        //        {
+        //            throw new System.Exception("unterminated string literal");
+        //        }
+        //    }
 
-            // skip the terminating $
-            input.Read();
+        //    // skip the terminating $
+        //    input.Read();
 
-            return new ObjectToken(accum.ToString());
-        }
+        //    return new ObjectToken(accum.ToString());
+        //}
 
         private DateTimeToken ReadDateTimeLiteral(TextReader input, char ch)
         {
@@ -284,7 +288,6 @@ namespace AnTScript
 
             return new DateTimeToken(accum.ToString());
         }
-
 
         private Token ReadOperatorOrSymbol(TextReader input, char ch)
         {
@@ -332,6 +335,11 @@ namespace AnTScript
                     token = Tokens.Semi;
                     break;
 
+                case ':':
+                    input.Read();
+                    token = Tokens.Colon;
+                    break;
+
                 case ',':
                     input.Read();
                     token = Tokens.Comma;
@@ -349,12 +357,12 @@ namespace AnTScript
 
                 case '{':
                     input.Read();
-                    token = Tokens.BeginBlock;
+                    token = Tokens.LeftCurlyBracket;
                     break;
 
                 case '}':
                     input.Read();
-                    token = Tokens.EndBlock;
+                    token = Tokens.RightCurlyBracket;
                     break;
 
                 case '<':
