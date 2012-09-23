@@ -144,17 +144,11 @@ namespace AnTScript
 
                 forLoop.To = ParseExpr();
 
-                // TODO: Eliminar el inicio de bloque de la gramática del for
-                //if (index == tokens.Count ||
-                //    tokens[index] != Tokens.BeginBlock)
-                //{
-                //    throw new System.Exception("expected 'do' after from expression in for loop");
-                //}
-                //MoveNext();
-
+                // Body for loop
                 forLoop.Body = ParseStmt();
                 result = forLoop;
 
+                // end for
                 if (index == tokens.Count ||
                     tokens[index] != Tokens.EndSequence)
                 {
@@ -462,9 +456,12 @@ namespace AnTScript
                 tokens[index] != Tokens.RightBracket) 
             { 
                 throw new System.Exception("expect close bracket after open bracket/args"); 
-            } 
-            
-            MoveNext();   // Skip RightBracket 
+            }
+
+            // TODO: probar 
+            // Skip RightBracket 
+            //MoveNext();               
+            Eat(Tokens.RightBracket);
 
             return func; 
         }
@@ -496,7 +493,10 @@ namespace AnTScript
                 throw new System.Exception("expect close bracket after open bracket/args");
             }
 
-            MoveNext();   // Skip RightBracket 
+            // TODO: probar 
+            // Skip RightBracket 
+            //MoveNext();               
+            Eat(Tokens.RightBracket);
 
             return newObj;
         } 

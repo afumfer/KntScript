@@ -13,23 +13,37 @@ namespace AnTScript
         public string Asunto { get; set; }
         public string Nota { get; set; }
         public DateTime FechaCreacion { get; set; }
+        public _Folder Carpeta { get; set; }
 
         public _Node()
         {
             IdNota = 1;
-            Asunto = string.Empty;
-            Nota = string.Empty;
+            Asunto = string.Empty;            
             FechaCreacion = DateTime.Now;
+            Carpeta = new _Folder();
+            Carpeta.Descripcion = "Constructor por defecto";
+            Nota = "Constructor por defecto";
         }
 
         public _Node(float id)
         {
             IdNota = id;
-            Asunto = string.Empty;
-            Nota = "Versión sobrecargada";
+            Asunto = string.Empty;            
             FechaCreacion = DateTime.Now;
+            Carpeta = new _Folder();
+            Carpeta.Descripcion = "Constructor sobrecarca id";
+            Nota = "Versión sobrecargada";
         }
 
+        public _Node(_Folder C)
+        {
+            IdNota = 1;
+            Asunto = string.Empty;
+            Nota = string.Empty;
+            FechaCreacion = DateTime.Now;
+            Carpeta = C;
+            Nota = "Versión sobrecargada _Folder";
+        }
 
         public override string ToString()
         {
@@ -59,7 +73,7 @@ namespace AnTScript
         public _Folder()
         {
             IdCarpeta = 1;
-            Descripcion = string.Empty;
+            Descripcion = "XXXXXX";
             Nota = string.Empty;            
         }
 

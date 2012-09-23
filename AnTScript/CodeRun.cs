@@ -289,6 +289,8 @@ namespace AnTScript
 
             else if (expr is BinExpr)
             {
+                deliveredType = TypeOfExpr((BinExpr)expr);
+                                
                 // TODO: Refactorizar este código
                 //       estructurarlo en métodos CodeXxxxXXXX() domo el resto de expresiones.
                 BinExpr be = (BinExpr)expr;
@@ -483,6 +485,8 @@ namespace AnTScript
 
             else if (expr is UnaryExpr)
             {
+                deliveredType = TypeOfExpr((UnaryExpr)expr);
+
                 UnaryExpr ue = (UnaryExpr)expr;
 
                 object ex = GenExpr(ue.Expression);
@@ -558,11 +562,11 @@ namespace AnTScript
                 {
                     try
                     {
-                        // TODO: esta variable podría ser un campo dentro de esta clase
-                        object obj;
-                        
+                        // TODO: estas variables podría ser un campos dentro de esta clase ???
+                        object obj;                        
                         Type t = symbolTable[id.Obj].GetType();
                         PropertyInfo pi = t.GetProperty(id.Prop);
+
                         obj = GenExpr(assign.Expr);
 
                         // TODO: Provisional, para el casting a enteros o a decimal hasta que se soporte
@@ -596,7 +600,7 @@ namespace AnTScript
                 {
                     try
                     {
-                        // TODO: esta variable podría ser un campo dentro de esta clase
+                        // TODO: estas variables podría ser un campos dentro de esta clase ???
                         object obj;
                         Type t = symbolTable[id.Obj].GetType();
                         PropertyInfo pi = t.GetProperty(id.Prop);                        
@@ -635,7 +639,7 @@ namespace AnTScript
                 // TODO: arreglar esto (Ident Object tiene que servier para capturar métodos también)
                 IdentObject id = new IdentObject(function.FunctionName);
                
-                // lo que viene es sólo el nombre del método
+                // TODO: Mejorar esto !!! (lo que viene es sólo el nombre del método)
                 if (string.IsNullOrEmpty(id.Prop))
                 {
                     t = DefaultFunctionLibraryType;
@@ -799,7 +803,7 @@ namespace AnTScript
 
     #region auxiliary types
 
-    // TODO: Provisional, esto debe ir en los token.
+    // TODO: Provisional, esto debe ir en en el parser o en el scanner.
     class IdentObject
     { 
         public string Obj {get; set;}
