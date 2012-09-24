@@ -243,286 +243,35 @@ namespace AnTScript
         private object GenExpr(Expr expr) 
         {
             Type deliveredType;
+            object res = null;
 
-            if (expr is StringLiteral)
-            {
-                deliveredType = typeof(string);
-                return ((StringLiteral)expr).Value;
-            }
+            if (expr is StringLiteral)                         
+                res = ((StringLiteral)expr).Value;            
+            else if (expr is DecimalLiteral)                            
+                res = ((DecimalLiteral)expr).Value;           
+            else if (expr is DateTimeLiteral)                        
+                res = ((DateTimeLiteral)expr).Value;            
+            else if (expr is Variable)                                        
+                res = CodeReadSymbol((Variable)expr);            
+            else if (expr is FunctionExpr)                        
+                res = CodeExecuteFunction((FunctionExpr)expr);            
+            else if (expr is NewObjectExpr)                       
+                res = CodeExecuteNewObject((NewObjectExpr)expr);            
+            else if (expr is BinExpr)                        
+                res = CodeExecuteBinaryExpr((BinExpr)expr);                                                                          
+            else if (expr is UnaryExpr)                            
+                res = CodeExecuteUnaryExpr((UnaryExpr)expr);
 
-            else if (expr is DecimalLiteral)
-            {
-                deliveredType = typeof(float);
-                return ((DecimalLiteral)expr).Value;
-            }
-
-            else if (expr is DateTimeLiteral)
-            {
-                deliveredType = typeof(DateTime);
-                return ((DateTimeLiteral)expr).Value;
-            }
-
-            // TODO: Basura ahora los objetos se crear con new xxxx
-            //else if (expr is ObjectLiteral)
-            //{
-            //    deliveredType = typeof(ObjectLiteral);                
-            //    return ((ObjectLiteral)expr).Value;
-            //}
-
-            else if (expr is Variable)
-            {                
-                deliveredType = TypeOfExpr((Variable)expr);
-                return CodeReadSymbol((Variable)expr);
-            }
-
-            else if (expr is FunctionExpr)
-            {
-                deliveredType = TypeOfExpr((FunctionExpr)expr);
-                return CodeExecuteFunction((FunctionExpr)expr);
-            }
-
-            else if (expr is NewObjectExpr)
-            {
-                deliveredType = TypeOfExpr((NewObjectExpr)expr);
-                return CodeExecuteNewObject((NewObjectExpr)expr);
-            }
-
-            else if (expr is BinExpr)
-            {
-                deliveredType = TypeOfExpr((BinExpr)expr);
-                                
-                // TODO: Refactorizar este código
-                //       estructurarlo en métodos CodeXxxxXXXX() domo el resto de expresiones.
-                BinExpr be = (BinExpr)expr;
-
-                object left = GenExpr(be.Left);
-                object right = GenExpr(be.Right);
-                object res = null;
-
-                if (left.GetType() == typeof(float) && right.GetType() == typeof(float))
-                {
-                    bool boolLeft;
-                    bool boolRight;
-
-                    if ((float)left != 0)
-                        boolLeft = true;
-                    else
-                        boolLeft = false;
-
-                    if ((float)right != 0)
-                        boolRight = true;
-                    else
-                        boolRight = false;
-
-                    switch (be.Op)
-                    {
-                        case BinOp.Add:
-                            res = (float)left + (float)right;
-                            break;
-                        case BinOp.Sub:
-                            res = (float)left - (float)right;
-                            break;
-                        case BinOp.Mul:
-                            res = (float)left * (float)right;
-                            break;
-                        case BinOp.Div:
-                            res = (float)left / (float)right;
-                            break;
-                        case BinOp.Or:
-                            if (boolLeft || boolRight)
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-                        case BinOp.And:
-                            if (boolLeft && boolRight)
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-                        case BinOp.Equal:
-                            if ((float)left == (float)right)
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-                        case BinOp.NotEqual:
-                            if ((float)left == (float)right)
-                                res = 0.0f;
-                            else
-                                res = 1.0f;
-                            break;
-                        case BinOp.LessThan:
-                            if ((float)left < (float)right)
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-                        case BinOp.LessThanOrEqual:
-                            if ((float)left <= (float)right)
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-                        case BinOp.GreaterThan:
-                            if ((float)left > (float)right)
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-                        case BinOp.GreaterThanOrEqual:
-                            if ((float)left >= (float)right)
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-                        default:
-                            throw new ApplicationException(string.Format(
-                                "The operator '{0}' is not supported  in this expression ", be.Op));
-                    }
-                }
-
-                else if (left.GetType() == typeof(DateTime) && right.GetType() == typeof(DateTime))
-                {                    
-                    switch (be.Op)
-                    {
-                        case BinOp.Equal:
-                            if ((DateTime)left == (DateTime)right)
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-                        case BinOp.NotEqual:
-                            if ((DateTime)left == (DateTime)right)
-                                res = 0.0f;
-                            else
-                                res = 1.0f;
-                            break;
-                        case BinOp.LessThan:
-                            if ((DateTime)left < (DateTime)right)
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-                        case BinOp.LessThanOrEqual:
-                            if ((DateTime)left <= (DateTime)right)
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-                        case BinOp.GreaterThan:
-                            if ((DateTime)left > (DateTime)right)
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-                        case BinOp.GreaterThanOrEqual:
-                            if ((DateTime)left >= (DateTime)right)
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-
-                        default:
-                            throw new ApplicationException(string.Format(
-                                "The operator '{0}' is not supported in this expression ", be.Op));
-                    }                
-                }
-
-                else
-                {
-                    // TODO: Implementar más operadores aquí con tipos de datos distintos
-                    //       a float (string)
-                    switch (be.Op)
-                    {
-                        case BinOp.Add:
-                            res = left.ToString() + right.ToString();
-                            break;
-                        case BinOp.Equal:
-                            if (left.ToString() == right.ToString())
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-                        case BinOp.NotEqual:
-                            if (left.ToString() == right.ToString())
-                                res = 0.0f;
-                            else
-                                res = 1.0f;
-                            break;
-                        case BinOp.LessThan:
-                            if (string.Compare(left.ToString(), right.ToString()) < 0)
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-                        case BinOp.LessThanOrEqual:
-                            if (string.Compare(left.ToString(), right.ToString()) < 0 || left.ToString() == right.ToString())
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-                        case BinOp.GreaterThan:
-                            if (string.Compare(left.ToString(), right.ToString()) > 0)
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-                        case BinOp.GreaterThanOrEqual:
-                            if (string.Compare(left.ToString(), right.ToString()) > 0 || left.ToString() == right.ToString())
-                                res = 1.0f;
-                            else
-                                res = 0.0f;
-                            break;
-                        default:
-                            throw new ApplicationException(string.Format(
-                                "The operator '{0}' is not supported in this expression ", be.Op));
-                    }
-                } 
-                
-                return res;
-            }
-
-            else if (expr is UnaryExpr)
-            {
-                deliveredType = TypeOfExpr((UnaryExpr)expr);
-
-                UnaryExpr ue = (UnaryExpr)expr;
-
-                object ex = GenExpr(ue.Expression);
-                object res;
-
-                switch (ue.Op)
-                {
-                    case BinOp.Add:
-                        res = (float)ex;
-                        break;
-                    case BinOp.Sub:
-                        res = -1 * (float)ex;
-                        break;
-                    case BinOp.Not:
-                        if ((float)ex == 0)
-                            res = 1.0f;
-                        else
-                            res = 0.0f;                       
-                        break;
-
-                    default:
-                        throw new ApplicationException(string.Format(
-                            "The operator '{0}' is not supported in this expression ", ue.Op));
-                }
-
-                return res;
-            }
-
-            // TODO: Para Boxing o para devolver error ?? 
+                        
+            // TODO: Pendiente, para resolver conversión de tipos automárica en versiones futuras 
+            deliveredType = res.GetType();
             //if (deliveredType != expectedType)
             //{
             //    if (deliveredType == typeof(int) &&
             //        expectedType == typeof(string))
             //    {
-            //        this.il.Emit(Emit.OpCodes.Box, typeof(int));
-            //        this.il.Emit(Emit.OpCodes.Callvirt, typeof(object).GetMethod("ToString"));
+            //        // Aquí hacer el casting
+            //        // ....
             //    }
             //    else
             //    {
@@ -530,7 +279,7 @@ namespace AnTScript
             //    }
             //} 
 
-            return null;
+            return res;            
 
         } // GenExpr
 
@@ -712,6 +461,224 @@ namespace AnTScript
                 throw ex;
             }
 
+        }
+
+        private object CodeExecuteBinaryExpr(BinExpr be)
+        {
+            object res = null;
+            object left = GenExpr(be.Left);
+            object right = GenExpr(be.Right);
+
+            if (left.GetType() == typeof(float) && right.GetType() == typeof(float))
+            {
+                bool boolLeft;
+                bool boolRight;
+
+                if ((float)left != 0)
+                    boolLeft = true;
+                else
+                    boolLeft = false;
+
+                if ((float)right != 0)
+                    boolRight = true;
+                else
+                    boolRight = false;
+
+                switch (be.Op)
+                {
+                    case BinOp.Add:
+                        res = (float)left + (float)right;
+                        break;
+                    case BinOp.Sub:
+                        res = (float)left - (float)right;
+                        break;
+                    case BinOp.Mul:
+                        res = (float)left * (float)right;
+                        break;
+                    case BinOp.Div:
+                        res = (float)left / (float)right;
+                        break;
+                    case BinOp.Or:
+                        if (boolLeft || boolRight)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+                    case BinOp.And:
+                        if (boolLeft && boolRight)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+                    case BinOp.Equal:
+                        if ((float)left == (float)right)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+                    case BinOp.NotEqual:
+                        if ((float)left == (float)right)
+                            res = 0.0f;
+                        else
+                            res = 1.0f;
+                        break;
+                    case BinOp.LessThan:
+                        if ((float)left < (float)right)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+                    case BinOp.LessThanOrEqual:
+                        if ((float)left <= (float)right)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+                    case BinOp.GreaterThan:
+                        if ((float)left > (float)right)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+                    case BinOp.GreaterThanOrEqual:
+                        if ((float)left >= (float)right)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+                    default:
+                        throw new ApplicationException(string.Format(
+                            "The operator '{0}' is not supported  in this expression ", be.Op));
+                }
+            }
+
+            else if (left.GetType() == typeof(DateTime) && right.GetType() == typeof(DateTime))
+            {
+                switch (be.Op)
+                {
+                    case BinOp.Equal:
+                        if ((DateTime)left == (DateTime)right)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+                    case BinOp.NotEqual:
+                        if ((DateTime)left == (DateTime)right)
+                            res = 0.0f;
+                        else
+                            res = 1.0f;
+                        break;
+                    case BinOp.LessThan:
+                        if ((DateTime)left < (DateTime)right)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+                    case BinOp.LessThanOrEqual:
+                        if ((DateTime)left <= (DateTime)right)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+                    case BinOp.GreaterThan:
+                        if ((DateTime)left > (DateTime)right)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+                    case BinOp.GreaterThanOrEqual:
+                        if ((DateTime)left >= (DateTime)right)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+
+                    default:
+                        throw new ApplicationException(string.Format(
+                            "The operator '{0}' is not supported in this expression ", be.Op));
+                }
+            }
+
+            else
+            {
+                // TODO: Implementar más operadores aquí con tipos de datos distintos
+                //       a float (string)
+                switch (be.Op)
+                {
+                    case BinOp.Add:
+                        res = left.ToString() + right.ToString();
+                        break;
+                    case BinOp.Equal:
+                        if (left.ToString() == right.ToString())
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+                    case BinOp.NotEqual:
+                        if (left.ToString() == right.ToString())
+                            res = 0.0f;
+                        else
+                            res = 1.0f;
+                        break;
+                    case BinOp.LessThan:
+                        if (string.Compare(left.ToString(), right.ToString()) < 0)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+                    case BinOp.LessThanOrEqual:
+                        if (string.Compare(left.ToString(), right.ToString()) < 0 || left.ToString() == right.ToString())
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+                    case BinOp.GreaterThan:
+                        if (string.Compare(left.ToString(), right.ToString()) > 0)
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+                    case BinOp.GreaterThanOrEqual:
+                        if (string.Compare(left.ToString(), right.ToString()) > 0 || left.ToString() == right.ToString())
+                            res = 1.0f;
+                        else
+                            res = 0.0f;
+                        break;
+                    default:
+                        throw new ApplicationException(string.Format(
+                            "The operator '{0}' is not supported in this expression ", be.Op));
+                }
+            } 
+
+            return res;
+        }
+
+        private object CodeExecuteUnaryExpr(UnaryExpr ue)
+        {
+            object res = null;
+            object ex = GenExpr(ue.Expression);
+
+            switch (ue.Op)
+            {
+                case BinOp.Add:
+                    res = (float)ex;
+                    break;
+                case BinOp.Sub:
+                    res = -1 * (float)ex;
+                    break;
+                case BinOp.Not:
+                    if ((float)ex == 0)
+                        res = 1.0f;
+                    else
+                        res = 0.0f;
+                    break;
+
+                default:
+                    throw new ApplicationException(string.Format(
+                        "The operator '{0}' is not supported in this expression ", ue.Op));
+            }
+
+            return res;                    
         }
 
         private void CodePrint(Print print)
