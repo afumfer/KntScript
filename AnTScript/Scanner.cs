@@ -73,12 +73,6 @@ namespace AnTScript
                 {
                     _result.Add(ReadNumericLiteral(input, ch));
                 }
-                // TODO: Basura ahora los objetos se crear con new xxxx
-                //// node literal
-                //else if (ch == '$')
-                //{
-                //    _result.Add(ReadObjectLiteral(input, ch));
-                //}
                 // datetime literal
                 else if (ch == '#')
                 {
@@ -231,35 +225,6 @@ namespace AnTScript
             return new NumberToken(accum.ToString());
 
         }
-
-        // TODO: Basura, ahora los objetos se crear con new xxxx
-        //private ObjectToken ReadObjectLiteral(TextReader input, char ch)
-        //{
-        //    StringBuilder accum = new StringBuilder();
-
-        //    input.Read(); // skip $
-
-        //    if (input.Peek() == -1)
-        //    {
-        //        throw new System.Exception("unterminated string literal");
-        //    }
-
-        //    while ((ch = (char)input.Peek()) != '$')
-        //    {
-        //        accum.Append(ch);
-        //        input.Read();
-
-        //        if (input.Peek() == -1)
-        //        {
-        //            throw new System.Exception("unterminated string literal");
-        //        }
-        //    }
-
-        //    // skip the terminating $
-        //    input.Read();
-
-        //    return new ObjectToken(accum.ToString());
-        //}
 
         private DateTimeToken ReadDateTimeLiteral(TextReader input, char ch)
         {

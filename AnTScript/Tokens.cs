@@ -7,31 +7,6 @@ namespace AnTScript
 
     public sealed class Tokens
     {
-        //// Constants to represent arithmitic tokens. 
-        //public static readonly OperatorToken Add = new OperatorToken("ADD", 1);
-        //public static readonly OperatorToken Sub = new OperatorToken("SUB", 1);
-        //public static readonly OperatorToken Mul = new OperatorToken("MUL", 2);
-        //public static readonly OperatorToken Div = new OperatorToken("DIV", 2);
-
-        //// relational operators
-        //public static readonly OperatorToken LessThan = new OperatorToken("LESSTHAN", 0);
-        //public static readonly OperatorToken GreaterThan = new OperatorToken("GREATERTHAN", 0);
-        //public static readonly OperatorToken LessThanOrEqual = new OperatorToken("LESSTHANOREQUAL", 0);
-        //public static readonly OperatorToken GreaterThanOrEqual = new OperatorToken("GREATERTHANOREQUAL", 0);
-        //public static readonly OperatorToken Equal = new OperatorToken("EQUAL", 0);
-        //public static readonly OperatorToken NotEqual = new OperatorToken("NOTEQUAL", 2);
-
-        //// logical operators
-        //public static readonly OperatorToken And = new OperatorToken("AND", 1);
-        //public static readonly OperatorToken AndBit = new OperatorToken("ANDBIT", 1);
-        //public static readonly OperatorToken Or = new OperatorToken("OR", 0);
-        //public static readonly OperatorToken OrBit = new OperatorToken("ORBIT", 0);
-        //public static readonly OperatorToken Not = new OperatorToken("NOT", 2);
-
-        
-        // TODO: Valorar la siguiente distribución de precedencias de operadores.
-        //       ¿mejora que la anterior?
-
         // Constants to represent arithmitic tokens. 
         public static readonly OperatorToken Add = new OperatorToken("ADD", 3);
         public static readonly OperatorToken Sub = new OperatorToken("SUB", 3);
@@ -167,28 +142,6 @@ namespace AnTScript
             }
         }
     }
-
-
-
-    // TODO: Basura, ahora los objetos se crear con new Xxxx
-    //// @ObjectX@
-    //public class ObjectToken : Token
-    //{
-    //    private object _value;
-
-    //    public ObjectToken(string value)
-    //        : base(value)
-    //    {            
-    //        string idObj = value;
-    //        Type t = Type.GetType(idObj, false, true);            
-    //        _value = Activator.CreateInstance(t);   
-    //    }
-
-    //    public object Value
-    //    {
-    //        get { return _value; }
-    //    }
-    //}
 
     public class SymbolToken : Token
     {

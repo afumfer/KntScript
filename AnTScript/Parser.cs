@@ -226,28 +226,6 @@ namespace AnTScript
                 result = breakStmt;
             }
 
-            // TODO: Limpiar versión antigua, aquí ahora se debe procesar
-            //       la asignación o la llamada a función;
-            //// assignment 
-            //else if (tokens[index] is IdentifierToken)
-            //{
-            //    Assign assign = new Assign();
-            //    assign.Ident = ((IdentifierToken)tokens[index]).Name;
-
-            //    MoveNext();
-
-            //    if (index == tokens.Count ||
-            //        tokens[index] != Tokens.Assignment)
-            //    {
-            //        throw new System.Exception("expected '='");
-            //    }
-
-            //    MoveNext();
-
-            //    assign.Expr = ParseExpr();
-            //    result = assign;
-            //}
-
             // assignment or funcionStmt
             else if (tokens[index] is IdentifierToken)
             {
@@ -313,7 +291,7 @@ namespace AnTScript
                 int prec = ot.Precedence;
                 if (prec >= precedence)
                 {
-                    BinExpr binExpr = new BinExpr();
+                    BinaryExpr binExpr = new BinaryExpr();
                     binExpr.Op = TokenToBinOp(tokens[index]);
                     MoveNext();
                     Expr right = ParseExpr(prec);
@@ -353,24 +331,8 @@ namespace AnTScript
                 MoveNext();
                 return datLiteral;
             }
-            // TODO: Basura ahora los objetos se crear con new xxxx
-            //else if (this.tokens[this.index] is ObjectToken)
-            //{
-            //    ObjectLiteral objLiteral = new ObjectLiteral();
-            //    objLiteral.Value = ((ObjectToken)this.tokens[this.index]).Value;
-            //    objLiteral.ClassName = ((ObjectToken)this.tokens[this.index]).Name;
-            //    MoveNext();
-            //    return objLiteral;
-            //}
             else if (this.tokens[this.index] is IdentifierToken)
             {            
-                // TODO: versión antigua, cuando los identificadores eran variables,
-                //       ahora pueden ser también llamadas a funciones.
-                //Variable var = new Variable();
-                //var.Ident = ((IdentifierToken)tokens[index]).Name;
-                //MoveNext();
-                //return var;
-
                 string ident = ((IdentifierToken)tokens[index]).Name;
                 
                 MoveNext();
@@ -458,9 +420,7 @@ namespace AnTScript
                 throw new System.Exception("expect close bracket after open bracket/args"); 
             }
 
-            // TODO: probar 
             // Skip RightBracket 
-            //MoveNext();               
             Eat(Tokens.RightBracket);
 
             return func; 
@@ -493,9 +453,7 @@ namespace AnTScript
                 throw new System.Exception("expect close bracket after open bracket/args");
             }
 
-            // TODO: probar 
             // Skip RightBracket 
-            //MoveNext();               
             Eat(Tokens.RightBracket);
 
             return newObj;
