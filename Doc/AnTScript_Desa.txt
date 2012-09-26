@@ -1,8 +1,6 @@
 ============================
 >>>> Versión 0.0.x.x
 
-- Estructurar código de CodeGen, sección de resolución de expresiones binarias y unarias. 
-- En Scanner, rectificar el análisis de los identificadores para que puedan contener dígitos en medio o al final.
 - Soportar identificadores con varios puntos para espacios de nombre y manejo de objetos anidados.
 
 - Implementar un Read genérico Read {stringLiteral:variable, stringLiteral:variable, .... };
@@ -82,3 +80,5 @@ X- Implementar llamadas a funciones (en sentencias y expresiones): CodeGen (maqu
 X- Implementar llamadas a funciones (en sentencias y expresiones): CodeGen (código real)
 X- Susituir el mecanismo de definición de variables tipo objeto ($xxx$ por "new Objeto(parámetros constructor))
 X- Deputar tokens (quitar do, ... ) 
+X- Estructurar código de CodeGen, sección de resolución de expresiones binarias y unarias. 
+X- En Scanner, rectificar el análisis de los identificadores para que puedan contener dígitos en medio o al final.

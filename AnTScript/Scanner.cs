@@ -112,7 +112,7 @@ namespace AnTScript
             StringBuilder accum = new StringBuilder();
             Token token;
 
-            while (char.IsLetter(ch) || ch == '_' || ch == '.')
+            while (char.IsLetter(ch) || char.IsDigit(ch) || ch == '_' || ch == '.')
             {
                 accum.Append(ch);
                 input.Read();
