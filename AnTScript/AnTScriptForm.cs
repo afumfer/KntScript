@@ -80,11 +80,12 @@ namespace AnTScript
         {
             try
             {
-                //Form a = new System.Windows.Forms.Form();
-                //a.Show();
+                object x = 1;
+                string sss = x.GetType().ToString();
 
-                Type t = Type.GetType("System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", false, true);
-                object obj = Activator.CreateInstance(t);
+
+                //Type t = Type.GetType("System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", false, true);
+                //object obj = Activator.CreateInstance(t);
 
 
                 ////=======================================================

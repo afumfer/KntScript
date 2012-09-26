@@ -326,6 +326,10 @@ namespace AnTScript
                         Type t = symbolTable[id.Obj].GetType();
                         PropertyInfo pi = t.GetProperty(id.Prop);
 
+                        //ConstructorInfo ci = t.GetConstructors(
+
+                        
+
                         obj = GenExpr(assign.Expr);
 
                         // TODO: Provisional, para el casting a enteros o a decimal hasta que se soporte
@@ -368,9 +372,9 @@ namespace AnTScript
                         // TODO: Provisional, para el casting a enteros o a decimal hasta que se soporte
                         //       los tipos int, decimal, ... (ahora las expresiones sólo devuelven tipos float cuando 
                         //       el resultado es numérico
-                        if (obj.GetType() == typeof(int))
-                            obj = (float)obj;
-                        else if (obj.GetType() == typeof(decimal))                                                
+                        //if (obj.GetType() == typeof(int))
+                        //    obj = (float)obj;
+                        if (obj.GetType() == typeof(decimal))                                                
                             obj = (float)Math.Ceiling((decimal)obj);
                         else if (obj.GetType() == typeof(double))
                             obj = (float)Math.Ceiling((double)obj);
@@ -458,6 +462,18 @@ namespace AnTScript
                     for (int i = 0; i < newObject.Args.Count; i++)
                     {
                         param[i] = GenExpr(newObject.Args[i]);
+
+                        // TODO: Basura provisional, 
+                        //       pendiente de soportar tipos int, double, decimal ... 
+                        //       Parche para pruebas para constructores con enteros (habituales en aplicaicones)
+                        float f;
+                        if (param[i].GetType() == typeof(float))
+                        {
+                            f = (float)param[i] - Convert.ToInt32((float)param[i]);
+                            if (f == 0.0)
+                                param[i] = Convert.ToInt32((float)param[i]);
+                        }
+
                     }
                 }
                 else

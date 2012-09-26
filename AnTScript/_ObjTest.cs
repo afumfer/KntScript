@@ -98,3 +98,22 @@ namespace AnTScript
     }
 
 }
+
+namespace AnTScript.Kernel
+{
+    public class NodeX
+    {
+        public  double IdNode { get; set; }
+        public string Topic { get; set; }
+
+        public NodeX()
+        { }
+
+        public NodeX(int id, string topic)
+        {
+            IdNode = id;
+            Topic = topic;
+        }
+    }
+    
+}
