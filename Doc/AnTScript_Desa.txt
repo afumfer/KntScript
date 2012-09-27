@@ -1,9 +1,12 @@
 ============================
->>>> Versión 0.0.x.x
+>>>> Versión 0.0
 
-- Soportar identificadores con varios puntos para espacios de nombre y manejo de objetos anidados.
 
-- Corregir bug, en la conversión de tipos del constructor de los objetos (float -> int)
+- Soportar llamadas a funciones o métodos con varios puntos para espacios de nombre y manejo de objetos anidados (declaración, lectura, escritura variables o miembros).
+
+
+- Implementar soporte de tipos int, single, float, decimal, bool
+- Corregir bug, en la conversión de tipos del constructor de los objetos (float -> int). 
 
 - Implementar un Read genérico Read {stringLiteral:variable, stringLiteral:variable, .... };
 
@@ -16,14 +19,14 @@
 
 
 ============================
->>>> Versión 0.1.x.x
+>>>> Versión 0.1
 - Empotrar el código en ANotas
 - Implementar librería de funciones de ANotas
 - Mecanismo provisional para trabajar con colecciones de Notas y coleeciones de Carpetas 
 - Las funciones CodeExecuteBinaryXXXXXX se deben simplificar usando generics.
 
 ============================
->>>> Versión 0.2.x.x
+>>>> Versión 0.2
 - Buscar solución al soporte de tipos int, decimal, double, byte, ...
 - Implementar tipos arrays o tipos enumerables.
 - Implementar foreach
@@ -86,3 +89,7 @@ X- Susituir el mecanismo de definición de variables tipo objeto ($xxx$ por "new 
 X- Deputar tokens (quitar do, ... ) 
 X- Estructurar código de CodeGen, sección de resolución de expresiones binarias y unarias. 
 X- En Scanner, rectificar el análisis de los identificadores para que puedan contener dígitos en medio o al final.
+
+============================
+>>>> Versión 0.0.0.2
+X- Soportar identificadores con varios puntos para espacios de nombre y manejo de objetos anidados (declaración, lectura, escritura variables o miembros).

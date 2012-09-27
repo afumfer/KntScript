@@ -299,95 +299,67 @@ namespace AnTScript
 
         private void CodeDeclareSymbol(DeclareVar declare)
         {
-            IdentObject id = new IdentObject(declare.Ident);
+            // TODO: esta línea es basura
+            // IdentObject id = new IdentObject(declare.Ident);
 
-            if (!string.IsNullOrEmpty(id.Prop))
+            IdentDetailed identEx = new IdentDetailed(declare.Ident);
+
+            if (!string.IsNullOrEmpty(identEx.Member))
                 throw new System.Exception(" variable declaration '" + declare.Ident + "' incorrect ");
 
-            if (!this.symbolTable.ContainsKey(id.Obj))
+            if (!this.symbolTable.ContainsKey(identEx.Obj))
                 symbolTable.Add(declare.Ident, GenExpr(declare.Expr));
             else
-                throw new System.Exception(" variable '" + id.Obj + "' already declared");
+                throw new System.Exception(" variable '" + identEx.Obj + "' already declared");
         }
 
         private void CodeStoreSymbol(Assign assign)
         {
-            IdentObject id = new IdentObject(assign.Ident);
+            IdentDetailed identEx = new IdentDetailed(assign.Ident);
 
-            if (this.symbolTable.ContainsKey(id.Obj))
-                if (string.IsNullOrEmpty(id.Prop))
-                    symbolTable[id.Obj] = GenExpr(assign.Expr);
+            if (this.symbolTable.ContainsKey(identEx.Obj))
+                if (string.IsNullOrEmpty(identEx.Member))
+                    symbolTable[identEx.Obj] = GenExpr(assign.Expr);
                 else
                 {
                     try
                     {
-                        // TODO: estas variables podría ser un campos dentro de esta clase ???
-                        object obj;                        
-                        Type t = symbolTable[id.Obj].GetType();
-                        PropertyInfo pi = t.GetProperty(id.Prop);
-
-                        //ConstructorInfo ci = t.GetConstructors(
-
-                        
-
-                        obj = GenExpr(assign.Expr);
-
-                        // TODO: Provisional, para el casting a enteros o a decimal hasta que se soporte
-                        //       los tipos int, decimal, ... (ahora las expresiones sólo devuelven tipos float cuando 
-                        //       el resultado es numérico
-                        if (pi.PropertyType == typeof(int) && obj.GetType() == typeof(float))                            
-                            obj = (int)Math.Ceiling((float)obj);
-                        else if (pi.PropertyType == typeof(decimal) && obj.GetType() == typeof(float))
-                            obj = (decimal)(float)obj;                         
-
-                        pi.SetValue(symbolTable[id.Obj], obj, null);                        
+                        object objNewValue;
+                        objNewValue = GenExpr(assign.Expr); ;
+                        SetValue(symbolTable[identEx.Obj], identEx, objNewValue);                       
                     }
                     catch (Exception ex)
                     {
-                        throw new System.Exception(" error in assign code  '" + id.Prop + " :" + ex.Message);
+                        throw new System.Exception(" error in assign code  '" + identEx.Member + " :" + ex.Message);
                     }
                 }
             else
-                throw new System.Exception(" undeclared variable '" + id.Obj);
+                throw new System.Exception(" undeclared variable '" + identEx.Obj);
 
         }
 
         private object CodeReadSymbol(Variable variable)
         {
-            IdentObject id = new IdentObject(variable.Ident);
+            IdentDetailed identEx = new IdentDetailed(variable.Ident);
 
-            if (this.symbolTable.ContainsKey(id.Obj))
-                if (string.IsNullOrEmpty(id.Prop))
-                    return symbolTable[id.Obj];
+            if (this.symbolTable.ContainsKey(identEx.Obj))
+                if (string.IsNullOrEmpty(identEx.Member))
+                    return symbolTable[identEx.Obj];
                 else
                 {
                     try
                     {
-                        // TODO: estas variables podría ser un campos dentro de esta clase ???
-                        object obj;
-                        Type t = symbolTable[id.Obj].GetType();
-                        PropertyInfo pi = t.GetProperty(id.Prop);                        
-                        obj = pi.GetValue(symbolTable[id.Obj], null);
-
-                        // TODO: Provisional, para el casting a enteros o a decimal hasta que se soporte
-                        //       los tipos int, decimal, ... (ahora las expresiones sólo devuelven tipos float cuando 
-                        //       el resultado es numérico
-                        //if (obj.GetType() == typeof(int))
-                        //    obj = (float)obj;
-                        if (obj.GetType() == typeof(decimal))                                                
-                            obj = (float)Math.Ceiling((decimal)obj);
-                        else if (obj.GetType() == typeof(double))
-                            obj = (float)Math.Ceiling((double)obj);
-                        
-                        return obj;
+                        object resGetValue;
+                        GetValue(symbolTable[identEx.Obj], identEx, out resGetValue);
+                        return resGetValue;
                     }
                     catch (Exception ex)
                     {
-                        throw new System.Exception(" error in read code  '" + id.Prop + " :" + ex.Message);
+                        throw new System.Exception(" error in read code  '" + identEx.Member + " :" + ex.Message);
                     }
                 }
             else
-                throw new System.Exception(" undeclared variable '" + id.Obj);
+                throw new System.Exception(" undeclared variable '" + identEx.Obj);
 
         }
 
@@ -443,7 +415,6 @@ namespace AnTScript
             {
                 throw ex;
             }
-
         }
 
         private object CodeExecuteNewObject(NewObjectExpr newObject)
@@ -463,7 +434,7 @@ namespace AnTScript
                     {
                         param[i] = GenExpr(newObject.Args[i]);
 
-                        // TODO: Basura provisional, 
+                        // TODO: Basura provisional,  !!! Importante
                         //       pendiente de soportar tipos int, double, decimal ... 
                         //       Parche para pruebas para constructores con enteros (habituales en aplicaicones)
                         float f;
@@ -473,7 +444,7 @@ namespace AnTScript
                             if (f == 0.0)
                                 param[i] = Convert.ToInt32((float)param[i]);
                         }
-
+                        // ----
                     }
                 }
                 else
@@ -810,13 +781,66 @@ namespace AnTScript
             }
         }
 
+        private void SetValue(object varObj, IdentDetailed identEx, object newValue, int i = 0)
+        {
+            Type t;
+            PropertyInfo pi;
+            string literalObjChild;
+            object objChild;
+
+            t = varObj.GetType();
+
+            if (i < identEx.ChainObjs.Count)
+            {
+                literalObjChild = identEx.ChainObjs[i];
+                pi = t.GetProperty(literalObjChild);
+                objChild = pi.GetValue(varObj, null);
+                i++;
+                SetValue(objChild, identEx, newValue, i);
+            }
+            else
+            {
+                pi = t.GetProperty(identEx.Member);
+                pi.SetValue(varObj, newValue, null);
+            }
+
+            return;
+        }
+
+        private void GetValue(object varObj, IdentDetailed identEx, out object newValue, int i = 0)
+        {
+            Type t;
+            PropertyInfo pi;
+            string literalObjChild;
+            object objChild;
+
+            t = varObj.GetType();
+
+            if (i < identEx.ChainObjs.Count)
+            {
+                literalObjChild = identEx.ChainObjs[i];
+                pi = t.GetProperty(literalObjChild);
+                objChild = pi.GetValue(varObj, null);
+                i++;
+                GetValue(objChild, identEx, out newValue, i);
+            }
+            else
+            {
+                pi = t.GetProperty(identEx.Member);                
+                newValue = pi.GetValue(varObj, null);
+            }
+
+            return;
+        }
+
+
         #endregion
 
     } // CodeRun class
 
     #region auxiliary types
 
-    // TODO: Provisional, esto debe ir en en el parser o en el scanner.
+    // TODO: Provisional, esta clase se debe eliminar (pasa a estar sustituida por IdentDelaided
     class IdentObject
     { 
         public string Obj {get; set;}
@@ -834,6 +858,36 @@ namespace AnTScript
             }
         }        
     }
+
+    class IdentDetailed
+    {
+        public string Obj { get; set; }
+        public List<string> ChainObjs { get; set; }
+        public string Member { get; set; }
+
+        public IdentDetailed(string ident)
+        {
+            string[] tmp;
+
+            if (string.IsNullOrEmpty(ident))
+                return;
+
+            ChainObjs = new List<string>();
+
+            tmp = ident.Split('.');
+
+            for(int i = 0; i < tmp.Length; i++)
+            {
+                if(i == 0)
+                    Obj = tmp[i];
+                else if (i == tmp.Length - 1)
+                    Member = tmp[i];
+                else
+                    ChainObjs.Add(tmp[i]);                
+            }            
+        }
+    }
+
 
     #endregion
 

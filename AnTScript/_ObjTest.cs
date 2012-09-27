@@ -68,19 +68,28 @@ namespace AnTScript
     {
         public int IdCarpeta { get; set; }
         public string Descripcion { get; set; }
-        public string Nota { get; set; }
+        public string Observaciones { get; set; }
+        public _Archiver Archivador { get; set; }
         
         public _Folder()
         {
             IdCarpeta = 1;
             Descripcion = "XXXXXX";
-            Nota = string.Empty;            
+            Observaciones = string.Empty;
+            Archivador = new _Archiver();
+            Archivador.NombreArchivador = "YYYYYYYYYY";
         }
 
         public override string ToString()
         {
-            return IdCarpeta.ToString() + " : " + Descripcion.ToString() + " : " + Nota.ToString();            
+            return IdCarpeta.ToString() + " : " + Descripcion.ToString() + " : " + Observaciones.ToString();            
         }
+    }
+
+    public class _Archiver
+    {
+        public int IdArchivador { get; set; }
+        public string NombreArchivador { get; set; }    
     }
 
     public class Library
