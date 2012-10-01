@@ -1,6 +1,5 @@
 ============================
->>>> Versión 0.0
-
+>>>> Versión 0.0.0
 
 - Implementar soporte de tipos int, single, float, decimal, bool
 - Corregir bug, en la conversión de tipos del constructor de los objetos (float -> int). 
@@ -16,14 +15,14 @@
 
 
 ============================
->>>> Versión 0.1
+>>>> Versión 0.0.1
 - Empotrar el código en ANotas
 - Implementar librería de funciones de ANotas
 - Mecanismo provisional para trabajar con colecciones de Notas y coleeciones de Carpetas 
 - Las funciones CodeExecuteBinaryXXXXXX se deben simplificar usando generics.
 
 ============================
->>>> Versión 0.2
+>>>> Versión 0.0.2
 - Implementar tipos arrays o tipos enumerables.
 - Implementar foreach
 - Implementar comprobación de tipos
@@ -92,3 +91,7 @@ X- En Scanner, rectificar el análisis de los identificadores para que puedan con
 X- Soportar identificadores con varios puntos para espacios de nombre y manejo de objetos anidados (declaración, lectura, escritura variables o miembros).
 X- Soportar llamadas a funciones o métodos con varios puntos para espacios de nombre y manejo de objetos anidados (declaración, lectura, escritura variables o miembros).
 X- Elimnar la clase IdentObject (obsoleta) -> pasará a ser IdentDelailed()...
+
+
+============================
+>>>> Versión 0.0.0.3

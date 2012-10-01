@@ -862,6 +862,7 @@ namespace AnTScript
 
     #region auxiliary types
 
+    // TODO: Se debería pasar al parser o al scanner
     class IdentObject
     {
         public string Obj { get; set; }
@@ -890,7 +891,6 @@ namespace AnTScript
             }            
         }
     }
-
 
     #endregion
 
