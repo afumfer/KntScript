@@ -81,7 +81,7 @@ namespace AnTScript
             try
             {                                            
                 object objNuevoValor;
-                IdentDetailed identEx = new IdentDetailed("a.Carpeta.Archivador.NombreArchivador");
+                IdentObject identEx = new IdentObject("a.Carpeta.Archivador.NombreArchivador");
 
                 Dictionary<string, object> symbolTable = new Dictionary<string,object>();
                 symbolTable.Add(identEx.Obj, new _Node(123));
@@ -203,7 +203,7 @@ namespace AnTScript
         }
 
 
-        private void SetValue(object varObj, IdentDetailed identEx, object newValue, int i = 0)
+        private void SetValue(object varObj, IdentObject identEx, object newValue, int i = 0)
         {
             Type t;
             PropertyInfo pi;
@@ -229,7 +229,7 @@ namespace AnTScript
             return;
         }
 
-        private void GetValue(object varObj, IdentDetailed identEx, out object newValue, int i = 0)
+        private void GetValue(object varObj, IdentObject identEx, out object newValue, int i = 0)
         {
             Type t;
             PropertyInfo pi;

@@ -89,7 +89,13 @@ namespace AnTScript
     public class _Archiver
     {
         public int IdArchivador { get; set; }
-        public string NombreArchivador { get; set; }    
+        public string NombreArchivador { get; set; }
+
+        public string DemoMetodo(string param)
+        {
+            return "XXX --- YYY --- ZZZ: " + param;
+        }
+
     }
 
     public class Library

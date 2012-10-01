@@ -15,6 +15,7 @@ namespace AnTScript
     {
         #region Fields
 
+        // TODO: Esto debería ser un HashTable
         Dictionary<string, object> symbolTable;
         
         bool flagBreak = false;
@@ -299,67 +300,64 @@ namespace AnTScript
 
         private void CodeDeclareSymbol(DeclareVar declare)
         {
-            // TODO: esta línea es basura
-            // IdentObject id = new IdentObject(declare.Ident);
+            IdentObject ident = new IdentObject(declare.Ident);
 
-            IdentDetailed identEx = new IdentDetailed(declare.Ident);
-
-            if (!string.IsNullOrEmpty(identEx.Member))
+            if (!string.IsNullOrEmpty(ident.Member))
                 throw new System.Exception(" variable declaration '" + declare.Ident + "' incorrect ");
 
-            if (!this.symbolTable.ContainsKey(identEx.Obj))
+            if (!this.symbolTable.ContainsKey(ident.Obj))
                 symbolTable.Add(declare.Ident, GenExpr(declare.Expr));
             else
-                throw new System.Exception(" variable '" + identEx.Obj + "' already declared");
+                throw new System.Exception(" variable '" + ident.Obj + "' already declared");
         }
 
         private void CodeStoreSymbol(Assign assign)
         {
-            IdentDetailed identEx = new IdentDetailed(assign.Ident);
+            IdentObject ident = new IdentObject(assign.Ident);
 
-            if (this.symbolTable.ContainsKey(identEx.Obj))
-                if (string.IsNullOrEmpty(identEx.Member))
-                    symbolTable[identEx.Obj] = GenExpr(assign.Expr);
+            if (this.symbolTable.ContainsKey(ident.Obj))
+                if (string.IsNullOrEmpty(ident.Member))
+                    symbolTable[ident.Obj] = GenExpr(assign.Expr);
                 else
                 {
                     try
                     {
                         object objNewValue;
                         objNewValue = GenExpr(assign.Expr); ;
-                        SetValue(symbolTable[identEx.Obj], identEx, objNewValue);                       
+                        SetValue(symbolTable[ident.Obj], ident, objNewValue);                       
                     }
                     catch (Exception ex)
                     {
-                        throw new System.Exception(" error in assign code  '" + identEx.Member + " :" + ex.Message);
+                        throw new System.Exception(" error in assign code  '" + ident.Member + " :" + ex.Message);
                     }
                 }
             else
-                throw new System.Exception(" undeclared variable '" + identEx.Obj);
+                throw new System.Exception(" undeclared variable '" + ident.Obj);
 
         }
 
         private object CodeReadSymbol(Variable variable)
         {
-            IdentDetailed identEx = new IdentDetailed(variable.Ident);
+            IdentObject ident = new IdentObject(variable.Ident);
 
-            if (this.symbolTable.ContainsKey(identEx.Obj))
-                if (string.IsNullOrEmpty(identEx.Member))
-                    return symbolTable[identEx.Obj];
+            if (this.symbolTable.ContainsKey(ident.Obj))
+                if (string.IsNullOrEmpty(ident.Member))
+                    return symbolTable[ident.Obj];
                 else
                 {
                     try
                     {
                         object resGetValue;
-                        GetValue(symbolTable[identEx.Obj], identEx, out resGetValue);
+                        GetValue(symbolTable[ident.Obj], ident, out resGetValue);
                         return resGetValue;
                     }
                     catch (Exception ex)
                     {
-                        throw new System.Exception(" error in read code  '" + identEx.Member + " :" + ex.Message);
+                        throw new System.Exception(" error in read code  '" + ident.Member + " :" + ex.Message);
                     }
                 }
             else
-                throw new System.Exception(" undeclared variable '" + identEx.Obj);
+                throw new System.Exception(" undeclared variable '" + ident.Obj);
 
         }
 
@@ -369,27 +367,25 @@ namespace AnTScript
             {
                 Type t;
                 object obj;
+                object objRoot;
                 string funName;
+                MethodInfo mi;
 
-                // TODO: arreglar esto (Ident Object tiene que servier para capturar métodos también)
-                IdentObject id = new IdentObject(function.FunctionName);
-               
-                // TODO: Mejorar esto !!! (lo que viene es sólo el nombre del método)
-                if (string.IsNullOrEmpty(id.Prop))
+                IdentObject ident = new IdentObject(function.FunctionName);
+                              
+                if (string.IsNullOrEmpty(ident.Member))
                 {
                     t = DefaultFunctionLibraryType;
-                    obj = DefaultFunctionLibrary;                    
-                    funName = id.Obj;
+                    obj = DefaultFunctionLibrary;
+                    funName = ident.Obj;
+                    mi = t.GetMethod(funName);
                 }
                 else
-                {
-                    t = symbolTable[id.Obj].GetType();
-                    obj = symbolTable[id.Obj];
-                    funName = id.Prop;
+                {                    
+                    objRoot = symbolTable[ident.Obj];                                        
+                    GetObjectMethod(objRoot, ident, out obj, out mi);
                 }
-
-                MethodInfo mi = t.GetMethod(funName);
-                
+                                
                 // Params
                 object[] param;
                 if (function.Args.Count > 0)
@@ -434,7 +430,8 @@ namespace AnTScript
                     {
                         param[i] = GenExpr(newObject.Args[i]);
 
-                        // TODO: Basura provisional,  !!! Importante
+                        // TODO: !!! Importante ... refactorizar esto
+                        // TODO: Basura provisional,  
                         //       pendiente de soportar tipos int, double, decimal ... 
                         //       Parche para pruebas para constructores con enteros (habituales en aplicaicones)
                         float f;
@@ -781,7 +778,7 @@ namespace AnTScript
             }
         }
 
-        private void SetValue(object varObj, IdentDetailed identEx, object newValue, int i = 0)
+        private void SetValue(object varObj, IdentObject ident, object newValue, int i = 0)
         {
             Type t;
             PropertyInfo pi;
@@ -790,24 +787,24 @@ namespace AnTScript
 
             t = varObj.GetType();
 
-            if (i < identEx.ChainObjs.Count)
+            if (i < ident.ChainObjs.Count)
             {
-                literalObjChild = identEx.ChainObjs[i];
+                literalObjChild = ident.ChainObjs[i];
                 pi = t.GetProperty(literalObjChild);
                 objChild = pi.GetValue(varObj, null);
                 i++;
-                SetValue(objChild, identEx, newValue, i);
+                SetValue(objChild, ident, newValue, i);
             }
             else
             {
-                pi = t.GetProperty(identEx.Member);
+                pi = t.GetProperty(ident.Member);
                 pi.SetValue(varObj, newValue, null);
             }
 
             return;
         }
 
-        private void GetValue(object varObj, IdentDetailed identEx, out object newValue, int i = 0)
+        private void GetValue(object varObj, IdentObject ident, out object newValue, int i = 0)
         {
             Type t;
             PropertyInfo pi;
@@ -816,23 +813,48 @@ namespace AnTScript
 
             t = varObj.GetType();
 
-            if (i < identEx.ChainObjs.Count)
+            if (i < ident.ChainObjs.Count)
             {
-                literalObjChild = identEx.ChainObjs[i];
+                literalObjChild = ident.ChainObjs[i];
                 pi = t.GetProperty(literalObjChild);
                 objChild = pi.GetValue(varObj, null);
                 i++;
-                GetValue(objChild, identEx, out newValue, i);
+                GetValue(objChild, ident, out newValue, i);
             }
             else
             {
-                pi = t.GetProperty(identEx.Member);                
+                pi = t.GetProperty(ident.Member);                
                 newValue = pi.GetValue(varObj, null);
             }
 
             return;
         }
 
+        private void GetObjectMethod(object objRoot, IdentObject ident, out object objRet, out MethodInfo methodInfo, int i = 0)
+        {
+            Type t;
+            PropertyInfo pi;
+            string literalObjChild;
+            object objChild;
+
+            t = objRoot.GetType();
+
+            if (i < ident.ChainObjs.Count)
+            {
+                literalObjChild = ident.ChainObjs[i];
+                pi = t.GetProperty(literalObjChild);
+                objChild = pi.GetValue(objRoot, null);
+                i++;
+                GetObjectMethod(objChild, ident, out objRet, out methodInfo, i);
+            }
+            else
+            {                
+                objRet = objRoot;
+                methodInfo = t.GetMethod(ident.Member);
+            }
+
+            return;
+        }
 
         #endregion
 
@@ -840,32 +862,13 @@ namespace AnTScript
 
     #region auxiliary types
 
-    // TODO: Provisional, esta clase se debe eliminar (pasa a estar sustituida por IdentDelaided
     class IdentObject
-    { 
-        public string Obj {get; set;}
-        public string Prop {get; set;}
-
-        public IdentObject (string ident)
-        {       
-            string[] tmp;
-            if (ident != string.Empty)
-            {
-                tmp = ident.Split('.');
-                Obj = tmp[0];
-                if (tmp.Length > 1)
-                    Prop = tmp[1];
-            }
-        }        
-    }
-
-    class IdentDetailed
     {
         public string Obj { get; set; }
         public List<string> ChainObjs { get; set; }
         public string Member { get; set; }
 
-        public IdentDetailed(string ident)
+        public IdentObject(string ident)
         {
             string[] tmp;
 
