@@ -164,6 +164,10 @@ namespace AnTScript
                 token = Tokens.Break;
             else if (accum.ToString().ToLower() == "new")
                 token = Tokens.New;
+            else if (accum.ToString().ToLower() == "true")               
+                token = new BoolToken("true");
+            else if (accum.ToString().ToLower() == "false")
+                token = new BoolToken("false");
 
             // identifier
             else
@@ -236,13 +240,6 @@ namespace AnTScript
                 return new IntToken(accum.ToString());
             else 
                 return new DoubleToken(accum.ToString());
-
-
-            // TODO: basura, versión old
-            //if (!accum.ToString().Contains("."))
-            //    accum.Append(".0");
-            
-            //return new FloatToken(accum.ToString());
 
         }
 

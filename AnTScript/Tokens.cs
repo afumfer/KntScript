@@ -182,12 +182,28 @@ namespace AnTScript
 
         public DateTime Value
         {
-            get
-            {
-                return _value;
-            }
+            get { return _value; }
         }
     }
+
+    //#dd/mm/yyyy#
+    public class BoolToken : Token
+    {        
+        private bool _value;
+
+        public BoolToken(string value)
+            : base(value)
+        {
+            _value = bool.Parse(value);
+
+        }
+
+        public bool Value
+        {
+            get { return _value; }
+        }
+    }
+
 
     public class SymbolToken : Token
     {

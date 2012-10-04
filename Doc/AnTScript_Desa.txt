@@ -1,8 +1,6 @@
 ============================
 >>>> Versión 0.0.0.x
 
-- Implementar bool
-
 - Implementar un Read genérico Read {stringLiteral:variable, stringLiteral:variable, .... };
 
 - Volcar salida en un Html control.
@@ -97,3 +95,5 @@ X- Implementar soporte de tipos int, single, float, decimal,
 X- Corregir CodeExecuteUnaryExpr 
 X- Probar expresiones aritméticas, lógicas y relacionales. 
 X- Probar conversión de tipos del constructor de los objetos (float -> int). 
+X- Implementar soporte a tipos de datos booleanos
+

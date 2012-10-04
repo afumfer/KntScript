@@ -347,10 +347,17 @@ namespace AnTScript
             }
             else if (this.tokens[this.index] is DateTimeToken)
             {
-                DateTimeVal datLiteral = new DateTimeVal();
-                datLiteral.Value = ((DateTimeToken)this.tokens[this.index]).Value;
+                DateTimeVal datVal = new DateTimeVal();
+                datVal.Value = ((DateTimeToken)this.tokens[this.index]).Value;
                 MoveNext();
-                return datLiteral;
+                return datVal;
+            }
+            else if (this.tokens[this.index] is BoolToken)
+            {
+                BoolVal bolVal = new BoolVal();
+                bolVal.Value = ((BoolToken)this.tokens[this.index]).Value;
+                MoveNext();
+                return bolVal;
             }
             else if (this.tokens[this.index] is IdentifierToken)
             {            

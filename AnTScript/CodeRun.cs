@@ -266,20 +266,23 @@ namespace AnTScript
 
             else if (expr is DateTimeVal)                        
                 res = ((DateTimeVal)expr).Value;
-
-            else if (expr is Variable)                                        
+            
+            else if (expr is BoolVal)            
+                res = ((BoolVal)expr).Value;
+            
+            else if (expr is Variable)
                 res = CodeReadSymbol((Variable)expr);
 
-            else if (expr is FunctionExpr)                        
+            else if (expr is FunctionExpr)
                 res = CodeExecuteFunction((FunctionExpr)expr);
 
-            else if (expr is NewObjectExpr)                       
+            else if (expr is NewObjectExpr)
                 res = CodeExecuteNewObject((NewObjectExpr)expr);
 
-            else if (expr is BinaryExpr)                        
+            else if (expr is BinaryExpr)
                 res = CodeExecuteBinaryExpr((BinaryExpr)expr);
 
-            else if (expr is UnaryExpr)                            
+            else if (expr is UnaryExpr)
                 res = CodeExecuteUnaryExpr((UnaryExpr)expr);
 
                         
@@ -463,39 +466,25 @@ namespace AnTScript
            
             if (typeBinExpr == typeof(int))
                 res = CodeExecuteBinaryExpr<int>(left, right, be.Op);
+
             else if (typeBinExpr == typeof(float))
                 res = CodeExecuteBinaryExpr<float>(left, right, be.Op);
+
             else if (typeBinExpr == typeof(double))
                 res = CodeExecuteBinaryExpr<double>(left, right, be.Op);
+
             else if (typeBinExpr == typeof(decimal))
                 res = CodeExecuteBinaryExpr<decimal>(left, right, be.Op);
+
             else if (typeBinExpr == typeof(string))
                 res = CodeExecuteBinaryExpr<string>(left, right, be.Op);
+
             else if (typeBinExpr == typeof(DateTime))
                 res = CodeExecuteBinaryExpr<DateTime>(left, right, be.Op);
+
             else
                 res = CodeExecuteBinaryExpr<object>(left, right, be.Op);
             
-            return res;
-        }
-
-        // TODO: Para borrar, versión obsoleta (pruebas).
-        private object CodeExecuteBinaryExprOld(BinaryExpr be)
-        {
-            object res = null;
-            object left = GenExpr(be.Left);
-            object right = GenExpr(be.Right);
-
-            if (left.GetType() == typeof(float) && right.GetType() == typeof(float))
-                res = CodeExecuteBinaryExprFloat(left, right, be.Op);                
-            else if (left.GetType() == typeof(DateTime) && right.GetType() == typeof(DateTime))
-                res = CodeExecuteBinaryExprDateTime(left, right, be.Op);
-            else
-                res = CodeExecuteBinaryExprGeneric(left, right, be.Op);            
-
-            // TODO: Implementar más operadores aquí con tipos de datos distintos
-            //       a float (string)
-
             return res;
         }
 
@@ -509,11 +498,11 @@ namespace AnTScript
                 case BinOp.Add:
                     if (ex.GetType() == typeof(int))
                         res = Convert.ToInt32(ex);
-                    if (ex.GetType() == typeof(float))
+                    else if (ex.GetType() == typeof(float))
                         res = Convert.ToSingle(ex);
-                    if (ex.GetType() == typeof(double))
+                    else if (ex.GetType() == typeof(double))
                         res = Convert.ToDouble(ex);
-                    if (ex.GetType() == typeof(decimal))
+                    else if (ex.GetType() == typeof(decimal))
                         res = Convert.ToDecimal(ex);
 
                     break;
@@ -521,17 +510,20 @@ namespace AnTScript
                 case BinOp.Sub:
                     if (ex.GetType() == typeof(int))
                         res = -1 * Convert.ToInt32(ex);
-                    if (ex.GetType() == typeof(float))
+                    else if (ex.GetType() == typeof(float))
                         res = -1 * Convert.ToSingle(ex);
-                    if (ex.GetType() == typeof(double))
+                    else if (ex.GetType() == typeof(double))
                         res = -1 * Convert.ToDouble(ex);
-                    if (ex.GetType() == typeof(decimal))
+                    else if (ex.GetType() == typeof(decimal))
                         res = -1 * Convert.ToDecimal(ex);
 
                     break;
 
                 case BinOp.Not:
-                    res = (ex.Equals(0)) ? 0 : 1;
+                    if (ex.GetType() == typeof(bool))
+                        res = (ex.Equals(false)) ? 1 : 0;
+                    else
+                        res = (ex.Equals(0)) ? 1 : 0;
                     break;
 
                 default:
@@ -542,97 +534,7 @@ namespace AnTScript
             return res;                    
         }
 
-        // TODO: Borrar, obsoleto
-        private object CodeExecuteBinaryExprFloat(object left, object right, BinOp binExpOp)
-        {
-            object res = null;
-
-            bool boolLeft;
-            bool boolRight;
-
-            if ((float)left != 0)
-                boolLeft = true;
-            else
-                boolLeft = false;
-
-            if ((float)right != 0)
-                boolRight = true;
-            else
-                boolRight = false;
-
-            switch (binExpOp)
-            {
-                case BinOp.Add:
-                    res = (float)left + (float)right;
-                    break;
-                case BinOp.Sub:
-                    res = (float)left - (float)right;
-                    break;
-                case BinOp.Mul:
-                    res = (float)left * (float)right;
-                    break;
-                case BinOp.Div:
-                    res = (float)left / (float)right;
-                    break;
-                case BinOp.Or:
-                    if (boolLeft || boolRight)
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-                case BinOp.And:
-                    if (boolLeft && boolRight)
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-                case BinOp.Equal:
-                    if ((float)left == (float)right)
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-                case BinOp.NotEqual:
-                    if ((float)left == (float)right)
-                        res = 0.0f;
-                    else
-                        res = 1.0f;
-                    break;
-                case BinOp.LessThan:
-                    if ((float)left < (float)right)
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-                case BinOp.LessThanOrEqual:
-                    if ((float)left <= (float)right)
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-                case BinOp.GreaterThan:
-                    if ((float)left > (float)right)
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-                case BinOp.GreaterThanOrEqual:
-                    if ((float)left >= (float)right)
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-                default:
-                    throw new ApplicationException(string.Format(
-                        "The operator '{0}' is not supported  in this expression ", binExpOp));
-            }
-
-            return res;
-
-        }
-
-        private object CodeExecuteBinaryExpr<T>(object left, object right, BinOp binExpOp) 
-            
+        private object CodeExecuteBinaryExpr<T>(object left, object right, BinOp binExpOp)             
         {
             object res = null;
             bool boolLeft;
@@ -640,12 +542,12 @@ namespace AnTScript
 
             bool notSupport = false;
 
-            if (left.Equals(1))
+            if (left.Equals(1) || left.Equals(true))
                 boolLeft = true;
             else
                 boolLeft = false;
 
-            if (right.Equals(1))
+            if (right.Equals(1) || right.Equals(true))
                 boolRight = true;
             else
                 boolRight = false;
@@ -697,9 +599,6 @@ namespace AnTScript
                     else if (typeof(T) == typeof(decimal))
                         res = Convert.ToDecimal(left) / Convert.ToDecimal(right);
                     break;
-
-                // TODO: Pendiente, valorar si conviene que res siempre
-                //       devueva un int o bool
 
                 case BinOp.Or:
                     res = (boolLeft || boolRight) ? 1 : 0;
@@ -819,112 +718,6 @@ namespace AnTScript
                 return res;
         }
 
-        // TODO: Borrar, obsoleto
-        private object CodeExecuteBinaryExprDateTime(object left, object right, BinOp binExpOp)
-        {
-            object res = null;
-
-            switch (binExpOp)
-            {
-                case BinOp.Equal:
-                    if ((DateTime)left == (DateTime)right)
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-                case BinOp.NotEqual:
-                    if ((DateTime)left == (DateTime)right)
-                        res = 0.0f;
-                    else
-                        res = 1.0f;
-                    break;
-                case BinOp.LessThan:
-                    if ((DateTime)left < (DateTime)right)
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-                case BinOp.LessThanOrEqual:
-                    if ((DateTime)left <= (DateTime)right)
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-                case BinOp.GreaterThan:
-                    if ((DateTime)left > (DateTime)right)
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-                case BinOp.GreaterThanOrEqual:
-                    if ((DateTime)left >= (DateTime)right)
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-
-                default:
-                    throw new ApplicationException(string.Format(
-                        "The operator '{0}' is not supported in this expression ", binExpOp));
-            }
-
-            return res;
-        }
-
-        // TODO: Borrar, obsoleto
-        private object CodeExecuteBinaryExprGeneric(object left, object right, BinOp binExpOp)
-        {
-            object res = null;
-
-            switch (binExpOp)
-            {
-                case BinOp.Add:
-                    res = left.ToString() + right.ToString();
-                    break;
-                case BinOp.Equal:
-                    if (left.ToString() == right.ToString())
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-                case BinOp.NotEqual:
-                    if (left.ToString() == right.ToString())
-                        res = 0.0f;
-                    else
-                        res = 1.0f;
-                    break;
-                case BinOp.LessThan:
-                    if (string.Compare(left.ToString(), right.ToString()) < 0)
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-                case BinOp.LessThanOrEqual:
-                    if (string.Compare(left.ToString(), right.ToString()) < 0 || left.ToString() == right.ToString())
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-                case BinOp.GreaterThan:
-                    if (string.Compare(left.ToString(), right.ToString()) > 0)
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-                case BinOp.GreaterThanOrEqual:
-                    if (string.Compare(left.ToString(), right.ToString()) > 0 || left.ToString() == right.ToString())
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
-                    break;
-                default:
-                    throw new ApplicationException(string.Format(
-                        "The operator '{0}' is not supported in this expression ", binExpOp));
-            }
-
-            return res;
-        }
-
         private void CodeExecutePrint(Print print)
         {
             string s = GenExpr(print.Expr).ToString();
@@ -979,6 +772,10 @@ namespace AnTScript
             {
                 return typeof(DateTime);
             }
+            else if (expr is BoolVal)
+            {
+                return typeof(bool);
+            }
             else if (expr is Variable)
             {
                 Variable var = (Variable)expr;
@@ -1020,7 +817,6 @@ namespace AnTScript
 
         private Type TypeOfBinaryExpr(object left, object right)
         {
-
             // int
             if (left.GetType() == typeof(int) && right.GetType() == typeof(int))
                 return typeof(int);

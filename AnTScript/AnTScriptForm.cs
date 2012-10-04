@@ -80,23 +80,38 @@ namespace AnTScript
         {
             try
             {
-                int i = 123;
-                float f = 1.1f;
-                double x = 10.9;                
-                decimal d = 123.45M;
-                bool b = false;
-                
-                if (b.Equals(false))
-                    MessageBox.Show("B es 0");
+                bool prueba;
+                object obj;
 
-                string x0 = i.GetType().ToString();
-                string x1 = f.GetType().ToString();
-                string x2 = x.GetType().ToString();                
-                string x3 = d.GetType().ToString();
-                string x4 = b.GetType().ToString();
-                //string x5 = bb.GetType().ToString();
+                prueba = bool.Parse("true");
+
+                obj = prueba;
+
+                if (obj.Equals(true))
+                    MessageBox.Show("111");
+
 
                 #region Pruebas - Código para investigación
+
+                ////////////// Pruebas con tipos de datos numéricos
+                //int i = 123;
+                //float f = 1.1f;
+                //double x = 10.9;                
+                //decimal d = 123.45M;
+                //bool b = false;
+
+                //if (b.Equals(false))
+                //    MessageBox.Show("B es 0");
+
+                //string x0 = i.GetType().ToString();
+                //string x1 = f.GetType().ToString();
+                //string x2 = x.GetType().ToString();                
+                //string x3 = d.GetType().ToString();
+                //string x4 = b.GetType().ToString();
+                ////string x5 = bb.GetType().ToString();
+                ///////////////////////////////////////////////////
+
+
 
                 //////////// identificadores de objetos con espacios de nombre y/o objetos anidados
                 //object objNuevoValor;
@@ -116,7 +131,6 @@ namespace AnTScript
 
                 //return;
                 //// ........................................................
-
 
 
 

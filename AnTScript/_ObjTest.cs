@@ -15,14 +15,14 @@ namespace AnTScript
         public DateTime FechaCreacion { get; set; }
         public _Folder Carpeta { get; set; }
 
-        public _Node()
+        public _Node(bool b)
         {
             IdNota = 1;
             Asunto = string.Empty;            
             FechaCreacion = DateTime.Now;
             Carpeta = new _Folder();
-            Carpeta.Descripcion = "Constructor por defecto";
-            Nota = "Constructor por defecto";
+            Carpeta.Descripcion = "Constructor por defecto - bool";
+            Nota = "Constructor por defecto bool";
         }
 
         public _Node(int id)

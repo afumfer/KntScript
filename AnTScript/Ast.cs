@@ -144,6 +144,12 @@ namespace AnTScript
         public DateTime Value;
     }
 
+    // <bool>
+    public class BoolVal : Expr
+    {
+        public bool Value;
+    }
+
     // <ident> := <char> <ident_rest>*
     // <ident_rest> := <char> | <digit>
     public class Variable : Expr
