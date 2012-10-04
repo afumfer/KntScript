@@ -204,10 +204,10 @@ namespace AnTScript
             return new StringToken(accum.ToString());
         }
 
-        private NumberToken ReadNumericLiteral(TextReader input, char ch)
+        private Token ReadNumericLiteral(TextReader input, char ch)
         {
             StringBuilder accum = new StringBuilder();
-            // TODO: controlar ..
+            // TODO: pendiente, controlar que no haya dos .
             while (char.IsDigit(ch) || ch == '.')
             {
                 accum.Append(ch);
@@ -219,10 +219,30 @@ namespace AnTScript
                     ch = (char)input.Peek();
             }
 
-            if (!accum.ToString().Contains("."))
-                accum.Append(".0");
+            // F -> Float // M -> Decimal
+            ch = (char)input.Peek();
+
+            if (ch == 'f' || ch == 'F')
+            {
+                input.Read();
+                return new FloatToken(accum.ToString());
+            }
+            else if (ch == 'm' || ch == 'M')
+            {
+                input.Read();
+                return new DecimalToken(accum.ToString());
+            }
+            else if (!accum.ToString().Contains("."))
+                return new IntToken(accum.ToString());
+            else 
+                return new DoubleToken(accum.ToString());
+
+
+            // TODO: basura, versión old
+            //if (!accum.ToString().Contains("."))
+            //    accum.Append(".0");
             
-            return new NumberToken(accum.ToString());
+            //return new FloatToken(accum.ToString());
 
         }
 

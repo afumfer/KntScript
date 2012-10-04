@@ -312,21 +312,42 @@ namespace AnTScript
             }
             if (this.tokens[this.index] is StringToken)
             {                
-                StringLiteral stringLiteral = new StringLiteral();
+                StringVal stringLiteral = new StringVal();
                 stringLiteral.Value = ((StringToken)this.tokens[this.index]).Value;
                 MoveNext();
                 return stringLiteral;
             }
-            else if (this.tokens[this.index] is NumberToken)
-            {                
-                DecimalLiteral decLiteral = new DecimalLiteral();
-                decLiteral.Value = ((NumberToken)this.tokens[this.index]).Value;
+            else if (this.tokens[this.index] is IntToken)
+            {
+                IntVal intVal = new IntVal();
+                intVal.Value = ((IntToken)this.tokens[this.index]).Value;
                 MoveNext();
-                return decLiteral;
+                return intVal;
+            }
+            else if (this.tokens[this.index] is FloatToken)
+            {                
+                FloatVal floVal = new FloatVal();
+                floVal.Value = ((FloatToken)this.tokens[this.index]).Value;
+                MoveNext();
+                return floVal;
+            }
+            else if (this.tokens[this.index] is DoubleToken)
+            {
+                DoubleVal douVal = new DoubleVal();
+                douVal.Value = ((DoubleToken)this.tokens[this.index]).Value;
+                MoveNext();
+                return douVal;
+            }
+            else if (this.tokens[this.index] is DecimalToken)
+            {
+                DecimalVal decVal = new DecimalVal();
+                decVal.Value = ((DecimalToken)this.tokens[this.index]).Value;
+                MoveNext();
+                return decVal;
             }
             else if (this.tokens[this.index] is DateTimeToken)
             {
-                DateTimeLiteral datLiteral = new DateTimeLiteral();
+                DateTimeVal datLiteral = new DateTimeVal();
                 datLiteral.Value = ((DateTimeToken)this.tokens[this.index]).Value;
                 MoveNext();
                 return datLiteral;

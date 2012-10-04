@@ -6,14 +6,15 @@ namespace AnTScript
 {
 
     /* <stmt> := var <ident> = <expr>
-        | <ident> = <expr>
-        | for <ident> = <expr> to <expr> do <stmt> end
-        | read_int <ident>
-        | print <expr>
-        | <stmt> ; <stmt>
-        | <func_call>        
-
-      */
+     *  | <ident> = <expr>
+     *  | for <ident> = <expr> to <expr> <stmt> end for 
+     *  | while <expr> <stmt> end while
+     *  | if <expr> <stmt> else <stmt> end if
+     *  | read_int <ident>
+     *  | print <expr>
+     *  | <stmt> ; <stmt>
+     *  | <func_call>        
+    */
 
     public abstract class Stmt
     {
@@ -92,33 +93,53 @@ namespace AnTScript
 
 
     /* <expr> := <string>
-     *  | <num>
+     *  | <int>
+     *  | <float>
+     *  | <double>
+     *  | <decimal>
+     *  | <DateTime>
      *  | <bin_expr>
      *  | <ident>
      *  | <unary_expr>
+     *  | <fun_expr>
+     *  | <newobject_exp>
      */
     public abstract class Expr
     {
     }
 
     // <string> := " <string_elem>* "
-    public class StringLiteral : Expr
+    public class StringVal : Expr
     {        
         public string Value;     
     }
 
-    //// <int> := <digit>+
-    //public class IntLiteral : Expr
-    //{
-    //    public int Value;
-    //}
+    // <int> := <digit>+
+    public class IntVal : Expr
+    {
+        public int Value;
+    }
 
-    public class DecimalLiteral : Expr
+    // <float>
+    public class FloatVal : Expr
     {        
         public float Value;     
     }
 
-    public class DateTimeLiteral : Expr
+    // <double>
+    public class DoubleVal : Expr
+    {
+        public double Value;
+    }
+
+    // <decimal>
+    public class DecimalVal : Expr
+    {
+        public decimal Value;
+    }
+
+    // <DateTime>
+    public class DateTimeVal : Expr
     {
         public DateTime Value;
     }

@@ -134,7 +134,7 @@ namespace AnTScript
                 //assign.Identifier = read.Identifier;
                 assign.Ident = read.Ident;
 
-                DecimalLiteral decLiteral = new DecimalLiteral();
+                DoubleVal decLiteral = new DoubleVal();
                 decLiteral.Value = CodeExecuteReadNum();
 
                 assign.Expr = decLiteral;
@@ -157,8 +157,8 @@ namespace AnTScript
 
                 ForLoop forLoop = (ForLoop)stmt;
 
-                DecimalLiteral numFrom = new DecimalLiteral();
-                DecimalLiteral numTo = new DecimalLiteral();
+                IntVal numFrom = new IntVal();
+                IntVal numTo = new IntVal();
 
                 Assign assignFrom = new Assign();                
                 assignFrom.Ident = forLoop.Ident;
@@ -166,8 +166,8 @@ namespace AnTScript
                 assignFrom.Expr = forLoop.From;
                 RunStmt(assignFrom);
 
-                numFrom.Value = (float)GenExpr(forLoop.From);
-                numTo.Value = (float)GenExpr(forLoop.To);
+                numFrom.Value = Convert.ToInt32(GenExpr(forLoop.From));
+                numTo.Value = Convert.ToInt32(GenExpr(forLoop.To));
 
                 while (numFrom.Value <= numTo.Value)
                 {
@@ -192,9 +192,9 @@ namespace AnTScript
                 // end if;
 
                 IfStmt ifStmt = (IfStmt)stmt;
-                DecimalLiteral ifExp = new DecimalLiteral();
+                IntVal ifExp = new IntVal();
 
-                ifExp.Value = (float)GenExpr(ifStmt.TestExpr);
+                ifExp.Value = Convert.ToInt32(GenExpr(ifStmt.TestExpr));
 
                 if (ifExp.Value != 0)
                 {
@@ -216,13 +216,13 @@ namespace AnTScript
                 // end while;
 
                 WhileStmt whileStmt = (WhileStmt)stmt;
-                DecimalLiteral whileExp = new DecimalLiteral();
+                IntVal whileExp = new IntVal();
 
                 while (true)
                 {
                     if (flagBreak)
                         break;
-                    whileExp.Value = (float)GenExpr(whileStmt.TestExpr);
+                    whileExp.Value = Convert.ToInt32(GenExpr(whileStmt.TestExpr));
                     if (whileExp.Value == 0)
                         break;
                     RunStmt(whileStmt.Body);
@@ -249,14 +249,23 @@ namespace AnTScript
             Type deliveredType;
             object res = null;
 
-            if (expr is StringLiteral)                         
-                res = ((StringLiteral)expr).Value;
-        
-            else if (expr is DecimalLiteral)                            
-                res = ((DecimalLiteral)expr).Value;
+            if (expr is StringVal)                         
+                res = ((StringVal)expr).Value;
 
-            else if (expr is DateTimeLiteral)                        
-                res = ((DateTimeLiteral)expr).Value;
+            else if (expr is IntVal)
+                res = ((IntVal)expr).Value;
+        
+            else if (expr is FloatVal)
+                res = ((FloatVal)expr).Value;
+
+            else if (expr is DoubleVal)
+                res = ((DoubleVal)expr).Value;
+
+            else if (expr is DecimalVal)
+                res = ((DecimalVal)expr).Value;
+
+            else if (expr is DateTimeVal)                        
+                res = ((DateTimeVal)expr).Value;
 
             else if (expr is Variable)                                        
                 res = CodeReadSymbol((Variable)expr);
@@ -429,19 +438,6 @@ namespace AnTScript
                     for (int i = 0; i < newObject.Args.Count; i++)
                     {
                         param[i] = GenExpr(newObject.Args[i]);
-
-                        // TODO: !!! Importante ... refactorizar esto
-                        // TODO: Basura provisional,  
-                        //       pendiente de soportar tipos int, double, decimal ... 
-                        //       Parche para pruebas para constructores con enteros (habituales en aplicaicones)
-                        float f;
-                        if (param[i].GetType() == typeof(float))
-                        {
-                            f = (float)param[i] - Convert.ToInt32((float)param[i]);
-                            if (f == 0.0)
-                                param[i] = Convert.ToInt32((float)param[i]);
-                        }
-                        // ----
                     }
                 }
                 else
@@ -462,19 +458,44 @@ namespace AnTScript
             object res = null;
             object left = GenExpr(be.Left);
             object right = GenExpr(be.Right);
+
+            Type typeBinExpr = TypeOfBinaryExpr(left, right);
+           
+            if (typeBinExpr == typeof(int))
+                res = CodeExecuteBinaryExpr<int>(left, right, be.Op);
+            else if (typeBinExpr == typeof(float))
+                res = CodeExecuteBinaryExpr<float>(left, right, be.Op);
+            else if (typeBinExpr == typeof(double))
+                res = CodeExecuteBinaryExpr<double>(left, right, be.Op);
+            else if (typeBinExpr == typeof(decimal))
+                res = CodeExecuteBinaryExpr<decimal>(left, right, be.Op);
+            else if (typeBinExpr == typeof(string))
+                res = CodeExecuteBinaryExpr<string>(left, right, be.Op);
+            else if (typeBinExpr == typeof(DateTime))
+                res = CodeExecuteBinaryExpr<DateTime>(left, right, be.Op);
+            else
+                res = CodeExecuteBinaryExpr<object>(left, right, be.Op);
             
-            if (left.GetType() == typeof(float) && right.GetType() == typeof(float))            
-                res = CodeExecuteBinaryExprFloat(left, right, be.Op);            
+            return res;
+        }
 
-            else if (left.GetType() == typeof(DateTime) && right.GetType() == typeof(DateTime))            
-                res = CodeExecuteBinaryExprDateTime(left, right, be.Op);          
+        // TODO: Para borrar, versión obsoleta (pruebas).
+        private object CodeExecuteBinaryExprOld(BinaryExpr be)
+        {
+            object res = null;
+            object left = GenExpr(be.Left);
+            object right = GenExpr(be.Right);
 
-            else            
-                res = CodeExecuteBinaryExprGeneric(left, right, be.Op);
+            if (left.GetType() == typeof(float) && right.GetType() == typeof(float))
+                res = CodeExecuteBinaryExprFloat(left, right, be.Op);                
+            else if (left.GetType() == typeof(DateTime) && right.GetType() == typeof(DateTime))
+                res = CodeExecuteBinaryExprDateTime(left, right, be.Op);
+            else
+                res = CodeExecuteBinaryExprGeneric(left, right, be.Op);            
 
             // TODO: Implementar más operadores aquí con tipos de datos distintos
             //       a float (string)
-            
+
             return res;
         }
 
@@ -486,16 +507,31 @@ namespace AnTScript
             switch (ue.Op)
             {
                 case BinOp.Add:
-                    res = (float)ex;
+                    if (ex.GetType() == typeof(int))
+                        res = Convert.ToInt32(ex);
+                    if (ex.GetType() == typeof(float))
+                        res = Convert.ToSingle(ex);
+                    if (ex.GetType() == typeof(double))
+                        res = Convert.ToDouble(ex);
+                    if (ex.GetType() == typeof(decimal))
+                        res = Convert.ToDecimal(ex);
+
                     break;
+
                 case BinOp.Sub:
-                    res = -1 * (float)ex;
+                    if (ex.GetType() == typeof(int))
+                        res = -1 * Convert.ToInt32(ex);
+                    if (ex.GetType() == typeof(float))
+                        res = -1 * Convert.ToSingle(ex);
+                    if (ex.GetType() == typeof(double))
+                        res = -1 * Convert.ToDouble(ex);
+                    if (ex.GetType() == typeof(decimal))
+                        res = -1 * Convert.ToDecimal(ex);
+
                     break;
+
                 case BinOp.Not:
-                    if ((float)ex == 0)
-                        res = 1.0f;
-                    else
-                        res = 0.0f;
+                    res = (ex.Equals(0)) ? 0 : 1;
                     break;
 
                 default:
@@ -506,6 +542,7 @@ namespace AnTScript
             return res;                    
         }
 
+        // TODO: Borrar, obsoleto
         private object CodeExecuteBinaryExprFloat(object left, object right, BinOp binExpOp)
         {
             object res = null;
@@ -591,8 +628,198 @@ namespace AnTScript
             }
 
             return res;
+
         }
 
+        private object CodeExecuteBinaryExpr<T>(object left, object right, BinOp binExpOp) 
+            
+        {
+            object res = null;
+            bool boolLeft;
+            bool boolRight;
+
+            bool notSupport = false;
+
+            if (left.Equals(1))
+                boolLeft = true;
+            else
+                boolLeft = false;
+
+            if (right.Equals(1))
+                boolRight = true;
+            else
+                boolRight = false;
+
+            switch (binExpOp)
+            {
+                case BinOp.Add:
+                    if (typeof(T) == typeof(int))                        
+                        res = Convert.ToInt32(left) + Convert.ToInt32(right);
+                    else if (typeof(T) == typeof(float))
+                        res = Convert.ToSingle(left) + Convert.ToSingle(right);
+                    else if (typeof(T) == typeof(double))                        
+                        res = Convert.ToDouble(left) + Convert.ToDouble(right);
+                    else if (typeof(T) == typeof(decimal))                        
+                        res = Convert.ToDecimal(left) + Convert.ToDecimal(right);
+                    else if (typeof(T) == typeof(string))
+                        res = left.ToString() + right.ToString();                        
+                    break;
+
+                case BinOp.Sub:
+                    if (typeof(T) == typeof(int))
+                        res = Convert.ToInt32(left) - Convert.ToInt32(right);
+                    else if (typeof(T) == typeof(float))
+                        res = Convert.ToSingle(left) - Convert.ToSingle(right);
+                    else if (typeof(T) == typeof(double))
+                        res = Convert.ToDouble(left) - Convert.ToDouble(right);
+                    else if (typeof(T) == typeof(decimal))
+                        res = Convert.ToDecimal(left) - Convert.ToDecimal(right);
+                    break;
+
+                case BinOp.Mul:
+                    if (typeof(T) == typeof(int))
+                        res = Convert.ToInt32(left) * Convert.ToInt32(right);
+                    else if (typeof(T) == typeof(float))
+                        res = Convert.ToSingle(left) * Convert.ToSingle(right);
+                    else if (typeof(T) == typeof(double))
+                        res = Convert.ToDouble(left) * Convert.ToDouble(right);
+                    else if (typeof(T) == typeof(decimal))
+                        res = Convert.ToDecimal(left) * Convert.ToDecimal(right);
+                    break;
+
+                case BinOp.Div:
+                    if (typeof(T) == typeof(int))
+                        res = Convert.ToInt32(left) / Convert.ToInt32(right);
+                    else if (typeof(T) == typeof(float))
+                        res = Convert.ToSingle(left) / Convert.ToSingle(right);
+                    else if (typeof(T) == typeof(double))
+                        res = Convert.ToDouble(left) / Convert.ToDouble(right);
+                    else if (typeof(T) == typeof(decimal))
+                        res = Convert.ToDecimal(left) / Convert.ToDecimal(right);
+                    break;
+
+                // TODO: Pendiente, valorar si conviene que res siempre
+                //       devueva un int o bool
+
+                case BinOp.Or:
+                    res = (boolLeft || boolRight) ? 1 : 0;
+                    break;
+
+                case BinOp.And:
+                    res = (boolLeft && boolRight) ? 1 : 0;
+                    break;
+
+                case BinOp.Equal:
+                    if (typeof(T) == typeof(int))
+                        res = (Convert.ToInt32(left) == Convert.ToInt32(right)) ? 1 : 0;                    
+                    else if (typeof(T) == typeof(float))
+                        res = (Convert.ToSingle(left) == Convert.ToSingle(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(double))
+                        res = (Convert.ToDouble(left) == Convert.ToDouble(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(decimal))
+                        res = (Convert.ToDecimal(left) == Convert.ToDecimal(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(DateTime))
+                        res = (Convert.ToDateTime(left) == Convert.ToDateTime(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(string))
+                        res = (left.ToString() == right.ToString()) ? 1 : 0;
+                    else if (typeof(T) == typeof(object))
+                        res = (left.GetHashCode() == right.GetHashCode()) ? 1 : 0;
+                    break;
+
+                case BinOp.NotEqual:
+                    if (typeof(T) == typeof(int))
+                        res = (Convert.ToInt32(left) == Convert.ToInt32(right)) ? 0 : 1;
+                    else if (typeof(T) == typeof(float))
+                        res = (Convert.ToSingle(left) == Convert.ToSingle(right)) ? 0 : 1;
+                    else if (typeof(T) == typeof(double))
+                        res = (Convert.ToDouble(left) == Convert.ToDouble(right)) ? 0 : 1;
+                    else if (typeof(T) == typeof(decimal))
+                        res = (Convert.ToDecimal(left) == Convert.ToDecimal(right)) ? 0 : 1;
+                    else if (typeof(T) == typeof(DateTime))
+                        res = (Convert.ToDateTime(left) == Convert.ToDateTime(right)) ? 0 : 1;
+                    else if (typeof(T) == typeof(string))
+                        res = (left.ToString() == right.ToString()) ? 0 : 1;
+                    else if (typeof(T) == typeof(object))
+                        res = (left.GetHashCode() == right.GetHashCode()) ? 0 : 1;
+                    break;
+
+                case BinOp.LessThan:
+                    if (typeof(T) == typeof(int))
+                        res = (Convert.ToInt32(left) < Convert.ToInt32(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(float))
+                        res = (Convert.ToSingle(left) < Convert.ToSingle(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(double))
+                        res = (Convert.ToDouble(left) < Convert.ToDouble(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(decimal))
+                        res = (Convert.ToDecimal(left) < Convert.ToDecimal(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(DateTime))
+                        res = (Convert.ToDateTime(left) < Convert.ToDateTime(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(string))
+                        res = (string.Compare(left.ToString(), right.ToString()) < 0) ? 1 : 0;
+
+                    break;
+
+                case BinOp.LessThanOrEqual:
+                    if (typeof(T) == typeof(int))
+                        res = (Convert.ToInt32(left) <= Convert.ToInt32(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(float))
+                        res = (Convert.ToSingle(left) <= Convert.ToSingle(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(double))
+                        res = (Convert.ToDouble(left) <= Convert.ToDouble(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(decimal))
+                        res = (Convert.ToDecimal(left) <= Convert.ToDecimal(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(DateTime))
+                        res = (Convert.ToDateTime(left) <= Convert.ToDateTime(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(string))
+                        res = (string.Compare(left.ToString(), right.ToString()) < 0 || left.ToString() == right.ToString()) ? 1 : 0;
+
+                    break;
+
+                case BinOp.GreaterThan:
+                    if (typeof(T) == typeof(int))
+                        res = (Convert.ToInt32(left) > Convert.ToInt32(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(float))
+                        res = (Convert.ToSingle(left) > Convert.ToSingle(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(double))
+                        res = (Convert.ToDouble(left) > Convert.ToDouble(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(decimal))
+                        res = (Convert.ToDecimal(left) > Convert.ToDecimal(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(DateTime))
+                        res = (Convert.ToDateTime(left) > Convert.ToDateTime(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(string))
+                        res = (string.Compare(left.ToString(), right.ToString()) > 0) ? 1 : 0;
+
+                    break;
+
+                case BinOp.GreaterThanOrEqual:
+                    if (typeof(T) == typeof(int))
+                        res = (Convert.ToInt32(left) >= Convert.ToInt32(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(float))
+                        res = (Convert.ToSingle(left) >= Convert.ToSingle(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(double))
+                        res = (Convert.ToDouble(left) >= Convert.ToDouble(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(decimal))
+                        res = (Convert.ToDecimal(left) >= Convert.ToDecimal(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(DateTime))
+                        res = (Convert.ToDateTime(left) >= Convert.ToDateTime(right)) ? 1 : 0;
+                    else if (typeof(T) == typeof(string))
+                        res = (string.Compare(left.ToString(), right.ToString()) > 0 || left.ToString() == right.ToString()) ? 1 : 0;
+
+                    break;
+
+                default:
+                    notSupport = true;
+                    break;
+            }
+
+            if (notSupport)
+                throw new ApplicationException(string.Format(
+                    "The operator '{0}' is not supported  in this expression ", binExpOp));
+            else 
+                return res;
+        }
+
+        // TODO: Borrar, obsoleto
         private object CodeExecuteBinaryExprDateTime(object left, object right, BinOp binExpOp)
         {
             object res = null;
@@ -644,6 +871,7 @@ namespace AnTScript
             return res;
         }
 
+        // TODO: Borrar, obsoleto
         private object CodeExecuteBinaryExprGeneric(object left, object right, BinOp binExpOp)
         {
             object res = null;
@@ -706,17 +934,17 @@ namespace AnTScript
                 textOut.AppendText(@s);            
         }
 
-        private float CodeExecuteReadNum()
+        private double CodeExecuteReadNum()
         {
             // TODO: Esto es para pruebas
-            float value = 0;
+            double value = 0;
             InputBoxResult test = InputBox.Show(
                              "Read int  " + "\n" + " .... " +
                              "  Prompt " + "\n" + "...."
                              , "Title", "0", 100, 100);
 
             if (test.ReturnCode == DialogResult.OK)
-                value = float.Parse(test.Text);
+                value = double.Parse(test.Text);
 
             return value;
         }
@@ -727,15 +955,27 @@ namespace AnTScript
 
         private Type TypeOfExpr(Expr expr)
         {
-            if (expr is StringLiteral)
+            if (expr is StringVal)
             {
                 return typeof(string);
             }
-            else if (expr is DecimalLiteral)
+            else if (expr is IntVal)
+            {
+                return typeof(int);
+            }
+            else if (expr is FloatVal)
             {
                 return typeof(float);
             }
-            else if (expr is DateTimeLiteral)
+            else if (expr is DoubleVal)
+            {
+                return typeof(double);
+            }
+            else if (expr is DecimalVal)
+            {
+                return typeof(decimal);
+            }
+            else if (expr is DateTimeVal)
             {
                 return typeof(DateTime);
             }
@@ -776,6 +1016,55 @@ namespace AnTScript
             {
                 throw new System.Exception("don't know how to calculate the type of " + expr.GetType().Name);
             }
+        }
+
+        private Type TypeOfBinaryExpr(object left, object right)
+        {
+
+            // int
+            if (left.GetType() == typeof(int) && right.GetType() == typeof(int))
+                return typeof(int);
+
+            // float
+            else if (left.GetType() == typeof(float) && right.GetType() == typeof(float))
+                return typeof(float);
+
+            else if (  (left.GetType() == typeof(float) || right.GetType() == typeof(float)) &&
+                (left.GetType() == typeof(int) || right.GetType() == typeof(int))  
+                )
+                return typeof(float);
+
+            // double
+            else if ( left.GetType() == typeof(double) && right.GetType() == typeof(double) )
+                return typeof(double);
+
+            else if ((left.GetType() == typeof(double) || right.GetType() == typeof(double)) &&
+                (left.GetType() == typeof(int) || right.GetType() == typeof(int) || left.GetType() == typeof(float) || right.GetType() == typeof(float) )
+                )
+                return typeof(double);
+
+            // decimal 
+            else if (left.GetType() == typeof(decimal) && right.GetType() == typeof(decimal))
+                return typeof(decimal);
+
+            else if ((left.GetType() == typeof(decimal) || right.GetType() == typeof(decimal)) &&
+                (left.GetType() == typeof(int) || right.GetType() == typeof(int) || left.GetType() == typeof(float) || right.GetType() == typeof(float) || left.GetType() == typeof(double) || right.GetType() == typeof(double) ) 
+                )
+                return typeof(decimal);
+
+            // string  !!!   ||
+            else if (left.GetType() == typeof(string) || right.GetType() == typeof(string))
+                return typeof(string);
+
+            // DateTime
+            else if (left.GetType() == typeof(DateTime) && right.GetType() == typeof(DateTime))
+                return typeof(DateTime);
+
+            // object
+            else
+                return typeof(object);
+            
+
         }
 
         private void SetValue(object varObj, IdentObject ident, object newValue, int i = 0)

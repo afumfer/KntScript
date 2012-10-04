@@ -79,25 +79,45 @@ namespace AnTScript
         private void button1_Click(object sender, EventArgs e)
         {
             try
-            {                                            
-                object objNuevoValor;
-                IdentObject identEx = new IdentObject("a.Carpeta.Archivador.NombreArchivador");
+            {
+                int i = 123;
+                float f = 1.1f;
+                double x = 10.9;                
+                decimal d = 123.45M;
+                bool b = false;
+                
+                if (b.Equals(false))
+                    MessageBox.Show("B es 0");
 
-                Dictionary<string, object> symbolTable = new Dictionary<string,object>();
-                symbolTable.Add(identEx.Obj, new _Node(123));
-
-                objNuevoValor = "Nuevo NOMBRE ARCHIVADOR";
-
-                SetValue(symbolTable[identEx.Obj], identEx, objNuevoValor); 
-
-                object resSetValue = symbolTable["a"];
-
-                object resGetValue;
-                GetValue(symbolTable[identEx.Obj], identEx, out resGetValue);
-
-                return;
+                string x0 = i.GetType().ToString();
+                string x1 = f.GetType().ToString();
+                string x2 = x.GetType().ToString();                
+                string x3 = d.GetType().ToString();
+                string x4 = b.GetType().ToString();
+                //string x5 = bb.GetType().ToString();
 
                 #region Pruebas - Código para investigación
+
+                //////////// identificadores de objetos con espacios de nombre y/o objetos anidados
+                //object objNuevoValor;
+                //IdentObject identEx = new IdentObject("a.Carpeta.Archivador.NombreArchivador");
+
+                //Dictionary<string, object> symbolTable = new Dictionary<string, object>();
+                //symbolTable.Add(identEx.Obj, new _Node(123));
+
+                //objNuevoValor = "Nuevo NOMBRE ARCHIVADOR";
+
+                //SetValue(symbolTable[identEx.Obj], identEx, objNuevoValor);
+
+                //object resSetValue = symbolTable["a"];
+
+                //object resGetValue;
+                //GetValue(symbolTable[identEx.Obj], identEx, out resGetValue);
+
+                //return;
+                //// ........................................................
+
+
 
 
                 ////////// Navegar por jerarquía de objetos, prueba limpia 
@@ -203,6 +223,8 @@ namespace AnTScript
         }
 
 
+        #region Pruebas
+
         private void SetValue(object varObj, IdentObject identEx, object newValue, int i = 0)
         {
             Type t;
@@ -255,6 +277,8 @@ namespace AnTScript
 
             return;
         }
+
+        #endregion
 
     }
 

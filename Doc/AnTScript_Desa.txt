@@ -1,8 +1,9 @@
 ============================
->>>> Versión 0.0.0
+>>>> Versión 0.0.0.x
 
-- Implementar soporte de tipos int, single, float, decimal, bool
-- Corregir bug, en la conversión de tipos del constructor de los objetos (float -> int). 
+- Probar conversión de tipos del constructor de los objetos (float -> int). 
+
+- Implementar bool
 
 - Implementar un Read genérico Read {stringLiteral:variable, stringLiteral:variable, .... };
 
@@ -15,19 +16,20 @@
 
 
 ============================
->>>> Versión 0.0.1
+>>>> Versión 0.0.1.x
 - Empotrar el código en ANotas
 - Implementar librería de funciones de ANotas
 - Mecanismo provisional para trabajar con colecciones de Notas y coleeciones de Carpetas 
-- Las funciones CodeExecuteBinaryXXXXXX se deben simplificar usando generics.
+
 
 ============================
->>>> Versión 0.0.2
+>>>> Versión 0.0.2.x
 - Implementar tipos arrays o tipos enumerables.
 - Implementar foreach
 - Implementar comprobación de tipos
 - Pasar IdentObject de CodeRun al Parser o al Scanner
-- Emplear generics para resolver las operaciones en las expresiones binarias.
+- Mejorar el tratamiento de errores
+- Informar de la línea / columna del error
 - Implementar definición de funciones.
 - Implementar tipo locales
 - Cambiar el tipo base interno de AntScript de las variables numéricas a "decimal" de .net ??? (en lugar de float)
@@ -47,32 +49,25 @@ X- Sustituir el compilador por el intérprete
 X- Implementar comentarios
 X- Soportar números de punto flotante
 X- Enriquecer Tokens
-
 X- Que la entrada del Scanner acepte una cadena de texto.
 X- En CodeRun implementar la resolución de las expresiones con factor
 X- Implementar * / - en el evaluador de expresiones
 X- Implementar anidamiento de paréntesis
 X- Implementar operadores unarios
-
 X- Crear repositorio
 X- Aislar en un proyecto nuevo, poner un espacio de nombres.
 X- Implementar precedencia de operadores
-
 X- Organizar mejor la rutina principal del scanner (estructurar la secuencia principal)
 X- Poner como tokens las palabras reservadas y los identificadores
 X- Limpiar código
 X- Implementar operadiores lógicos Or, And, Not
-
 X- Implementar operadores relacionales >, >=, <, <=, !=
 X- Implementar operadores entre expresiones de cadena
 X- Implementar If
-
 X- Implementar While
 X- Quitar el do al bucle for
 X- Poner cierres como end if, end for, end while
-
 X- Implementar break dentro de los bucles
-
 X- Implementar asignaciones objeto.propiedad = expresion
 X- Definir clases de varios tipos (en función de una cadena en la definición).
 X- Resolver problema de conversión de float a int/decimal
@@ -95,3 +90,7 @@ X- Elimnar la clase IdentObject (obsoleta) -> pasará a ser IdentDelailed()...
 
 ============================
 >>>> Versión 0.0.0.3
+X- Emplear generics para resolver las operaciones en las expresiones binarias.
+X- Implementar soporte de tipos int, single, float, decimal, 
+X- Corregir CodeExecuteUnaryExpr 
+X- Probar expresiones aritméticas, lógicas y relacionales. 

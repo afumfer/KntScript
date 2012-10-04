@@ -99,12 +99,29 @@ namespace AnTScript
             get { return _value.ToString(); }
         }
     }
+
+    public class IntToken : Token
+    {
+        private int _value;
+
+        public IntToken(string value)
+            : base(value)
+        {
+            _value = int.Parse(value.ToString(),
+                            System.Globalization.CultureInfo.InvariantCulture);
+        }
+
+        public int Value 
+        {
+            get { return _value; }
+        }
+    }
     
-    public class NumberToken : Token
+    public class FloatToken : Token
     {
         private float _value;
         
-        public NumberToken(string value)
+        public FloatToken(string value)
             : base(value)
         {
             _value = float.Parse(value.ToString(),
@@ -113,10 +130,41 @@ namespace AnTScript
 
         public float Value
         {
-            get
-            {
-                return _value;
-            }
+            get { return _value; }
+        }
+    }
+
+    public class DoubleToken : Token
+    {
+        private double _value;
+
+        public DoubleToken(string value)
+            : base(value)
+        {
+            _value = double.Parse(value.ToString(),
+                            System.Globalization.CultureInfo.InvariantCulture);
+        }
+
+        public double Value
+        {
+            get { return _value; }
+        }
+    }
+
+    public class DecimalToken : Token
+    {
+        private decimal _value;
+
+        public DecimalToken(string value)
+            : base(value)
+        {
+            _value = decimal.Parse(value.ToString(),
+                            System.Globalization.CultureInfo.InvariantCulture);
+        }
+
+        public decimal Value
+        {
+            get { return _value; }
         }
     }
 
@@ -130,8 +178,6 @@ namespace AnTScript
         {
             _value = DateTime.Parse(value);
 
-            //_value = float.Parse(value.ToString(),
-            //                System.Globalization.CultureInfo.InvariantCulture);
         }
 
         public DateTime Value
@@ -147,6 +193,12 @@ namespace AnTScript
     {
         public SymbolToken(string value)
             : base(value) { }
+    }
+
+    public class NumToken : Token
+    {
+        public NumToken(string value)
+            : base(value) {}
     }
 
     public abstract class Token
