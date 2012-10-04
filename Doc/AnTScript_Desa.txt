@@ -1,18 +1,19 @@
 ============================
 >>>> Versión 0.0.0.x
 
-- Probar conversión de tipos del constructor de los objetos (float -> int). 
-
 - Implementar bool
 
 - Implementar un Read genérico Read {stringLiteral:variable, stringLiteral:variable, .... };
 
 - Volcar salida en un Html control.
-- Mejorar la interfaz de usuario  (TinyIDE)
+
 - Generalizar la definición del ensamblado que contiene la librería de funciones por defecto. Emplear inyección de código para definir esa librería. Por defecto puede existir una. 
 
 - Depurar o limpiar ParserTree
+- Mejorar la interfaz de usuario  (TinyIDE)
 - Limpiar los TODO's
+- Depurar la librería con funciones básicas y genéricas.
+- Preparar programas de test.
 
 
 ============================
@@ -27,11 +28,12 @@
 - Implementar tipos arrays o tipos enumerables.
 - Implementar foreach
 - Implementar comprobación de tipos
-- Pasar IdentObject de CodeRun al Parser o al Scanner
 - Mejorar el tratamiento de errores
 - Informar de la línea / columna del error
-- Implementar definición de funciones.
-- Implementar tipo locales
+- Implementar definición de funciones
+- Implementar ámbito de variables locales
+- Implementar referencia de librerias de funciones AntTScript
+- Pasar IdentObject de CodeRun al Parser o al Scanner
 - Cambiar el tipo base interno de AntScript de las variables numéricas a "decimal" de .net ??? (en lugar de float)
 - Refactorizar código empleando patrónes para la ampliación del lenguaje. Estudiar posibles patrones para ampliar facilmente el lenguaje
 
@@ -94,3 +96,4 @@ X- Emplear generics para resolver las operaciones en las expresiones binarias.
 X- Implementar soporte de tipos int, single, float, decimal, 
 X- Corregir CodeExecuteUnaryExpr 
 X- Probar expresiones aritméticas, lógicas y relacionales. 
+X- Probar conversión de tipos del constructor de los objetos (float -> int). 

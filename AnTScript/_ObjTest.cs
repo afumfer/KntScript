@@ -25,14 +25,14 @@ namespace AnTScript
             Nota = "Constructor por defecto";
         }
 
-        public _Node(float id)
+        public _Node(int id)
         {
             IdNota = id;
             Asunto = string.Empty;            
             FechaCreacion = DateTime.Now;
             Carpeta = new _Folder();
             Carpeta.Descripcion = "Constructor sobrecarca id";
-            Nota = "Versión sobrecargada";
+            Nota = "Versión sobrecargada con int";
         }
 
         public _Node(_Folder C)
