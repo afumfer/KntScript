@@ -40,12 +40,20 @@ namespace AnTScript
         public Expr Expr;
     }
 
-    // for <ident> = <expr> to <expr> do <stmt> end for
+    // for <ident> = <expr> to <expr> <stmt> end for
     public class ForLoop : Stmt
     {        
         public string Ident;     
         public Expr From;
         public Expr To;
+        public Stmt Body;
+    }
+
+    // foreach <ident> in <expr> <stmt> end foreach
+    public class ForEachLoop : Stmt
+    {
+        public string Ident;
+        public Expr Colec;        
         public Stmt Body;
     }
 

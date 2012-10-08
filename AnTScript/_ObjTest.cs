@@ -22,7 +22,7 @@ namespace AnTScript
             FechaCreacion = DateTime.Now;
             Carpeta = new _Folder();
             Carpeta.Descripcion = "Constructor por defecto - bool";
-            Nota = "Constructor por defecto bool";
+            Nota = "Constructor por defecto bool de la nota " + IdNota.ToString();
         }
 
         public _Node(int id)
@@ -32,7 +32,7 @@ namespace AnTScript
             FechaCreacion = DateTime.Now;
             Carpeta = new _Folder();
             Carpeta.Descripcion = "Constructor sobrecarca id";
-            Nota = "Versión sobrecargada con int";
+            Nota = "Versión sobrecargada con int " + IdNota.ToString();
         }
 
         public _Node(_Folder C)
@@ -61,6 +61,12 @@ namespace AnTScript
             Form a = new Form();
             a.Show();
         }
+
+        public string PruebaMetodoC(string parametro)
+        {
+            return ">> " + parametro;
+        }
+
 
     }
 
@@ -108,6 +114,19 @@ namespace AnTScript
         public void Dummy(string a)
         {
             return;
+        }
+
+        public List<_Node> ColecNode()
+        {
+            List<_Node> lisRes = new List<_Node>();
+
+            lisRes.Add(new _Node(1));
+            lisRes.Add(new _Node(2));
+            lisRes.Add(new _Node(3));
+            lisRes.Add(new _Node(4));
+            lisRes.Add(new _Node(5));
+
+            return lisRes;            
         }
 
     }

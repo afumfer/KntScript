@@ -168,6 +168,11 @@ namespace AnTScript
                 token = new BoolToken("true");
             else if (accum.ToString().ToLower() == "false")
                 token = new BoolToken("false");
+            else if (accum.ToString().ToLower() == "foreach")
+                token = Tokens.ForEach;
+            else if (accum.ToString().ToLower() == "in")
+                token = Tokens.In;
+
 
             // identifier
             else

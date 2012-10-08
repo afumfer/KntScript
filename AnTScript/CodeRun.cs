@@ -86,12 +86,18 @@ namespace AnTScript
             if (flagBreak)
                 return;
 
+            #region Sequence
+
             if (stmt is Sequence)
             {
                 Sequence seq = (Sequence)stmt;
                 RunStmt(seq.First);
-                RunStmt(seq.Second);                
+                RunStmt(seq.Second);
             }
+
+            #endregion
+
+            #region DeclareVar
 
             else if (stmt is DeclareVar)
             {
@@ -108,11 +114,19 @@ namespace AnTScript
                 //RunStmt(assign);
             }
 
+            #endregion
+
+            #region Assign
+
             else if (stmt is Assign)
             {
                 Assign assign = (Assign)stmt;
                 CodeStoreSymbol(assign);
             }
+
+            #endregion
+
+            #region Print
 
             else if (stmt is Print)
             {
@@ -120,11 +134,19 @@ namespace AnTScript
                 CodeExecutePrint(print);
             }
 
+            #endregion
+
+            #region FunctionStmt
+
             else if (stmt is FunctionStmt)
             {
                 FunctionStmt fun = (FunctionStmt)stmt;
                 CodeExecuteFunction(fun.Function);
             }
+
+            #endregion
+
+            #region Read_num
 
             else if (stmt is ReadNum)
             {
@@ -141,17 +163,24 @@ namespace AnTScript
                 RunStmt(assign);
             }
 
-            //flagBreak
+            #endregion
+
+            #region BreakStmt
+
             else if (stmt is BreakStmt)
             {
                 flagBreak = true;
                 return;
             }
 
+            #endregion
+
+            #region  FoorLoop
+
             else if (stmt is ForLoop)
             {
                 // example: 
-                // for x = 0 to 100 do
+                // for x = 0 to 100
                 //   print "hello";
                 // end for;
 
@@ -182,6 +211,38 @@ namespace AnTScript
                     flagBreak = false;
             }
 
+            #endregion
+
+            #region FoorEachLoop
+
+            // TODO: Provisional implementation of foreach loop
+            else if (stmt is ForEachLoop)
+            {
+                // example: 
+                // foreach x in myColec
+                //   print "hello";
+                //   print x.MyProp;
+                // end foreach;
+
+                ForEachLoop forEachLoop = (ForEachLoop)stmt;
+                              
+                object colec = GenExpr(forEachLoop.Colec);
+
+                foreach (object o in (IEnumerable<object>)colec)
+                {
+                    if (flagBreak)
+                        break;
+                    CodeSpecialStoreObject(forEachLoop.Ident, o);
+                    RunStmt(forEachLoop.Body);                                        
+                }
+                if (flagBreak)
+                    flagBreak = false;
+            }
+
+            #endregion
+
+            #region IfStmt
+
             else if (stmt is IfStmt)
             {
                 // example: 
@@ -207,6 +268,10 @@ namespace AnTScript
                 }
             }
 
+            #endregion
+
+            #region WhileStmt
+
             else if (stmt is WhileStmt)
             {
                 // example: 
@@ -230,6 +295,8 @@ namespace AnTScript
                 if (flagBreak)
                     flagBreak = false;
             }
+
+            #endregion
 
             else
             {
@@ -310,6 +377,14 @@ namespace AnTScript
 
         #region Code execute region
 
+        private void CodeSpecialStoreObject(string ident, object value)
+        {
+            if (!this.symbolTable.ContainsKey(ident))
+                symbolTable.Add(ident, value);
+            else
+                symbolTable[ident] = value;
+        }
+                
         private void CodeDeclareSymbol(DeclareVar declare)
         {
             IdentObject ident = new IdentObject(declare.Ident);

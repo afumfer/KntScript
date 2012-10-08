@@ -45,7 +45,7 @@ namespace AnTScript
         public static readonly KeywordToken EndSequence = new KeywordToken("ENDSEQUENCE");
         public static readonly KeywordToken Print = new KeywordToken("PRINT");
         public static readonly KeywordToken Var = new KeywordToken("VAR");
-        public static readonly KeywordToken Read_num = new KeywordToken("READ_NUM");
+        public static readonly KeywordToken Read_num = new KeywordToken("READ_NUM");        
         public static readonly KeywordToken For = new KeywordToken("FOR");
         public static readonly KeywordToken To = new KeywordToken("TO");
         public static readonly KeywordToken If = new KeywordToken("IF");
@@ -54,6 +54,8 @@ namespace AnTScript
         public static readonly KeywordToken While = new KeywordToken("WHILE");
         public static readonly KeywordToken Break = new KeywordToken("BREAK");
         public static readonly KeywordToken New = new KeywordToken("NEW");
+        public static readonly KeywordToken ForEach = new KeywordToken("FOREACH");
+        public static readonly KeywordToken In = new KeywordToken("IN");
     }
 
     public class OperatorToken : Token

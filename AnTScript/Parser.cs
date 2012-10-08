@@ -160,6 +160,50 @@ namespace AnTScript
 
             }
 
+            // foreach
+            else if (tokens[index] == Tokens.ForEach)
+            {
+                ForEachLoop forEachLoop = new ForEachLoop();
+                MoveNext();
+
+                if (index < tokens.Count &&
+                    tokens[index] is IdentifierToken)
+                {
+                    forEachLoop.Ident = ((IdentifierToken)tokens[index]).Name;
+                }
+                else
+                {
+                    throw new System.Exception("expected identifier after 'for'");
+                }
+
+                MoveNext();
+
+                if (index == tokens.Count ||
+                    tokens[index] != Tokens.In)
+                {
+                    throw new System.Exception("foreach missing 'in '");
+                }
+                MoveNext();
+
+                forEachLoop.Colec = ParseExpr();
+                
+                // Body for loop
+                forEachLoop.Body = ParseStmt();
+                result = forEachLoop;
+
+                // end for
+                if (index == tokens.Count ||
+                    tokens[index] != Tokens.EndSequence)
+                {
+                    throw new System.Exception("unterminated 'end foreach' loop body");
+                }
+                MoveNext();
+                if (!MaybeEat(Tokens.ForEach))
+                    throw new System.Exception("unterminated 'for' body");
+
+            }
+
+
             // if
             else if (tokens[index] == Tokens.If)
             {
