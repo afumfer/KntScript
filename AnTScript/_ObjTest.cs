@@ -111,9 +111,10 @@ namespace AnTScript
             return x + y;
         }
 
-        public void Dummy(string a)
+        public int RandomInt()
         {
-            return;
+            Random random = new Random();
+            return random.Next();            
         }
 
         public List<_Node> ColecNode()
@@ -127,6 +128,13 @@ namespace AnTScript
             lisRes.Add(new _Node(5));
 
             return lisRes;            
+        }
+
+        public FormInputVar CreateFormInputVar()
+        {
+            AnTScript.FormInputVar f = new AnTScript.FormInputVar();
+            
+            return f;
         }
 
     }

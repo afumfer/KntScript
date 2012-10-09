@@ -51,7 +51,7 @@ namespace AnTScript
                 Parser parser = new Parser(scanner.TokensList);
                 ////ParserTree astTree = new ParserTree(parser.Result, treeAST);
 
-                CodeRun codeRun = new CodeRun(parser.Result, textOut);
+                // CodeRun codeRun = new CodeRun(parser.Result, textOut);
 
                 //treeAST.ExpandAll();
             }
@@ -80,18 +80,33 @@ namespace AnTScript
         {
             try
             {
-                bool prueba;
-                object obj;
 
-                prueba = bool.Parse("true");
+                int a = 0;
+                int b = 0;
+                string aa = "";
+                string bb = "";
 
-                obj = prueba;
+                object x = 11;
+                object y = 11;
 
-                if (obj.Equals(true))
-                    MessageBox.Show("111");
+                a = x.GetHashCode();
+                b = y.GetHashCode();
 
+                if (Object.ReferenceEquals(x,y))
+                    MessageBox.Show("iguales");
+
+                // MessageBox.Show(a.ToString() + " - " + b.ToString());
 
                 #region Pruebas - Código para investigación
+
+                /////////// Prueba parse bool
+                //bool prueba;
+                //object obj;
+                //prueba = bool.Parse("true");
+                //obj = prueba;
+                //if (obj.Equals(true))
+                //    MessageBox.Show("111");
+
 
                 ////////////// Pruebas con tipos de datos numéricos
                 //int i = 123;

@@ -2,8 +2,7 @@
 >>>> Versión 0.0.0.x
 
 
-
-- Implementar un Read genérico Read {stringLiteral:variable, stringLiteral:variable, .... };
+- Implementar un Read genérico ReadVar { stringLiteral : variable, stringLiteral : variable, .... }; 
 
 - Volcar salida en un Html control.
 

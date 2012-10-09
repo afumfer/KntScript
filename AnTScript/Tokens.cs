@@ -45,7 +45,9 @@ namespace AnTScript
         public static readonly KeywordToken EndSequence = new KeywordToken("ENDSEQUENCE");
         public static readonly KeywordToken Print = new KeywordToken("PRINT");
         public static readonly KeywordToken Var = new KeywordToken("VAR");
-        public static readonly KeywordToken Read_num = new KeywordToken("READ_NUM");        
+        // TODO: eliminar read_num
+        public static readonly KeywordToken Read_num = new KeywordToken("READ_NUM");
+        public static readonly KeywordToken ReadVar = new KeywordToken("READVAR");        
         public static readonly KeywordToken For = new KeywordToken("FOR");
         public static readonly KeywordToken To = new KeywordToken("TO");
         public static readonly KeywordToken If = new KeywordToken("IF");

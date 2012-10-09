@@ -11,6 +11,7 @@ namespace AnTScript
      *  | while <expr> <stmt> end while
      *  | if <expr> <stmt> else <stmt> end if
      *  | read_int <ident>
+     *  | readvar <expr>:<ident>, ...
      *  | print <expr>
      *  | <stmt> ; <stmt>
      *  | <func_call>        
@@ -92,6 +93,18 @@ namespace AnTScript
         public string Ident;        
     }
 
+    // <readvar> := {<expr:ident>}
+    public class ReadVar : Stmt
+    {        
+        public Dictionary<Expr,string> Vars;
+
+        public ReadVar()
+        {
+            Vars = new Dictionary<Expr, string>();
+        }
+    }
+
+
     // <stmt> ; <stmt>
     public class Sequence : Stmt
     {
@@ -165,7 +178,7 @@ namespace AnTScript
         public string Ident;     
     }
 
-    // <func_call> := <ident> (<args>)
+    // <func_expr> := <ident> (<args>)
     public class FunctionExpr : Expr
     {
         public string FunctionName;

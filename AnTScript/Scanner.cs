@@ -146,8 +146,11 @@ namespace AnTScript
                 token = Tokens.Print;
             else if (accum.ToString().ToLower() == "var")
                 token = Tokens.Var;
+            // TODO: eliminar read_num
             else if (accum.ToString().ToLower() == "read_num")
                 token = Tokens.Read_num;
+            else if (accum.ToString().ToLower() == "readvar")
+                token = Tokens.ReadVar;
             else if (accum.ToString().ToLower() == "for")
                 token = Tokens.For;
             else if (accum.ToString().ToLower() == "to")

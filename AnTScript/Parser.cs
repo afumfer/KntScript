@@ -108,6 +108,49 @@ namespace AnTScript
                 }
             }
 
+            // readvar
+            else if (tokens[index] == Tokens.ReadVar)
+            {
+                ReadVar readVar = new ReadVar();
+                Expr expr;
+                string ident;
+
+                MoveNext();
+
+                Eat(Tokens.LeftCurlyBracket);
+
+                while ((tokens[index] != Tokens.RightCurlyBracket)
+                    && (index < tokens.Count))
+                {
+                    expr = ParseExpr();
+
+                    Eat(Tokens.Colon);
+
+                    ident = ((IdentifierToken)tokens[index]).Name;
+                    MoveNext();
+
+                    readVar.Vars.Add(expr, ident);
+
+                    if (tokens[index] == Tokens.Comma)
+                        MoveNext(); // Skip comma 
+                    else if (tokens[index] == Tokens.RightCurlyBracket)
+                        break;
+                    else
+                        throw new System.Exception("unexpected character in arg list");                   
+                }
+
+                if (index == tokens.Count ||
+                    tokens[index] != Tokens.RightCurlyBracket)
+                {
+                    throw new System.Exception("expect close curly bracket after open bracket/args");
+                }
+
+                result = readVar;
+
+                // Skip RightCurlyBracket 
+                Eat(Tokens.RightCurlyBracket);                
+            }
+
             // for
             else if (tokens[index] == Tokens.For)
             {                

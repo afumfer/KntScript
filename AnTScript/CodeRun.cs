@@ -152,8 +152,7 @@ namespace AnTScript
             {
                 ReadNum read = (ReadNum)stmt;
 
-                Assign assign = new Assign();
-                //assign.Identifier = read.Identifier;
+                Assign assign = new Assign();                
                 assign.Ident = read.Ident;
 
                 DoubleVal decLiteral = new DoubleVal();
@@ -164,6 +163,26 @@ namespace AnTScript
             }
 
             #endregion
+
+            #region ReadVar
+
+            // TODO: Implementar ReadVar
+            else if (stmt is ReadVar)
+            {
+                //ReadNum read = (ReadNum)stmt;
+
+                //Assign assign = new Assign();
+                //assign.Ident = read.Ident;
+
+                //DoubleVal decLiteral = new DoubleVal();
+                //decLiteral.Value = CodeExecuteReadNum();
+
+                //assign.Expr = decLiteral;
+                //RunStmt(assign);
+            }
+
+            #endregion
+
 
             #region BreakStmt
 
