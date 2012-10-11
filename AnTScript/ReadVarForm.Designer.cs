@@ -1,6 +1,6 @@
 ﻿namespace AnTScript
 {
-    partial class FormInputVar
+    partial class ReadVarForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,25 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.buttonAccept = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.panelControls = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 32);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
             // 
             // buttonAccept
             // 
             this.buttonAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAccept.Location = new System.Drawing.Point(255, 221);
+            this.buttonAccept.Location = new System.Drawing.Point(350, 445);
             this.buttonAccept.Name = "buttonAccept";
             this.buttonAccept.Size = new System.Drawing.Size(76, 29);
             this.buttonAccept.TabIndex = 1;
@@ -58,7 +48,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(337, 221);
+            this.buttonCancel.Location = new System.Drawing.Point(432, 445);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(76, 29);
             this.buttonCancel.TabIndex = 2;
@@ -66,34 +56,35 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // textBox1
+            // panelControls
             // 
-            this.textBox1.Location = new System.Drawing.Point(143, 25);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(270, 20);
-            this.textBox1.TabIndex = 3;
+            this.panelControls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelControls.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panelControls.Location = new System.Drawing.Point(9, 10);
+            this.panelControls.Name = "panelControls";
+            this.panelControls.Size = new System.Drawing.Size(498, 416);
+            this.panelControls.TabIndex = 3;
             // 
-            // FormInputVar
+            // ReadVarForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(425, 262);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(520, 486);
+            this.Controls.Add(this.panelControls);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonAccept);
-            this.Controls.Add(this.label1);
-            this.Name = "FormInputVar";
-            this.Text = "Form1";
+            this.Name = "ReadVarForm";
+            this.Text = "AnTScript - capture vars";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonAccept;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Panel panelControls;
     }
 }

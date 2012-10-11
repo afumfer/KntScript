@@ -3,6 +3,10 @@
 
 
 - Implementar un Read genérico ReadVar { stringLiteral : variable, stringLiteral : variable, .... }; 
+- Probar que se puedan leer variables tipo xxx.xxx.xxx. Eliminar CodeSpecialStoreObject.
+
+- Corregir implementación de CodeSpecialStoreObject()
+
 
 - Volcar salida en un Html control.
 

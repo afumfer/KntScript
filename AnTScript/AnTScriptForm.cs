@@ -49,10 +49,10 @@ namespace AnTScript
                 }
 
                 Parser parser = new Parser(scanner.TokensList);
-                ////ParserTree astTree = new ParserTree(parser.Result, treeAST);
+                
+                CodeRun codeRun = new CodeRun(parser.Result, textOut);
 
-                // CodeRun codeRun = new CodeRun(parser.Result, textOut);
-
+                //ParserTree astTree = new ParserTree(parser.Result, treeAST);
                 //treeAST.ExpandAll();
             }
             catch (Exception err)

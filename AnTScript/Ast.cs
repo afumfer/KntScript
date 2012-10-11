@@ -96,14 +96,13 @@ namespace AnTScript
     // <readvar> := {<expr:ident>}
     public class ReadVar : Stmt
     {        
-        public Dictionary<Expr,string> Vars;
+        public Dictionary<Variable, Expr> Vars;
 
         public ReadVar()
         {
-            Vars = new Dictionary<Expr, string>();
+            Vars = new Dictionary<Variable, Expr>();
         }
     }
-
 
     // <stmt> ; <stmt>
     public class Sequence : Stmt
@@ -234,5 +233,50 @@ namespace AnTScript
         LessThanOrEqual,
         GreaterThanOrEqual
     }
+
+    //// utils 
+
+    // TODO: pendinte de mejorar 
+
+    public class ReadVarItem
+    {
+        public Variable Var;
+        public object VarValue;
+        public object VarNewValue;
+        public object Label;
+    }
+    
+    public class IdentObject
+    {
+        public string Obj { get; set; }
+        public List<string> ChainObjs { get; set; }
+        public string Member { get; set; }
+
+        public IdentObject(string ident)
+        {
+            string[] tmp;
+
+            if (string.IsNullOrEmpty(ident))
+                return;
+
+            ChainObjs = new List<string>();
+
+            tmp = ident.Split('.');
+
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                if (i == 0)
+                    Obj = tmp[i];
+                else if (i == tmp.Length - 1)
+                    Member = tmp[i];
+                else
+                    ChainObjs.Add(tmp[i]);
+            }
+        }
+    }
+
+
+
+
 }
 

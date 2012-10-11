@@ -130,13 +130,6 @@ namespace AnTScript
             return lisRes;            
         }
 
-        public FormInputVar CreateFormInputVar()
-        {
-            AnTScript.FormInputVar f = new AnTScript.FormInputVar();
-            
-            return f;
-        }
-
     }
 
 }

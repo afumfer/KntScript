@@ -54,11 +54,11 @@
     <Compile Include="AnTScriptForm.designer.cs">
       <DependentUpon>AnTScriptForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormInputVar.cs">
+    <Compile Include="ReadVarForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormInputVar.Designer.cs">
-      <DependentUpon>FormInputVar.cs</DependentUpon>
+    <Compile Include="ReadVarForm.Designer.cs">
+      <DependentUpon>ReadVarForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InputBox.cs" />
     <Compile Include="Parser.cs" />
@@ -71,8 +71,8 @@
     <EmbeddedResource Include="AnTScriptForm.resx">
       <DependentUpon>AnTScriptForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormInputVar.resx">
-      <DependentUpon>FormInputVar.cs</DependentUpon>
+    <EmbeddedResource Include="ReadVarForm.resx">
+      <DependentUpon>ReadVarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

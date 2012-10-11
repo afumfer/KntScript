@@ -113,7 +113,7 @@ namespace AnTScript
             {
                 ReadVar readVar = new ReadVar();
                 Expr expr;
-                string ident;
+                Variable var;
 
                 MoveNext();
 
@@ -122,14 +122,13 @@ namespace AnTScript
                 while ((tokens[index] != Tokens.RightCurlyBracket)
                     && (index < tokens.Count))
                 {
+                    var = new Variable();
                     expr = ParseExpr();
 
-                    Eat(Tokens.Colon);
-
-                    ident = ((IdentifierToken)tokens[index]).Name;
+                    Eat(Tokens.Colon);                   
+                    var.Ident = ((IdentifierToken)tokens[index]).Name;                    
                     MoveNext();
-
-                    readVar.Vars.Add(expr, ident);
+                    readVar.Vars.Add(var, expr);
 
                     if (tokens[index] == Tokens.Comma)
                         MoveNext(); // Skip comma 

@@ -169,16 +169,42 @@ namespace AnTScript
             // TODO: Implementar ReadVar
             else if (stmt is ReadVar)
             {
-                //ReadNum read = (ReadNum)stmt;
+                ReadVar read = (ReadVar)stmt;
+                ReadVarItem readVarItem;
+                Assign assign;
+                List<ReadVarItem> readVarItmes = new List<ReadVarItem>();
+                                
+                foreach (var pair in read.Vars)
+                {
+                    readVarItem = new ReadVarItem();
+                    readVarItem.Var = pair.Key;
+                    readVarItem.VarValue = CodeReadSymbol(pair.Key);
+                    readVarItem.Label = GenExpr(pair.Value);                        
+                    readVarItmes.Add(readVarItem);
+                }
 
-                //Assign assign = new Assign();
-                //assign.Ident = read.Ident;
+                if ( CodeExecuteReadVars(readVarItmes) )
+                {
+                    // ---- 
+                    foreach (ReadVarItem vi in readVarItmes)
+                    {
+                        // TODO: Eliminar esto. 
+                        //assign = new Assign();
+                        //assign.Ident = vi.Var.Ident;
+                        ////assign.Expr = (Expr)vi.VarNewValue;
+                        //assign.Expr = (Expr)vi.VarValue;
+                        //CodeStoreSymbol(assign);                        
+                        
+                        //// o 
+                        //// RunStmt(assign);                        
 
-                //DoubleVal decLiteral = new DoubleVal();
-                //decLiteral.Value = CodeExecuteReadNum();
+                        // o
+                        //CodeSpecialStoreObject(vi.Var.Ident, vi.VarNewValue);
+                        CodeStoreSymbol(vi.Var.Ident, vi.VarValue); // demo
+                    }
+                }
 
-                //assign.Expr = decLiteral;
-                //RunStmt(assign);
+
             }
 
             #endregion
@@ -395,14 +421,6 @@ namespace AnTScript
         #endregion
 
         #region Code execute region
-
-        private void CodeSpecialStoreObject(string ident, object value)
-        {
-            if (!this.symbolTable.ContainsKey(ident))
-                symbolTable.Add(ident, value);
-            else
-                symbolTable[ident] = value;
-        }
                 
         private void CodeDeclareSymbol(DeclareVar declare)
         {
@@ -466,6 +484,41 @@ namespace AnTScript
                 throw new System.Exception(" undeclared variable '" + ident.Obj);
 
         }
+
+        // TODO: !!! ojo implementación provisional, hay que implementar
+        //           correctamente xxxx.xxx.xxx // 
+        // Esto está obsoleto, se podría sustirui por la sobrecarga de CodeStoreSymbol.
+        private void CodeSpecialStoreObject(string ident, object value)
+        {
+            if (!this.symbolTable.ContainsKey(ident))
+                symbolTable.Add(ident, value);
+            else
+                symbolTable[ident] = value;
+        }
+
+        private void CodeStoreSymbol(string identString, object varValue)
+        {
+            IdentObject ident = new IdentObject(identString);
+
+            if (this.symbolTable.ContainsKey(ident.Obj))
+                if (string.IsNullOrEmpty(ident.Member))
+                    symbolTable[ident.Obj] = varValue;
+                else
+                {
+                    try
+                    {
+                        SetValue(symbolTable[ident.Obj], ident, varValue);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new System.Exception(" error in assign code  '" + ident.Member + " :" + ex.Message);
+                    }
+                }
+            else
+                throw new System.Exception(" undeclared variable '" + ident.Obj);
+
+        }
+
 
         private object CodeExecuteFunction(FunctionExpr function)
         {
@@ -836,6 +889,19 @@ namespace AnTScript
             return value;
         }
 
+        private bool CodeExecuteReadVars(List<ReadVarItem> readVarItmes)
+        {            
+            AnTScript.ReadVarForm f = new AnTScript.ReadVarForm(readVarItmes);
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+                readVarItmes = f.ReadVarItems;
+                return true;
+            }
+            else
+                return false;
+        }
+
+
         #endregion
 
         #region Utils
@@ -1038,39 +1104,5 @@ namespace AnTScript
         #endregion
 
     } // CodeRun class
-
-    #region auxiliary types
-
-    // TODO: Se debería pasar al parser o al scanner
-    class IdentObject
-    {
-        public string Obj { get; set; }
-        public List<string> ChainObjs { get; set; }
-        public string Member { get; set; }
-
-        public IdentObject(string ident)
-        {
-            string[] tmp;
-
-            if (string.IsNullOrEmpty(ident))
-                return;
-
-            ChainObjs = new List<string>();
-
-            tmp = ident.Split('.');
-
-            for(int i = 0; i < tmp.Length; i++)
-            {
-                if(i == 0)
-                    Obj = tmp[i];
-                else if (i == tmp.Length - 1)
-                    Member = tmp[i];
-                else
-                    ChainObjs.Add(tmp[i]);                
-            }            
-        }
-    }
-
-    #endregion
 
 } // namespace
