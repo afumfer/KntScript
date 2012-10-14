@@ -61,6 +61,7 @@
             this.panelControls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelControls.AutoScroll = true;
             this.panelControls.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.panelControls.Location = new System.Drawing.Point(9, 10);
             this.panelControls.Name = "panelControls";
@@ -69,13 +70,17 @@
             // 
             // ReadVarForm
             // 
+            this.AcceptButton = this.buttonAccept;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(520, 486);
             this.Controls.Add(this.panelControls);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonAccept);
+            this.MinimizeBox = false;
             this.Name = "ReadVarForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AnTScript - capture vars";
             this.ResumeLayout(false);
 

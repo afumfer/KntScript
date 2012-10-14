@@ -1,12 +1,7 @@
 ============================
 >>>> Versión 0.0.0.x
 
-
-- Implementar un Read genérico ReadVar { stringLiteral : variable, stringLiteral : variable, .... }; 
-- Probar que se puedan leer variables tipo xxx.xxx.xxx. Eliminar CodeSpecialStoreObject.
-
-- Corregir implementación de CodeSpecialStoreObject()
-
+- Corregir problema de acentos y juegos de caracteres.
 
 - Volcar salida en un Html control.
 
@@ -16,7 +11,7 @@
 - Mejorar la interfaz de usuario  (TinyIDE)
 - Limpiar los TODO's
 - Depurar la librería con funciones básicas y genéricas.
-- Preparar programas de test.
+- Preparar scripts ejemplo y test.
 
 
 ============================
@@ -31,6 +26,7 @@
 - Implementar tipos arrays e indizadores de colecciones .
 
 - Implementar comprobación de tipos
+- Implementar declaración automática de variables. Eliminar / Corregir implementación de CodeSpecialStoreObject()
 - Mejorar el tratamiento de errores
 - Informar de la línea / columna del error
 - Implementar definición de funciones
@@ -79,8 +75,7 @@ X- Resolver problema de conversión de float a int/decimal
 X- Implementar asignación de fechas, literal fecha.
 X- Implementar distintos operadores con datos dipos fechas (>, >=, <, <=, !=, ==). 
 X- Implementar llamadas a funciones (en sentencias y expresiones): scanner y parser.
-X- Implementar llamadas a funciones (en sentencias y expresiones): CodeGen (maqueta)
-X- Implementar llamadas a funciones (en sentencias y expresiones): CodeGen (código real)
+X- Implementar llamadas a funciones (en sentencias y expresiones): CodeGen
 X- Susituir el mecanismo de definición de variables tipo objeto ($xxx$ por "new Objeto(parámetros constructor))
 X- Deputar tokens (quitar do, ... ) 
 X- Estructurar código de CodeGen, sección de resolución de expresiones binarias y unarias. 
@@ -102,3 +97,5 @@ X- Probar expresiones aritméticas, lógicas y relacionales.
 X- Probar conversión de tipos del constructor de los objetos (float -> int). 
 X- Implementar soporte a tipos de datos booleanos
 X- Implementar foreach (soporte básico para recorrer tipos enumerables)
+X- Probar que se puedan leer variables tipo xxx.xxx.xxx. 
+X- Implementar un Read genérico: ReadVar { stringLiteral : variable, stringLiteral : variable, .... }; 

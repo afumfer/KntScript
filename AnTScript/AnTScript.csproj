@@ -60,7 +60,6 @@
     <Compile Include="ReadVarForm.Designer.cs">
       <DependentUpon>ReadVarForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InputBox.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="ParserTree.cs" />
     <Compile Include="Program.cs" />

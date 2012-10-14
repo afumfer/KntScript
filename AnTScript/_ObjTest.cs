@@ -66,8 +66,6 @@ namespace AnTScript
         {
             return ">> " + parametro;
         }
-
-
     }
 
     public class _Folder

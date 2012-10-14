@@ -146,28 +146,8 @@ namespace AnTScript
 
             #endregion
 
-            #region Read_num
-
-            // Deprecated ....
-            else if (stmt is ReadNum)
-            {
-                ReadNum read = (ReadNum)stmt;
-
-                Assign assign = new Assign();                
-                assign.Ident = read.Ident;
-
-                DoubleVal doubleLiteral = new DoubleVal();
-                doubleLiteral.Value = CodeExecuteReadNum();
-
-                assign.Expr = doubleLiteral;
-                RunStmt(assign);
-            }
-
-            #endregion
-
             #region ReadVar
-
-            // TODO: Implementar ReadVar
+            
             else if (stmt is ReadVar)
             {
                 ReadVar read = (ReadVar)stmt;
@@ -185,31 +165,18 @@ namespace AnTScript
                 }
 
                 if ( CodeExecuteReadVars(readVarItmes) )
-                {
-                    // ---- 
+                {                 
                     foreach (ReadVarItem vi in readVarItmes)
                     {
-                        // TODO: Valorar las distintas opcioes 
-
-                        // a)
                         assign = new Assign();
                         assign.Ident = vi.Var.Ident;
                         assign.Expr = ValueToExpr(vi.VarValue.GetType(), vi.VarNewValueText);
-
                         RunStmt(assign);                        
-                        // or 
-                        //CodeStoreSymbol(assign);                        
-                        
-                        // b)
-                        //CodeStoreSymbol(vi.Var.Ident, vi.VarNewValue);
                     }
                 }
-
-
             }
 
             #endregion
-
 
             #region BreakStmt
 
@@ -443,64 +410,8 @@ namespace AnTScript
         }
 
         private void CodeStoreSymbol(Assign assign)
-        {
-            IdentObject ident = new IdentObject(assign.Ident);
-
-            if (this.symbolTable.ContainsKey(ident.Obj))
-                if (string.IsNullOrEmpty(ident.Member))
-                    symbolTable[ident.Obj] = GenExpr(assign.Expr);
-                else
-                {
-                    try
-                    {
-                        object objNewValue;
-                        objNewValue = GenExpr(assign.Expr); ;
-                        SetValue(symbolTable[ident.Obj], ident, objNewValue);                       
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new System.Exception(" error in assign code  '" + ident.Member + " :" + ex.Message);
-                    }
-                }
-            else
-                throw new System.Exception(" undeclared variable '" + ident.Obj);
-
-        }
-
-        private object CodeReadSymbol(Variable variable)
-        {
-            IdentObject ident = new IdentObject(variable.Ident);
-
-            if (this.symbolTable.ContainsKey(ident.Obj))
-                if (string.IsNullOrEmpty(ident.Member))
-                    return symbolTable[ident.Obj];
-                else
-                {
-                    try
-                    {
-                        object resGetValue;
-                        GetValue(symbolTable[ident.Obj], ident, out resGetValue);
-                        return resGetValue;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new System.Exception(" error in read code  '" + ident.Member + " :" + ex.Message);
-                    }
-                }
-            else
-                throw new System.Exception(" undeclared variable '" + ident.Obj);
-
-        }
-
-        // TODO: !!! ojo implementación provisional, hay que implementar
-        //           correctamente xxxx.xxx.xxx // 
-        // Esto está obsoleto, se podría sustituir por la sobrecarga de CodeStoreSymbol.
-        private void CodeSpecialStoreObject(string ident, object value)
-        {
-            if (!this.symbolTable.ContainsKey(ident))
-                symbolTable.Add(ident, value);
-            else
-                symbolTable[ident] = value;
+        {            
+            CodeStoreSymbol(assign.Ident, GenExpr(assign.Expr));
         }
 
         private void CodeStoreSymbol(string identString, object varValue)
@@ -524,6 +435,41 @@ namespace AnTScript
             else
                 throw new System.Exception(" undeclared variable '" + ident.Obj);
 
+        }
+
+        private object CodeReadSymbol(Variable variable)
+        {
+            IdentObject ident = new IdentObject(variable.Ident);
+
+            if (symbolTable.ContainsKey(ident.Obj))
+                if (string.IsNullOrEmpty(ident.Member))
+                    return symbolTable[ident.Obj];
+                else
+                {
+                    try
+                    {
+                        object resGetValue;
+                        GetValue(symbolTable[ident.Obj], ident, out resGetValue);
+                        return resGetValue;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new System.Exception(" error in read code  '" + ident.Member + " :" + ex.Message);
+                    }
+                }
+            else
+                throw new System.Exception(" undeclared variable '" + ident.Obj);
+
+        }
+
+        // TODO: !!! ojo implementación provisional, sólo para usar en el bucle foreach        
+        //           Se debe sustituir por CodeStoreSymbol
+        private void CodeSpecialStoreObject(string ident, object value)
+        {
+            if (!this.symbolTable.ContainsKey(ident))
+                symbolTable.Add(ident, value);
+            else
+                symbolTable[ident] = value;
         }
 
         private object CodeExecuteFunction(FunctionExpr function)
@@ -880,21 +826,6 @@ namespace AnTScript
                 textOut.AppendText(@s);            
         }
 
-        private double CodeExecuteReadNum()
-        {
-            // TODO: Esto es para pruebas
-            double value = 0;
-            InputBoxResult test = InputBox.Show(
-                             "Read int  " + "\n" + " .... " +
-                             "  Prompt " + "\n" + "...."
-                             , "Title", "0", 100, 100);
-
-            if (test.ReturnCode == DialogResult.OK)
-                value = double.Parse(test.Text);
-
-            return value;
-        }
-
         private bool CodeExecuteReadVars(List<ReadVarItem> readVarItmes)
         {            
             AnTScript.ReadVarForm f = new AnTScript.ReadVarForm(readVarItmes);
@@ -906,7 +837,6 @@ namespace AnTScript
             else
                 return false;
         }
-
 
         #endregion
 

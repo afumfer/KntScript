@@ -87,12 +87,6 @@ namespace AnTScript
         public FunctionExpr Function;
     }
 
-    // read_num <ident>
-    public class ReadNum : Stmt
-    {
-        public string Ident;        
-    }
-
     // <readvar> := {<expr:ident>}
     public class ReadVar : Stmt
     {        
@@ -241,10 +235,8 @@ namespace AnTScript
     public class ReadVarItem
     {
         public Variable Var;
-        public object VarValue;
-        public object VarNewValue;
+        public object VarValue;        
         public object Label;
-
         public string VarNewValueText;
     }
     

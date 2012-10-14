@@ -89,25 +89,6 @@ namespace AnTScript
                 result = declareVar;
             }
 
-            // read_num
-            else if (tokens[index] == Tokens.Read_num)
-            {                
-                ReadNum readNum = new ReadNum();
-                MoveNext();
-
-                if (index < tokens.Count &&
-                    tokens[index] is IdentifierToken)
-                {                    
-                    readNum.Ident = ((IdentifierToken)tokens[index]).Name;
-                    MoveNext();
-                    result = readNum;
-                }
-                else
-                {
-                    throw new System.Exception("expected variable name after 'read_num'");
-                }
-            }
-
             // readvar
             else if (tokens[index] == Tokens.ReadVar)
             {

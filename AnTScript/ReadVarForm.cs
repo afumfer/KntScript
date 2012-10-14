@@ -70,33 +70,12 @@ namespace AnTScript
                 foreach(ReadVarItem var in _readVarItems)
                 {
                     if(var.Var == c.Tag)
-                    {
-                        var.VarNewValue = SetValue(var.VarValue.GetType(), c.Text);
+                    {                        
                         var.VarNewValueText = c.Text;
                         break;
                     }
                 }
             }
-        }
-
-        public object SetValue(Type t, object newValue)
-        {                       
-            if (t == typeof(int))            
-                return Convert.ToInt32(newValue);                           
-            else if (t == typeof(float))
-                return Convert.ToSingle(newValue);
-            else if (t == typeof(double))
-                return Convert.ToDouble(newValue);
-            else if (t == typeof(decimal))
-                return Convert.ToDecimal(newValue);
-            else if (t == typeof(string))
-                return Convert.ToString(newValue);
-            else if (t == typeof(DateTime))
-                return Convert.ToDateTime(newValue);
-            else if (t == typeof(bool))
-                return Convert.ToBoolean(newValue);
-            else
-                return null;            
         }
 
         private void buttonAccept_Click(object sender, EventArgs e)
