@@ -105,9 +105,9 @@ namespace AnTScript
                 DeclareVar declare = (DeclareVar)stmt;
 
                 CodeDeclareSymbol(declare);
-
-                //// set the initial value, no hace falta, ya se hace en CodDeclare,
-                //// esto es otra forma de hacerlo.
+                
+                // TODO: Sustituir lo anterior por esto cuando se
+                //       arregle el código de asignación + declaración.
                 //Assign assign = new Assign();
                 //assign.Ident = declare.Ident;
                 //assign.Expr = declare.Expr;
@@ -120,7 +120,7 @@ namespace AnTScript
 
             else if (stmt is Assign)
             {
-                Assign assign = (Assign)stmt;
+                Assign assign = (Assign)stmt;                
                 CodeStoreSymbol(assign);
             }
 
@@ -148,6 +148,7 @@ namespace AnTScript
 
             #region Read_num
 
+            // Deprecated ....
             else if (stmt is ReadNum)
             {
                 ReadNum read = (ReadNum)stmt;
@@ -155,10 +156,10 @@ namespace AnTScript
                 Assign assign = new Assign();                
                 assign.Ident = read.Ident;
 
-                DoubleVal decLiteral = new DoubleVal();
-                decLiteral.Value = CodeExecuteReadNum();
+                DoubleVal doubleLiteral = new DoubleVal();
+                doubleLiteral.Value = CodeExecuteReadNum();
 
-                assign.Expr = decLiteral;
+                assign.Expr = doubleLiteral;
                 RunStmt(assign);
             }
 
@@ -188,19 +189,19 @@ namespace AnTScript
                     // ---- 
                     foreach (ReadVarItem vi in readVarItmes)
                     {
-                        // TODO: Eliminar esto. 
-                        //assign = new Assign();
-                        //assign.Ident = vi.Var.Ident;
-                        ////assign.Expr = (Expr)vi.VarNewValue;
-                        //assign.Expr = (Expr)vi.VarValue;
+                        // TODO: Valorar las distintas opcioes 
+
+                        // a)
+                        assign = new Assign();
+                        assign.Ident = vi.Var.Ident;
+                        assign.Expr = ValueToExpr(vi.VarValue.GetType(), vi.VarNewValueText);
+
+                        RunStmt(assign);                        
+                        // or 
                         //CodeStoreSymbol(assign);                        
                         
-                        //// o 
-                        //// RunStmt(assign);                        
-
-                        // o
-                        //CodeSpecialStoreObject(vi.Var.Ident, vi.VarNewValue);
-                        CodeStoreSymbol(vi.Var.Ident, vi.VarValue); // demo
+                        // b)
+                        //CodeStoreSymbol(vi.Var.Ident, vi.VarNewValue);
                     }
                 }
 
@@ -272,12 +273,18 @@ namespace AnTScript
                 ForEachLoop forEachLoop = (ForEachLoop)stmt;
                               
                 object colec = GenExpr(forEachLoop.Colec);
-
+                
                 foreach (object o in (IEnumerable<object>)colec)
                 {
                     if (flagBreak)
                         break;
+                    
+                    // TODO: Pendiente susutiruir CodeSpecialStoreObject por CodeStoreSymbol
+                    //       En el futuro, CodeStoreSymbol debe almacenar la variable si 
+                    //       previamente no hubiera sido declarada. 
                     CodeSpecialStoreObject(forEachLoop.Ident, o);
+                    // CodeStoreSymbol(forEachLoop.Ident, o);
+
                     RunStmt(forEachLoop.Body);                                        
                 }
                 if (flagBreak)
@@ -487,7 +494,7 @@ namespace AnTScript
 
         // TODO: !!! ojo implementación provisional, hay que implementar
         //           correctamente xxxx.xxx.xxx // 
-        // Esto está obsoleto, se podría sustirui por la sobrecarga de CodeStoreSymbol.
+        // Esto está obsoleto, se podría sustituir por la sobrecarga de CodeStoreSymbol.
         private void CodeSpecialStoreObject(string ident, object value)
         {
             if (!this.symbolTable.ContainsKey(ident))
@@ -518,7 +525,6 @@ namespace AnTScript
                 throw new System.Exception(" undeclared variable '" + ident.Obj);
 
         }
-
 
         private object CodeExecuteFunction(FunctionExpr function)
         {
@@ -1100,6 +1106,62 @@ namespace AnTScript
 
             return;
         }
+
+
+        public Expr ValueToExpr(Type t, object newValue)
+        {            
+            if (t == typeof(int))
+            {
+                IntVal intVal = new IntVal();;                
+                intVal.Value = Convert.ToInt32(newValue);
+                return intVal;
+            }
+            else if (t == typeof(float))
+            {
+                FloatVal floatVal = new FloatVal();
+                floatVal.Value =  Convert.ToSingle(newValue);
+                return floatVal;
+            }
+            else if (t == typeof(double))
+            {
+                DoubleVal doubleVal = new DoubleVal();
+                doubleVal.Value =  Convert.ToDouble(newValue);
+                return doubleVal;
+            }
+            else if (t == typeof(decimal))
+            {
+                DecimalVal decimalVal = new DecimalVal();
+                decimalVal.Value = Convert.ToDecimal(newValue);
+                return decimalVal;
+            }
+            else if (t == typeof(string))
+            {
+                StringVal stringVal = new StringVal();
+                stringVal.Value = Convert.ToString(newValue);
+                return stringVal;
+            }
+            else if (t == typeof(DateTime))
+            {
+                DateTimeVal dateTimeVal = new DateTimeVal();
+                dateTimeVal.Value = Convert.ToDateTime(newValue);
+                return dateTimeVal;
+            }
+            else if (t == typeof(bool))
+            {
+                BoolVal boolVal = new BoolVal();
+                boolVal.Value = Convert.ToBoolean(newValue);
+                return boolVal;
+            }
+            else
+            {
+                StringVal stringVal = new StringVal();
+                stringVal.Value = Convert.ToString(newValue);
+                return stringVal;
+            }
+            
+        }
+
+
 
         #endregion
 

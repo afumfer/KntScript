@@ -244,6 +244,8 @@ namespace AnTScript
         public object VarValue;
         public object VarNewValue;
         public object Label;
+
+        public string VarNewValueText;
     }
     
     public class IdentObject
