@@ -17,7 +17,7 @@ namespace AnTScript
         }
 
         public Scanner(string input) :
-            this(new StreamReader(new MemoryStream(Encoding.Default.GetBytes(input))))
+            this(new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(input))))
         {
 
         }

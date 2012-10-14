@@ -43,6 +43,7 @@ namespace AnTScript
             foreach (ReadVarItem var in _readVarItems)
             {
                 label = new Label();
+                //label.Font =
                 label.Text = var.Label.ToString() + ": ";
                 label.Top = topLabel;
                 label.Left = leftLabel;

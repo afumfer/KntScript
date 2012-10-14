@@ -328,7 +328,7 @@ namespace AnTScript
         {
             // ...
             // TODO: pendiente de implmentar la comprobación de tipos.
-            // Añadir el parámetro, ... System.Type expectedType como parámetro de entrada
+            // Añadir el parámetro, ... "System.Type expectedType" como parámetro de entrada
             // de este método.
             // ...
 

@@ -1,7 +1,7 @@
 ============================
 >>>> Versión 0.0.0.x
 
-- Corregir problema de acentos y juegos de caracteres.
+
 
 - Volcar salida en un Html control.
 
@@ -99,3 +99,4 @@ X- Implementar soporte a tipos de datos booleanos
 X- Implementar foreach (soporte básico para recorrer tipos enumerables)
 X- Probar que se puedan leer variables tipo xxx.xxx.xxx. 
 X- Implementar un Read genérico: ReadVar { stringLiteral : variable, stringLiteral : variable, .... }; 
+X- Corregir problema de acentos y juegos de caracteres. Tratar código fuente como UTF-8.
