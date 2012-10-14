@@ -2,7 +2,7 @@
 >>>> Versión 0.0.0.x
 
 
-
+- Reorganizar ensamblados y separar la capa de usuario del núcleo del intérprete. 
 - Volcar salida en un Html control.
 
 - Generalizar la definición del ensamblado que contiene la librería de funciones por defecto. Emplear inyección de código para definir esa librería. Por defecto puede existir una. 
@@ -100,3 +100,7 @@ X- Implementar foreach (soporte básico para recorrer tipos enumerables)
 X- Probar que se puedan leer variables tipo xxx.xxx.xxx. 
 X- Implementar un Read genérico: ReadVar { stringLiteral : variable, stringLiteral : variable, .... }; 
 X- Corregir problema de acentos y juegos de caracteres. Tratar código fuente como UTF-8.
+
+
+============================
+>>>> Versión 0.0.0.4

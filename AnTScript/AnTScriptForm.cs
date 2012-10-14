@@ -21,7 +21,6 @@ namespace AnTScript
             InitializeComponent();
 
             sourceCode = source;
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -81,23 +80,25 @@ namespace AnTScript
             try
             {
 
-                int a = 0;
-                int b = 0;
-                string aa = "";
-                string bb = "";
-
-                object x = 11;
-                object y = 11;
-
-                a = x.GetHashCode();
-                b = y.GetHashCode();
-
-                if (Object.ReferenceEquals(x,y))
-                    MessageBox.Show("iguales");
-
-                // MessageBox.Show(a.ToString() + " - " + b.ToString());
 
                 #region Pruebas - Código para investigación
+
+                /////////////// Identificando objetos
+                //int a = 0;
+                //int b = 0;
+                //string aa = "";
+                //string bb = "";
+
+                //object x = 11;
+                //object y = 11;
+
+                //a = x.GetHashCode();
+                //b = y.GetHashCode();
+
+                //if (Object.ReferenceEquals(x, y))
+                //    MessageBox.Show("iguales");
+
+
 
                 /////////// Prueba parse bool
                 //bool prueba;
