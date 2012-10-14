@@ -1,7 +1,6 @@
 ============================
 >>>> Versión 0.0.0.x
 
-
 - Reorganizar ensamblados y separar la capa de usuario del núcleo del intérprete. 
 - Volcar salida en un Html control.
 
@@ -104,3 +103,6 @@ X- Corregir problema de acentos y juegos de caracteres. Tratar código fuente com
 
 ============================
 >>>> Versión 0.0.0.4
+X- Abstraer entrada-salida de CodeRun.
+X- Nueva clase engine para simplificar el uso externo.
+X- Añadido proyecto AnTScriptAppHost

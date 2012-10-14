@@ -11,20 +11,15 @@ using System.Windows.Forms;
 
 namespace AnTScript
 {
-    public sealed class CodeRun
+    internal sealed class CodeRun
     {
         #region Fields
-
-        // TODO: Esto debería ser un HashTable
-        Dictionary<string, object> symbolTable;
         
+        Dictionary<string, object> symbolTable;
+                
         bool flagBreak = false;
         
-        // TODO: El tipo de objeto para la salida debería ser un objeto abstracto y
-        //       la instancia concreta debería venir vía inyección de código.
-        //       Ahora está así para salir del paso.
-        //       (Arreglar esto en el futuro).
-        TextBox textOut;
+        IInOutDevice InOutDevice;
                 
         #endregion
 
@@ -68,9 +63,10 @@ namespace AnTScript
 
         #region Constructor
 
-        public CodeRun(Stmt stmt, TextBox textOut)
+        public CodeRun(Stmt stmt, IInOutDevice outputDevice)
         {
-            this.textOut = textOut;
+            this.InOutDevice = outputDevice;
+
             symbolTable = new Dictionary<string, object>();
 
             // Go Run!
@@ -820,22 +816,12 @@ namespace AnTScript
         private void CodeExecutePrint(Print print)
         {
             string s = GenExpr(print.Expr).ToString();
-            if (s == @"\")
-                textOut.AppendText("\r\n");
-            else
-                textOut.AppendText(@s);            
+            InOutDevice.Print(s);
         }
 
         private bool CodeExecuteReadVars(List<ReadVarItem> readVarItmes)
-        {            
-            AnTScript.ReadVarForm f = new AnTScript.ReadVarForm(readVarItmes);
-            if (f.ShowDialog() == DialogResult.OK)
-            {
-                readVarItmes = f.ReadVarItems;
-                return true;
-            }
-            else
-                return false;
+        {
+            return InOutDevice.ReadVars(readVarItmes);
         }
 
         #endregion

@@ -12,7 +12,7 @@ using System.Runtime.Remoting;
 namespace AnTScript
 {
 
-    public partial class AnTScriptForm : Form
+    public partial class AnTScriptForm : Form, IInOutDevice
     {
         private string sourceCode = string.Empty;
 
@@ -38,21 +38,19 @@ namespace AnTScript
 
             try
             {
-                Scanner scanner = null;
+                //Scanner scanner = new Scanner(textSourceCode.Text);
+                //foreach (Token t in scanner.TokensList)
+                //{
+                //    listScan.Items.Add(t.Name);
+                //}
+                //Parser parser = new Parser(scanner.TokensList);               
+                //CodeRun codeRun = new CodeRun(parser.Result, this);
+                ////ParserTree astTree = new ParserTree(parser.Result, treeAST);
+                ////treeAST.ExpandAll();
 
-                scanner = new Scanner(textSourceCode.Text);
+                Engine antEngine = new Engine(textSourceCode.Text, this);
+                antEngine.Run();
 
-                foreach (Token t in scanner.TokensList)
-                {
-                    listScan.Items.Add(t.Name);
-                }
-
-                Parser parser = new Parser(scanner.TokensList);
-                
-                CodeRun codeRun = new CodeRun(parser.Result, textOut);
-
-                //ParserTree astTree = new ParserTree(parser.Result, treeAST);
-                //treeAST.ExpandAll();
             }
             catch (Exception err)
             {
@@ -79,7 +77,6 @@ namespace AnTScript
         {
             try
             {
-
 
                 #region Pruebas - Código para investigación
 
@@ -306,6 +303,31 @@ namespace AnTScript
             }
 
             return;
+        }
+
+        #endregion
+
+        #region IInOutDevice members
+
+        public void Print(string str)
+        {            
+            if (str == @"\")
+                textOut.AppendText("\r\n");
+            else
+                textOut.AppendText(@str);   
+        }
+
+        public bool ReadVars(List<ReadVarItem> readVarItmes)
+        {
+            AnTScript.ReadVarForm f = new AnTScript.ReadVarForm(readVarItmes);
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+                readVarItmes = f.ReadVarItems;
+                return true;
+            }
+            else
+                return false;
+
         }
 
         #endregion

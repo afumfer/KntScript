@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{1ED6751E-D
 		Doc\README.txt = Doc\README.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnTScriptAppHost", "AnTScriptAppHost\AnTScriptAppHost.csproj", "{AE2376B8-9CD9-4B83-B215-381B2A97E22E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -20,6 +22,10 @@ Global
 		{409FDBEB-5D2B-45B1-9AA9-4E57299DB6A6}.Debug|x86.Build.0 = Debug|x86
 		{409FDBEB-5D2B-45B1-9AA9-4E57299DB6A6}.Release|x86.ActiveCfg = Release|x86
 		{409FDBEB-5D2B-45B1-9AA9-4E57299DB6A6}.Release|x86.Build.0 = Release|x86
+		{AE2376B8-9CD9-4B83-B215-381B2A97E22E}.Debug|x86.ActiveCfg = Debug|x86
+		{AE2376B8-9CD9-4B83-B215-381B2A97E22E}.Debug|x86.Build.0 = Debug|x86
+		{AE2376B8-9CD9-4B83-B215-381B2A97E22E}.Release|x86.ActiveCfg = Release|x86
+		{AE2376B8-9CD9-4B83-B215-381B2A97E22E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
