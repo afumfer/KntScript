@@ -15,18 +15,17 @@ namespace AnTScript
     {
         #region Fields
         
-        Dictionary<string, object> symbolTable;
-                
-        bool flagBreak = false;
-        
+        Dictionary<string, object> symbolTable;                
+        bool flagBreak = false;        
         IInOutDevice InOutDevice;
-                
+        Dictionary<string, Type> typeCache = new Dictionary<string, Type>(); 
+
         #endregion
 
         #region Properties
 
         private object _defaultFunctionLibrary;
-        public object DefaultFunctionLibrary
+        internal object DefaultFunctionLibrary
         {
             get 
             {
@@ -46,7 +45,7 @@ namespace AnTScript
         }
 
         private Type _defaultFunctionLibraryType;
-        public Type DefaultFunctionLibraryType
+        internal Type DefaultFunctionLibraryType
         {
             get
             {
@@ -525,25 +524,27 @@ namespace AnTScript
         {
             try
             {
-                Type t;
-                                                
-                t = Type.GetType(newObject.ClassName, false, true);
-            
-                // Params
-                object[] param;
-                if (newObject.Args.Count > 0)
+                Type t;      
+                // find type in all asemblies                                          
+                if (TryFindType(newObject.ClassName, out t))
                 {
-                    param = new object[newObject.Args.Count];
-                    for (int i = 0; i < newObject.Args.Count; i++)
+                    // Params
+                    object[] param;
+                    if (newObject.Args.Count > 0)
                     {
-                        param[i] = GenExpr(newObject.Args[i]);
+                        param = new object[newObject.Args.Count];
+                        for (int i = 0; i < newObject.Args.Count; i++)
+                        {
+                            param[i] = GenExpr(newObject.Args[i]);
+                        }
                     }
+                    else
+                        param = null;
+
+                    return Activator.CreateInstance(t, param);
                 }
                 else
-                    param = null;
-
-                return Activator.CreateInstance(t, param);   
-
+                    throw new Exception("Can not be instantiated " + newObject.ClassName);                
             }
             catch (Exception ex)
             {
@@ -1078,6 +1079,23 @@ namespace AnTScript
             
         }
 
+        private bool TryFindType(string typeName, out Type t)
+        {
+            lock (typeCache)
+            {
+                if (!typeCache.TryGetValue(typeName, out t))
+                {
+                    foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
+                    {
+                        t = a.GetType(typeName);
+                        if (t != null)
+                            break;
+                    }
+                    typeCache[typeName] = t; // perhaps null 
+                }
+            }
+            return t != null;
+        } 
 
 
         #endregion

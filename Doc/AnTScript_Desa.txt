@@ -1,12 +1,9 @@
 ============================
 >>>> Versión 0.0.0.x
 
-- Reorganizar ensamblados y separar la capa de usuario del núcleo del intérprete (Segunda fase)
--    Resolver problema de la instanciación de objetos de un ensamblado disferente al actual. 
-
-- Volcar salida en un Html control.
-
 - Generalizar la definición del ensamblado que contiene la librería de funciones por defecto. Emplear inyección de código para definir esa librería. Por defecto puede existir una. 
+- Estudiar el tema de la librería de funciones por defecto. Ver si se puede omitir librería por defecto y bucar función en todos los ensamblados. 
+
 
 - Depurar o limpiar ParserTree
 - Mejorar la interfaz de usuario  (TinyIDE)
@@ -18,6 +15,7 @@
 ============================
 >>>> Versión 0.0.1.x
 - Empotrar el código en ANotas
+- Volcar salida en un componente que contenga el Html control y la interfaz de entrada-salida de AnTScript.
 - Implementar librería de funciones de ANotas
 - Mecanismo provisional para trabajar con colecciones de Notas y coleeciones de Carpetas 
 
@@ -111,3 +109,5 @@ X- Nueva clase engine para simplificar el uso externo.
 X- Añadido proyecto AnTScriptAppHost
 X- Reorganizar ensamblados y separar la capa de usuario del núcleo del intérprete (Primera fase - No estable)
 X- Añadido proyecto AntTScriptAppLibrary
+X- Reorganizar ensamblados y separar la capa de usuario del núcleo del intérprete (Segunda fase)
+X- Resolver problema de la instanciación de objetos de un ensamblado disferente al actual. 

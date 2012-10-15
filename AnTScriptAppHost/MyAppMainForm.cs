@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using AnTScriptAppLibrary;
+
 namespace AnTScriptAppHost
 {
     public partial class MyAppMainForm : Form
@@ -21,14 +23,17 @@ namespace AnTScriptAppHost
        
         private void Form1_Load(object sender, EventArgs e)
         {
-            textFileSourceCode.Text = sourceCodeFile;       
+            textFileSourceCode.Text = sourceCodeFile;
+            
+            // Se deben usar los objetos para que se cargue la referecia 
+            // a los ensamblados auxiliares. 
+            Document doc = new Document();
+            doc.IdDocument = 111;
         }
 
         private void buttonRunScript_Click(object sender, EventArgs e)
         {
-            AnTScript.Engine.ExecuteCodeFile(sourceCodeFile);
-            
-            
+            AnTScript.Engine.ExecuteCodeFile(sourceCodeFile);                        
         }
 
         private void buttonShowConsole_Click(object sender, EventArgs e)

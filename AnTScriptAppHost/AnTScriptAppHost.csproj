@@ -52,8 +52,6 @@
     <Compile Include="MyAppMainForm.Designer.cs">
       <DependentUpon>MyAppMainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyAppLibrary.cs" />
-    <Compile Include="MyAppClasses.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MyAppMainForm.resx">

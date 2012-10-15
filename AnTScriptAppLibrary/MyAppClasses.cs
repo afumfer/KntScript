@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using System.Data;
-//using System.Drawing;
 using System.Windows.Forms;
 using System.Reflection;
 
@@ -24,9 +23,20 @@ namespace AnTScriptAppLibrary
             Topic = string.Empty;
             CreationDateTiem = DateTime.Now;
             Folder = new Folder();
-            Folder.Name = "Constructor por defecto - bool";
-            Description = "Constructor por defecto bool de la nota " + IdDocument.ToString();
+            Folder.Name = "Constructor  bool";
+            Description = "______ (bool)" + IdDocument.ToString();
         }
+
+        public Document()
+        {
+            IdDocument = 1;
+            Topic = string.Empty;
+            CreationDateTiem = DateTime.Now;
+            Folder = new Folder();
+            Folder.Name = "Constructor";
+            Description = "_____ () " + IdDocument.ToString();
+        }
+
 
         public Document(int id)
         {
@@ -34,8 +44,8 @@ namespace AnTScriptAppLibrary
             Topic = string.Empty;
             CreationDateTiem = DateTime.Now;
             Folder = new Folder();
-            Folder.Name = "Constructor sobrecarca id";
-            Description = "Versión sobrecargada con int " + IdDocument.ToString();
+            Folder.Name = "Constructor id";
+            Description = "________  (id) " + IdDocument.ToString();
         }
 
         public Document(Folder C)
@@ -45,7 +55,7 @@ namespace AnTScriptAppLibrary
             Description = string.Empty;
             CreationDateTiem = DateTime.Now;
             Folder = C;
-            Description = "Versión sobrecargada _Folder";
+            Description = "_______ (Folder)";
         }
 
         public override string ToString()
@@ -53,21 +63,21 @@ namespace AnTScriptAppLibrary
             return IdDocument.ToString() + " : " + Topic.ToString() + " : " + Description.ToString();
         }
 
-        public float PruebaMetodoA(string parametro)
+        public float TestMethodA(string param)
         {
-            MessageBox.Show("Cadena de parámetro = " + parametro);
+            MessageBox.Show("param = " + param);
             return 9;
         }
 
-        public void PruebaMetodoB(object parametro)
+        public void TestMethodB(object param)
         {
             Form a = new Form();
             a.Show();
         }
 
-        public string PruebaMetodoC(string parametro)
+        public string TestMethodC(string param)
         {
-            return ">> " + parametro;
+            return ">> " + param;
         }
     }
 
@@ -81,10 +91,10 @@ namespace AnTScriptAppLibrary
         public Folder()
         {
             IdFolder = 1;
-            Name = "XXXXXX";
+            Name = "Folder name XXXXXX";
             Comments = string.Empty;
             Archiver = new Archiver();
-            Archiver.Name = "YYYYYYYYYY";
+            Archiver.Name = "Archiver Folder Name YYYYYYYYYY";
         }
 
         public override string ToString()
