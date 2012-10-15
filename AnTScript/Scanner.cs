@@ -4,19 +4,17 @@ using System.Text;
 
 namespace AnTScript
 {
-
-    public sealed class Scanner
+    internal sealed class Scanner
     {
-
         #region Constructors
 
-        public Scanner(TextReader input)
+        internal Scanner(TextReader input)
         {
             _result = new List<Token>();
             Scan(input);
         }
 
-        public Scanner(string input) :
+        internal Scanner(string input) :
             this(new StreamReader(new MemoryStream(Encoding.UTF8.GetBytes(input))))
         {
 
@@ -27,7 +25,7 @@ namespace AnTScript
         #region Properties
 
         private readonly IList<Token> _result;
-        public IList<Token> TokensList
+        internal IList<Token> TokensList
         {
             get { return _result; }
         }

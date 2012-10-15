@@ -17,32 +17,32 @@ namespace AnTScript
      *  | <func_call>        
     */
 
-    public abstract class Stmt
+    internal abstract class Stmt
     {
     }
 
     // var <ident> = <expr>
-    public class DeclareVar : Stmt
+    internal class DeclareVar : Stmt
     {        
         public string Ident;        
         public Expr Expr;
     }
 
     // print <expr>
-    public class Print : Stmt
+    internal class Print : Stmt
     {
         public Expr Expr;
     }
 
     // <ident> = <expr>
-    public class Assign : Stmt
+    internal class Assign : Stmt
     {        
         public string Ident;     
         public Expr Expr;
     }
 
     // for <ident> = <expr> to <expr> <stmt> end for
-    public class ForLoop : Stmt
+    internal class ForLoop : Stmt
     {        
         public string Ident;     
         public Expr From;
@@ -51,7 +51,7 @@ namespace AnTScript
     }
 
     // foreach <ident> in <expr> <stmt> end foreach
-    public class ForEachLoop : Stmt
+    internal class ForEachLoop : Stmt
     {
         public string Ident;
         public Expr Colec;        
@@ -60,7 +60,7 @@ namespace AnTScript
 
     // if <expr> then <stmt> end if |
     // if <expr> then <stmt> else <stmt> end if 
-    public class IfStmt : Stmt
+    internal class IfStmt : Stmt
     {        
         public Expr TestExpr;        
         public Stmt BodyIf;
@@ -69,26 +69,26 @@ namespace AnTScript
     }
 
     // while <expr> <stmt> end while
-    public class WhileStmt : Stmt
+    internal class WhileStmt : Stmt
     {
         public Expr TestExpr;
         public Stmt Body;
     }
 
     // break
-    public class BreakStmt : Stmt
+    internal class BreakStmt : Stmt
     {
         public string Tag;        
     }
 
     // <FunctionStmt(<arg>)
-    public class FunctionStmt : Stmt
+    internal class FunctionStmt : Stmt
     {
         public FunctionExpr Function;
     }
 
     // <readvar> := {<expr:ident>}
-    public class ReadVar : Stmt
+    internal class ReadVar : Stmt
     {        
         public Dictionary<Variable, Expr> Vars;
 
@@ -99,7 +99,7 @@ namespace AnTScript
     }
 
     // <stmt> ; <stmt>
-    public class Sequence : Stmt
+    internal class Sequence : Stmt
     {
         public Stmt First;
         public Stmt Second;
@@ -118,61 +118,61 @@ namespace AnTScript
      *  | <fun_expr>
      *  | <newobject_exp>
      */
-    public abstract class Expr
+    internal abstract class Expr
     {
     }
 
     // <string> := " <string_elem>* "
-    public class StringVal : Expr
+    internal class StringVal : Expr
     {        
         public string Value;     
     }
 
     // <int> := <digit>+
-    public class IntVal : Expr
+    internal class IntVal : Expr
     {
         public int Value;
     }
 
     // <float>
-    public class FloatVal : Expr
+    internal class FloatVal : Expr
     {        
         public float Value;     
     }
 
     // <double>
-    public class DoubleVal : Expr
+    internal class DoubleVal : Expr
     {
         public double Value;
     }
 
     // <decimal>
-    public class DecimalVal : Expr
+    internal class DecimalVal : Expr
     {
         public decimal Value;
     }
 
     // <DateTime>
-    public class DateTimeVal : Expr
+    internal class DateTimeVal : Expr
     {
         public DateTime Value;
     }
 
     // <bool>
-    public class BoolVal : Expr
+    internal class BoolVal : Expr
     {
         public bool Value;
     }
 
     // <ident> := <char> <ident_rest>*
     // <ident_rest> := <char> | <digit>
-    public class Variable : Expr
+    internal class Variable : Expr
     {        
         public string Ident;     
     }
 
     // <func_expr> := <ident> (<args>)
-    public class FunctionExpr : Expr
+    internal class FunctionExpr : Expr
     {
         public string FunctionName;
         public List<Expr> Args;
@@ -184,7 +184,7 @@ namespace AnTScript
     }
 
     // <new_object> := new <ident> (<args>)
-    public class NewObjectExpr : Expr
+    internal class NewObjectExpr : Expr
     {
         public string ClassName;
         public List<Expr> Args;
@@ -196,7 +196,7 @@ namespace AnTScript
     }
 
     // <bin_expr> := <expr> <bin_op> <expr>
-    public class BinaryExpr : Expr
+    internal class BinaryExpr : Expr
     {
         public BinOp Op;
         public Expr Left;
@@ -204,14 +204,14 @@ namespace AnTScript
     }
 
     // <unary_expr> := <bin_op> <expr>
-    public class UnaryExpr : Expr
+    internal class UnaryExpr : Expr
     {
         public BinOp Op;
         public Expr Expression;
     }
 
     // <bin_op> := + | - | * | / | && | ! | || 
-    public enum BinOp
+    internal enum BinOp
     {
         Add,
         Sub,
@@ -234,13 +234,14 @@ namespace AnTScript
 
     public class ReadVarItem
     {
-        public Variable Var;
+        //public Variable Var;
+        public string VarIdent;
         public object VarValue;        
         public object Label;
         public string VarNewValueText;
     }
-    
-    public class IdentObject
+
+    internal class IdentObject
     {
         public string Obj { get; set; }
         public List<string> ChainObjs { get; set; }
@@ -268,9 +269,5 @@ namespace AnTScript
             }
         }
     }
-
-
-
-
 }
 

@@ -12,9 +12,11 @@ using System.Runtime.Remoting;
 namespace AnTScript
 {
 
-    public partial class AnTScriptForm : Form, IInOutDevice
+    internal partial class AnTScriptForm : Form
     {
         private string sourceCode = string.Empty;
+
+        private InOutDefaultDeviceForm inOutDeviceForm; 
 
         public AnTScriptForm(string source)
         {
@@ -27,12 +29,20 @@ namespace AnTScript
         {
             textFileSourceCode.Text = sourceCode;
             LoadFile(sourceCode);
+
+            inOutDeviceForm = new InOutDefaultDeviceForm();
+            inOutDeviceForm.TopLevel = false;
+            inOutDeviceForm.FormBorderStyle = FormBorderStyle.None;
+            splitContainer1.Panel2.Controls.Add(inOutDeviceForm);
+            inOutDeviceForm.Dock = DockStyle.Fill;
+            inOutDeviceForm.Show();
+
         }
 
         private void buttonRun_Click(object sender, EventArgs e)
         {
 
-            textOut.Clear();
+            inOutDeviceForm.Clear();
             listScan.Items.Clear();
             treeAST.Nodes.Clear();
 
@@ -48,7 +58,7 @@ namespace AnTScript
                 ////ParserTree astTree = new ParserTree(parser.Result, treeAST);
                 ////treeAST.ExpandAll();
 
-                Engine antEngine = new Engine(textSourceCode.Text, this);
+                Engine antEngine = new Engine(textSourceCode.Text, this.inOutDeviceForm);
                 antEngine.Run();
 
             }
@@ -67,6 +77,10 @@ namespace AnTScript
 
         private void LoadFile(string sourceCode)
         {
+            if(string.IsNullOrEmpty(sourceCode))
+                return;
+
+            // TODO: pendiente validar que el nombre del fichero sea correcto. 
             using (TextReader input = File.OpenText(sourceCode))
             {
                 textSourceCode.Text = input.ReadToEnd().ToString();
@@ -303,31 +317,6 @@ namespace AnTScript
             }
 
             return;
-        }
-
-        #endregion
-
-        #region IInOutDevice members
-
-        public void Print(string str)
-        {            
-            if (str == @"\")
-                textOut.AppendText("\r\n");
-            else
-                textOut.AppendText(@str);   
-        }
-
-        public bool ReadVars(List<ReadVarItem> readVarItmes)
-        {
-            AnTScript.ReadVarForm f = new AnTScript.ReadVarForm(readVarItmes);
-            if (f.ShowDialog() == DialogResult.OK)
-            {
-                readVarItmes = f.ReadVarItems;
-                return true;
-            }
-            else
-                return false;
-
         }
 
         #endregion

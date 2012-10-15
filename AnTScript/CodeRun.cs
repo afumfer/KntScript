@@ -63,12 +63,12 @@ namespace AnTScript
 
         #region Constructor
 
-        public CodeRun(Stmt stmt, IInOutDevice outputDevice)
+        internal CodeRun(Stmt stmt, IInOutDevice outputDevice)
         {
             this.InOutDevice = outputDevice;
 
             symbolTable = new Dictionary<string, object>();
-
+            
             // Go Run!
             RunStmt(stmt);
         }
@@ -154,7 +154,7 @@ namespace AnTScript
                 foreach (var pair in read.Vars)
                 {
                     readVarItem = new ReadVarItem();
-                    readVarItem.Var = pair.Key;
+                    readVarItem.VarIdent = pair.Key.Ident;
                     readVarItem.VarValue = CodeReadSymbol(pair.Key);
                     readVarItem.Label = GenExpr(pair.Value);                        
                     readVarItmes.Add(readVarItem);
@@ -165,7 +165,8 @@ namespace AnTScript
                     foreach (ReadVarItem vi in readVarItmes)
                     {
                         assign = new Assign();
-                        assign.Ident = vi.Var.Ident;
+                        //assign.Ident = vi.Var.Ident;
+                        assign.Ident = vi.VarIdent;
                         assign.Expr = ValueToExpr(vi.VarValue.GetType(), vi.VarNewValueText);
                         RunStmt(assign);                        
                     }
@@ -1024,7 +1025,7 @@ namespace AnTScript
         }
 
 
-        public Expr ValueToExpr(Type t, object newValue)
+        internal Expr ValueToExpr(Type t, object newValue)
         {            
             if (t == typeof(int))
             {

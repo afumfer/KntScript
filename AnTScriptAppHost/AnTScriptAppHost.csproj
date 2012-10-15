@@ -46,14 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="MyAppMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MyAppMainForm.Designer.cs">
+      <DependentUpon>MyAppMainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MyAppLibrary.cs" />
+    <Compile Include="MyAppClasses.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="MyAppMainForm.resx">
+      <DependentUpon>MyAppMainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -74,6 +79,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AnTScriptAppLibrary\AnTScriptAppLibrary.csproj">
+      <Project>{2EB29A63-57A0-4795-89B3-25A0DDA3CC9A}</Project>
+      <Name>AnTScriptAppLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AnTScript\AnTScript.csproj">
       <Project>{409FDBEB-5D2B-45B1-9AA9-4E57299DB6A6}</Project>
       <Name>AnTScript</Name>

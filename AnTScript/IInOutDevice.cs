@@ -9,5 +9,6 @@ namespace AnTScript
     {
         void Print(string str);
         bool ReadVars(List<ReadVarItem> readVarItmes);
+        void Clear();
     }
 }

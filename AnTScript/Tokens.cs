@@ -5,60 +5,60 @@ using System.Text;
 namespace AnTScript
 {
 
-    public sealed class Tokens
+    internal sealed class Tokens
     {
         // Constants to represent arithmitic tokens. 
-        public static readonly OperatorToken Add = new OperatorToken("ADD", 3);
-        public static readonly OperatorToken Sub = new OperatorToken("SUB", 3);
-        public static readonly OperatorToken Mul = new OperatorToken("MUL", 4);
-        public static readonly OperatorToken Div = new OperatorToken("DIV", 4);
+        internal static readonly OperatorToken Add = new OperatorToken("ADD", 3);
+        internal static readonly OperatorToken Sub = new OperatorToken("SUB", 3);
+        internal static readonly OperatorToken Mul = new OperatorToken("MUL", 4);
+        internal static readonly OperatorToken Div = new OperatorToken("DIV", 4);
 
         // relational operators
-        public static readonly OperatorToken LessThan = new OperatorToken("LESSTHAN", 2);
-        public static readonly OperatorToken GreaterThan = new OperatorToken("GREATERTHAN", 2);
-        public static readonly OperatorToken LessThanOrEqual = new OperatorToken("LESSTHANOREQUAL", 2);
-        public static readonly OperatorToken GreaterThanOrEqual = new OperatorToken("GREATERTHANOREQUAL", 2);
-        public static readonly OperatorToken Equal = new OperatorToken("EQUAL", 2);
-        public static readonly OperatorToken NotEqual = new OperatorToken("NOTEQUAL", 2);
+        internal static readonly OperatorToken LessThan = new OperatorToken("LESSTHAN", 2);
+        internal static readonly OperatorToken GreaterThan = new OperatorToken("GREATERTHAN", 2);
+        internal static readonly OperatorToken LessThanOrEqual = new OperatorToken("LESSTHANOREQUAL", 2);
+        internal static readonly OperatorToken GreaterThanOrEqual = new OperatorToken("GREATERTHANOREQUAL", 2);
+        internal static readonly OperatorToken Equal = new OperatorToken("EQUAL", 2);
+        internal static readonly OperatorToken NotEqual = new OperatorToken("NOTEQUAL", 2);
 
         // logical operators
-        public static readonly OperatorToken And = new OperatorToken("AND", 1);
-        public static readonly OperatorToken AndBit = new OperatorToken("ANDBIT", 1);
-        public static readonly OperatorToken Or = new OperatorToken("OR", 0);
-        public static readonly OperatorToken OrBit = new OperatorToken("ORBIT", 0);
-        public static readonly OperatorToken Not = new OperatorToken("NOT", 5);
+        internal static readonly OperatorToken And = new OperatorToken("AND", 1);
+        internal static readonly OperatorToken AndBit = new OperatorToken("ANDBIT", 1);
+        internal static readonly OperatorToken Or = new OperatorToken("OR", 0);
+        internal static readonly OperatorToken OrBit = new OperatorToken("ORBIT", 0);
+        internal static readonly OperatorToken Not = new OperatorToken("NOT", 5);
 
 
-        
-        public static readonly SymbolToken Semi = new SymbolToken("SEMI");
-        public static readonly SymbolToken Assignment = new SymbolToken("ASSIGNMENT");
 
-        public static readonly SymbolToken LeftBracket = new SymbolToken("LEFTBRACKET");
-        public static readonly SymbolToken RightBracket = new SymbolToken("RIGHBRACKET");
-                 
-        public static readonly SymbolToken Comma = new SymbolToken("COMMA");
+        internal static readonly SymbolToken Semi = new SymbolToken("SEMI");
+        internal static readonly SymbolToken Assignment = new SymbolToken("ASSIGNMENT");
+
+        internal static readonly SymbolToken LeftBracket = new SymbolToken("LEFTBRACKET");
+        internal static readonly SymbolToken RightBracket = new SymbolToken("RIGHBRACKET");
+
+        internal static readonly SymbolToken Comma = new SymbolToken("COMMA");
         //public static readonly SymbolToken Dot = new SymbolToken("DOT");
-        public static readonly SymbolToken Colon = new SymbolToken("COLON");
-        public static readonly SymbolToken LeftCurlyBracket = new SymbolToken("LEFTCURLYBRACKET");
-        public static readonly SymbolToken RightCurlyBracket = new SymbolToken("RIGHTCURLYBRACKET");
+        internal static readonly SymbolToken Colon = new SymbolToken("COLON");
+        internal static readonly SymbolToken LeftCurlyBracket = new SymbolToken("LEFTCURLYBRACKET");
+        internal static readonly SymbolToken RightCurlyBracket = new SymbolToken("RIGHTCURLYBRACKET");
 
-        public static readonly KeywordToken EndSequence = new KeywordToken("ENDSEQUENCE");
-        public static readonly KeywordToken Print = new KeywordToken("PRINT");
-        public static readonly KeywordToken Var = new KeywordToken("VAR");
-        public static readonly KeywordToken ReadVar = new KeywordToken("READVAR");        
-        public static readonly KeywordToken For = new KeywordToken("FOR");
-        public static readonly KeywordToken To = new KeywordToken("TO");
-        public static readonly KeywordToken If = new KeywordToken("IF");
-        public static readonly KeywordToken Then = new KeywordToken("THEN");
-        public static readonly KeywordToken Else = new KeywordToken("ELSE");
-        public static readonly KeywordToken While = new KeywordToken("WHILE");
-        public static readonly KeywordToken Break = new KeywordToken("BREAK");
-        public static readonly KeywordToken New = new KeywordToken("NEW");
-        public static readonly KeywordToken ForEach = new KeywordToken("FOREACH");
-        public static readonly KeywordToken In = new KeywordToken("IN");
+        internal static readonly KeywordToken EndSequence = new KeywordToken("ENDSEQUENCE");
+        internal static readonly KeywordToken Print = new KeywordToken("PRINT");
+        internal static readonly KeywordToken Var = new KeywordToken("VAR");
+        internal static readonly KeywordToken ReadVar = new KeywordToken("READVAR");
+        internal static readonly KeywordToken For = new KeywordToken("FOR");
+        internal static readonly KeywordToken To = new KeywordToken("TO");
+        internal static readonly KeywordToken If = new KeywordToken("IF");
+        internal static readonly KeywordToken Then = new KeywordToken("THEN");
+        internal static readonly KeywordToken Else = new KeywordToken("ELSE");
+        internal static readonly KeywordToken While = new KeywordToken("WHILE");
+        internal static readonly KeywordToken Break = new KeywordToken("BREAK");
+        internal static readonly KeywordToken New = new KeywordToken("NEW");
+        internal static readonly KeywordToken ForEach = new KeywordToken("FOREACH");
+        internal static readonly KeywordToken In = new KeywordToken("IN");
     }
 
-    public class OperatorToken : Token
+    internal class OperatorToken : Token
     {
         private readonly int _precedence = 0;
 
@@ -74,19 +74,19 @@ namespace AnTScript
         }
     }
 
-    public class KeywordToken : Token
+    internal class KeywordToken : Token
     {        
         public KeywordToken(string value)
             : base(value) {}
     }
-    
-    public class IdentifierToken : Token
+
+    internal class IdentifierToken : Token
     {        
         public IdentifierToken(string value)
             : base(value) { }
     }
 
-    public class StringToken : Token
+    internal class StringToken : Token
     {
         private string _value;
 
@@ -102,7 +102,7 @@ namespace AnTScript
         }
     }
 
-    public class IntToken : Token
+    internal class IntToken : Token
     {
         private int _value;
 
@@ -118,8 +118,8 @@ namespace AnTScript
             get { return _value; }
         }
     }
-    
-    public class FloatToken : Token
+
+    internal class FloatToken : Token
     {
         private float _value;
         
@@ -136,7 +136,7 @@ namespace AnTScript
         }
     }
 
-    public class DoubleToken : Token
+    internal class DoubleToken : Token
     {
         private double _value;
 
@@ -153,7 +153,7 @@ namespace AnTScript
         }
     }
 
-    public class DecimalToken : Token
+    internal class DecimalToken : Token
     {
         private decimal _value;
 
@@ -171,7 +171,7 @@ namespace AnTScript
     }
 
     //#dd/mm/yyyy#
-    public class DateTimeToken : Token
+    internal class DateTimeToken : Token
     {
         private DateTime _value;
 
@@ -188,8 +188,8 @@ namespace AnTScript
         }
     }
 
-    //#dd/mm/yyyy#
-    public class BoolToken : Token
+    // true - false
+    internal class BoolToken : Token
     {        
         private bool _value;
 
@@ -207,19 +207,19 @@ namespace AnTScript
     }
 
 
-    public class SymbolToken : Token
+    internal class SymbolToken : Token
     {
         public SymbolToken(string value)
             : base(value) { }
     }
 
-    public class NumToken : Token
+    internal class NumToken : Token
     {
         public NumToken(string value)
             : base(value) {}
     }
 
-    public abstract class Token
+    internal abstract class Token
     {
         private string _name = "";
 

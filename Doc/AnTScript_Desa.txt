@@ -1,7 +1,9 @@
 ============================
 >>>> Versión 0.0.0.x
 
-- Reorganizar ensamblados y separar la capa de usuario del núcleo del intérprete. 
+- Reorganizar ensamblados y separar la capa de usuario del núcleo del intérprete (Segunda fase)
+-    Resolver problema de la instanciación de objetos de un ensamblado disferente al actual. 
+
 - Volcar salida en un Html control.
 
 - Generalizar la definición del ensamblado que contiene la librería de funciones por defecto. Emplear inyección de código para definir esa librería. Por defecto puede existir una. 
@@ -80,6 +82,7 @@ X- Deputar tokens (quitar do, ... )
 X- Estructurar código de CodeGen, sección de resolución de expresiones binarias y unarias. 
 X- En Scanner, rectificar el análisis de los identificadores para que puedan contener dígitos en medio o al final.
 
+
 ============================
 >>>> Versión 0.0.0.2
 X- Soportar identificadores con varios puntos para espacios de nombre y manejo de objetos anidados (declaración, lectura, escritura variables o miembros).
@@ -106,3 +109,5 @@ X- Corregir problema de acentos y juegos de caracteres. Tratar código fuente com
 X- Abstraer entrada-salida de CodeRun.
 X- Nueva clase engine para simplificar el uso externo.
 X- Añadido proyecto AnTScriptAppHost
+X- Reorganizar ensamblados y separar la capa de usuario del núcleo del intérprete (Primera fase - No estable)
+X- Añadido proyecto AntTScriptAppLibrary

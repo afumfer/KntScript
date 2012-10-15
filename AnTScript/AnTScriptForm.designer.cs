@@ -34,7 +34,6 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.textSourceCode = new System.Windows.Forms.TextBox();
-            this.textOut = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.listScan = new System.Windows.Forms.ListBox();
@@ -45,7 +44,6 @@
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
@@ -105,10 +103,6 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.textSourceCode);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.textOut);
             this.splitContainer1.Size = new System.Drawing.Size(976, 684);
             this.splitContainer1.SplitterDistance = 502;
             this.splitContainer1.TabIndex = 0;
@@ -123,17 +117,6 @@
             this.textSourceCode.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textSourceCode.Size = new System.Drawing.Size(502, 684);
             this.textSourceCode.TabIndex = 3;
-            // 
-            // textOut
-            // 
-            this.textOut.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textOut.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textOut.Location = new System.Drawing.Point(0, 0);
-            this.textOut.Multiline = true;
-            this.textOut.Name = "textOut";
-            this.textOut.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textOut.Size = new System.Drawing.Size(470, 684);
-            this.textOut.TabIndex = 6;
             // 
             // tabPage2
             // 
@@ -217,8 +200,6 @@
             this.tabPage1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
@@ -239,7 +220,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TextBox textSourceCode;
-        private System.Windows.Forms.TextBox textOut;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.ListBox listScan;

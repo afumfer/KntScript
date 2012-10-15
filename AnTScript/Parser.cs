@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AnTScript
 {
-    public sealed class Parser
+    internal sealed class Parser
     {
 
         #region Private fields
@@ -16,7 +16,7 @@ namespace AnTScript
 
         #region Constructor
 
-        public Parser(IList<Token> tokens)
+        internal Parser(IList<Token> tokens)
         {
             this.tokens = tokens;
             index = 0;
@@ -31,7 +31,7 @@ namespace AnTScript
         #region Properties
 
         private readonly Stmt _result;
-        public Stmt Result
+        internal Stmt Result
         {
             get { return _result; }
         }

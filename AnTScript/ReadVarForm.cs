@@ -9,17 +9,17 @@ using System.Windows.Forms;
 
 namespace AnTScript
 {
-    public partial class ReadVarForm : Form
+    internal partial class ReadVarForm : Form
     {
         
         private List<ReadVarItem> _readVarItems;
-        public List<ReadVarItem> ReadVarItems
+        internal List<ReadVarItem> ReadVarItems
         {
             get { return _readVarItems; }
         }
         
 
-        public ReadVarForm(List<ReadVarItem> readVarItems)
+        internal ReadVarForm(List<ReadVarItem> readVarItems)
         {
             InitializeComponent();
             
@@ -50,7 +50,7 @@ namespace AnTScript
                 label.Width = widthLabel;
                 
                 textBox = new TextBox();
-                textBox.Tag = var.Var;
+                textBox.Tag = var.VarIdent;
                 textBox.Text = var.VarValue.ToString();
                 textBox.Top = topText;
                 textBox.Left = leftText;
@@ -70,7 +70,7 @@ namespace AnTScript
             {
                 foreach(ReadVarItem var in _readVarItems)
                 {
-                    if(var.Var == c.Tag)
+                    if(var.VarIdent == c.Tag)
                     {                        
                         var.VarNewValueText = c.Text;
                         break;
