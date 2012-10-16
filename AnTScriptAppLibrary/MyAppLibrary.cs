@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AnTScriptAppLibrary
 {
-    public class MyAppLibrary
+    public class Library
     {
         public List<Document> ColecNode()
         {
@@ -18,5 +18,11 @@ namespace AnTScriptAppLibrary
             lisRes.Add(new Document(5));
             return lisRes;
         }
+
+        public float Demo2SumNum(float x, float y)
+        {
+            return x + y;
+        }
+
     }
 }

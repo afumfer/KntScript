@@ -95,32 +95,8 @@ namespace AnTScript
             try
             {
 
-                ////=======================================================
-                //// --- Pruebas manipulación propiedades por reflexión
-                //string CadenaObjeto = "AnTScriptAppLibrary.Document";
-                //var obj = AppDomain.CurrentDomain.CreateInstance("AnTScript", CadenaObjeto);
-                //Type t = obj.GetType();
-                //PropertyInfo pi = t.GetProperty("IdDocument");
-                //int x1 = 1;
-                //pi.SetValue(obj, x1, null);
-                //MessageBox.Show(string.Format("Set Value > {0} !", obj.ToString()));
-
-
-                //// Get metadata for the Minivan type.                
-                //Type t = Type.GetType("AnTScript.Document", false, true);                               
-                //object obj = Activator.CreateInstance(t);
-                //PropertyInfo pi = t.GetProperty("IdDocument");
-                //int x1 = 1;
-                //pi.SetValue(obj, x1, null);
-                //MessageBox.Show(string.Format("Set Value > {0} !", obj.ToString()));
-                //object x;
-                //x = pi.GetValue(obj, null);
-                //MessageBox.Show(string.Format("Get Value {0} !", x.ToString()));
-                ////=======================================================
-
-
+                // ------------------ Buscar tipos en todos los ensamblados
                 Type t;
-
                 if (TryFindType("AnTScriptAppLibrary.Document", out t))
                     MessageBox.Show("Encontrado");
 
@@ -295,26 +271,6 @@ namespace AnTScript
             }
         }
 
-        public bool TryFindType(string typeName, out Type t)
-        {
-            lock (typeCache)
-            {
-                if (!typeCache.TryGetValue(typeName, out t))
-                {
-                    foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
-                    {                        
-                        t = a.GetType(typeName);
-                        if (t != null)
-                            break;
-                    }
-                    typeCache[typeName] = t; // perhaps null 
-                }
-            }
-            return t != null;
-        } 
-
-
-
         #region Pruebas
 
         private void SetValue(object varObj, IdentObject identEx, object newValue, int i = 0)
@@ -370,10 +326,26 @@ namespace AnTScript
             return;
         }
 
+        public bool TryFindType(string typeName, out Type t)
+        {
+            lock (typeCache)
+            {
+                if (!typeCache.TryGetValue(typeName, out t))
+                {
+                    foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
+                    {
+                        t = a.GetType(typeName);
+                        if (t != null)
+                            break;
+                    }
+                    typeCache[typeName] = t; // perhaps null 
+                }
+            }
+            return t != null;
+        } 
+
+
         #endregion
-
-
-
 
     }
 

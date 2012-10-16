@@ -4,7 +4,6 @@
 - Generalizar la definición del ensamblado que contiene la librería de funciones por defecto. Emplear inyección de código para definir esa librería. Por defecto puede existir una. 
 - Estudiar el tema de la librería de funciones por defecto. Ver si se puede omitir librería por defecto y bucar función en todos los ensamblados. 
 
-
 - Depurar o limpiar ParserTree
 - Mejorar la interfaz de usuario  (TinyIDE)
 - Limpiar los TODO's

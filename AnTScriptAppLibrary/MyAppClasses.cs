@@ -75,7 +75,7 @@ namespace AnTScriptAppLibrary
             a.Show();
         }
 
-        public string TestMethodC(string param)
+        public string TestMethodB(string param)
         {
             return ">> " + param;
         }

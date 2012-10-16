@@ -479,32 +479,38 @@ namespace AnTScript
                 MethodInfo mi;
 
                 IdentObject ident = new IdentObject(function.FunctionName);
-                              
+
+                // Params
+                object[] param;
+                Type[] types;
+                if (function.Args.Count > 0)
+                {
+                    param = new object[function.Args.Count];
+                    types = new Type[function.Args.Count];
+                    for (int i = 0; i < function.Args.Count; i++)
+                    {
+                        param[i] = GenExpr(function.Args[i]);
+                        types[i] = param[i].GetType();
+                    }
+                }
+                else
+                {
+                    param = null;
+                    types = null;
+                }
+
                 if (string.IsNullOrEmpty(ident.Member))
                 {
                     t = DefaultFunctionLibraryType;
                     obj = DefaultFunctionLibrary;
                     funName = ident.Obj;
-                    mi = t.GetMethod(funName);
+                    mi = t.GetMethod(funName,types);
                 }
                 else
-                {                    
-                    objRoot = symbolTable[ident.Obj];                                        
-                    GetObjectMethod(objRoot, ident, out obj, out mi);
-                }
-                                
-                // Params
-                object[] param;
-                if (function.Args.Count > 0)
                 {
-                    param = new object[function.Args.Count];
-                    for (int i = 0; i < function.Args.Count; i++)
-                    {
-                        param[i] = GenExpr(function.Args[i]);
-                    }
+                    objRoot = symbolTable[ident.Obj];
+                    GetObjectMethod(objRoot, ident, out obj, out mi, types);
                 }
-                else
-                    param = null;
                                 
                 object ret;
                 ret = mi.Invoke(obj, param);
@@ -999,7 +1005,7 @@ namespace AnTScript
             return;
         }
 
-        private void GetObjectMethod(object objRoot, IdentObject ident, out object objRet, out MethodInfo methodInfo, int i = 0)
+        private void GetObjectMethod(object objRoot, IdentObject ident, out object objRet, out MethodInfo methodInfo, Type[] types, int i = 0)
         {
             Type t;
             PropertyInfo pi;
@@ -1014,19 +1020,18 @@ namespace AnTScript
                 pi = t.GetProperty(literalObjChild);
                 objChild = pi.GetValue(objRoot, null);
                 i++;
-                GetObjectMethod(objChild, ident, out objRet, out methodInfo, i);
+                GetObjectMethod(objChild, ident, out objRet, out methodInfo,types, i);
             }
             else
             {                
                 objRet = objRoot;
-                methodInfo = t.GetMethod(ident.Member);
+                methodInfo = t.GetMethod(ident.Member, types);
             }
 
             return;
         }
 
-
-        internal Expr ValueToExpr(Type t, object newValue)
+        private Expr ValueToExpr(Type t, object newValue)
         {            
             if (t == typeof(int))
             {

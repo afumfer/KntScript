@@ -45,6 +45,12 @@
     <Compile Include="MyAppLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AnTScript\AnTScript.csproj">
+      <Project>{409FDBEB-5D2B-45B1-9AA9-4E57299DB6A6}</Project>
+      <Name>AnTScript</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
