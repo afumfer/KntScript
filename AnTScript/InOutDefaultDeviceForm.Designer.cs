@@ -33,11 +33,13 @@
             // 
             // textOut
             // 
+            this.textOut.BackColor = System.Drawing.SystemColors.Control;
             this.textOut.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textOut.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textOut.Location = new System.Drawing.Point(0, 0);
             this.textOut.Multiline = true;
             this.textOut.Name = "textOut";
+            this.textOut.ReadOnly = true;
             this.textOut.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textOut.Size = new System.Drawing.Size(570, 487);
             this.textOut.TabIndex = 7;

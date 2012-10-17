@@ -66,6 +66,11 @@
       <DependentUpon>InOutDefaultDeviceForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Library.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ReadVarForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +88,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="InOutDefaultDeviceForm.resx">
       <DependentUpon>InOutDefaultDeviceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ReadVarForm.resx">
       <DependentUpon>ReadVarForm.cs</DependentUpon>

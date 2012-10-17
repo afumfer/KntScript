@@ -28,84 +28,121 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonRun = new System.Windows.Forms.Button();
-            this.textFileSourceCode = new System.Windows.Forms.TextBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnTScriptForm));
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.buttonNew = new System.Windows.Forms.ToolStripButton();
+            this.buttonOpen = new System.Windows.Forms.ToolStripButton();
+            this.buttonSave = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.buttonRun = new System.Windows.Forms.ToolStripButton();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.textSourceCode = new System.Windows.Forms.TextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.listScan = new System.Windows.Forms.ListBox();
-            this.treeAST = new System.Windows.Forms.TreeView();
-            this.buttonLoadFile = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.buttonNew,
+            this.buttonOpen,
+            this.buttonSave,
+            this.toolStripSeparator1,
+            this.buttonRun});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(952, 25);
+            this.toolStrip1.TabIndex = 9;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // buttonNew
+            // 
+            this.buttonNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonNew.Image = ((System.Drawing.Image)(resources.GetObject("buttonNew.Image")));
+            this.buttonNew.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonNew.Name = "buttonNew";
+            this.buttonNew.Size = new System.Drawing.Size(23, 22);
+            this.buttonNew.Text = "New";
+            // 
+            // buttonOpen
+            // 
+            this.buttonOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonOpen.Image = ((System.Drawing.Image)(resources.GetObject("buttonOpen.Image")));
+            this.buttonOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonOpen.Name = "buttonOpen";
+            this.buttonOpen.Size = new System.Drawing.Size(23, 22);
+            this.buttonOpen.Text = "Open";
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonSave.Image = ((System.Drawing.Image)(resources.GetObject("buttonSave.Image")));
+            this.buttonSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(23, 22);
+            this.buttonSave.Text = "Save";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // buttonRun
             // 
-            this.buttonRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRun.Location = new System.Drawing.Point(921, 10);
+            this.buttonRun.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonRun.Image = ((System.Drawing.Image)(resources.GetObject("buttonRun.Image")));
+            this.buttonRun.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonRun.Name = "buttonRun";
-            this.buttonRun.Size = new System.Drawing.Size(81, 23);
-            this.buttonRun.TabIndex = 0;
+            this.buttonRun.Size = new System.Drawing.Size(23, 22);
             this.buttonRun.Text = "Run";
-            this.buttonRun.UseVisualStyleBackColor = true;
             this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
             // 
-            // textFileSourceCode
+            // statusStrip1
             // 
-            this.textFileSourceCode.Location = new System.Drawing.Point(12, 12);
-            this.textFileSourceCode.Name = "textFileSourceCode";
-            this.textFileSourceCode.Size = new System.Drawing.Size(361, 20);
-            this.textFileSourceCode.TabIndex = 1;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.statusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 558);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(952, 22);
+            this.statusStrip1.TabIndex = 10;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // tabControl1
+            // statusLabel1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 38);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(990, 716);
-            this.tabControl1.TabIndex = 6;
+            this.statusLabel1.Name = "statusLabel1";
+            this.statusLabel1.Size = new System.Drawing.Size(937, 17);
+            this.statusLabel1.Spring = true;
+            this.statusLabel1.Text = "ANTScript";
+            this.statusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // tabPage1
+            // panel1
             // 
-            this.tabPage1.Controls.Add(this.splitContainer1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(982, 690);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Code / Out";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.panel1.Controls.Add(this.splitContainer1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 25);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(952, 533);
+            this.panel1.TabIndex = 11;
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.textSourceCode);
-            this.splitContainer1.Size = new System.Drawing.Size(976, 684);
-            this.splitContainer1.SplitterDistance = 502;
-            this.splitContainer1.TabIndex = 0;
+            this.splitContainer1.Size = new System.Drawing.Size(952, 533);
+            this.splitContainer1.SplitterDistance = 488;
+            this.splitContainer1.TabIndex = 1;
             // 
             // textSourceCode
             // 
@@ -115,98 +152,32 @@
             this.textSourceCode.Multiline = true;
             this.textSourceCode.Name = "textSourceCode";
             this.textSourceCode.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textSourceCode.Size = new System.Drawing.Size(502, 684);
+            this.textSourceCode.Size = new System.Drawing.Size(488, 533);
             this.textSourceCode.TabIndex = 3;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.splitContainer2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(982, 690);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Symbols Table / AST";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer2.Name = "splitContainer2";
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.listScan);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.treeAST);
-            this.splitContainer2.Size = new System.Drawing.Size(976, 684);
-            this.splitContainer2.SplitterDistance = 286;
-            this.splitContainer2.TabIndex = 0;
-            // 
-            // listScan
-            // 
-            this.listScan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listScan.FormattingEnabled = true;
-            this.listScan.Location = new System.Drawing.Point(0, 0);
-            this.listScan.Name = "listScan";
-            this.listScan.Size = new System.Drawing.Size(286, 684);
-            this.listScan.TabIndex = 10;
-            // 
-            // treeAST
-            // 
-            this.treeAST.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeAST.Location = new System.Drawing.Point(0, 0);
-            this.treeAST.Name = "treeAST";
-            this.treeAST.Size = new System.Drawing.Size(686, 684);
-            this.treeAST.TabIndex = 5;
-            // 
-            // buttonLoadFile
-            // 
-            this.buttonLoadFile.Location = new System.Drawing.Point(385, 10);
-            this.buttonLoadFile.Name = "buttonLoadFile";
-            this.buttonLoadFile.Size = new System.Drawing.Size(96, 23);
-            this.buttonLoadFile.TabIndex = 7;
-            this.buttonLoadFile.Text = "Load File";
-            this.buttonLoadFile.UseVisualStyleBackColor = true;
-            this.buttonLoadFile.Click += new System.EventHandler(this.buttonLoadFile_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(525, 10);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(175, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "Code Test";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // AnTScriptForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1014, 766);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.buttonLoadFile);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.textFileSourceCode);
-            this.Controls.Add(this.buttonRun);
+            this.ClientSize = new System.Drawing.Size(952, 580);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.toolStrip1);
+            this.KeyPreview = true;
             this.Name = "AnTScriptForm";
-            this.Text = "AnTScript";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "AnTScript - Console";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.AnTScriptForm_KeyUp);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -214,17 +185,16 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonRun;
-        private System.Windows.Forms.TextBox textFileSourceCode;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TextBox textSourceCode;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.ListBox listScan;
-        private System.Windows.Forms.TreeView treeAST;
-        private System.Windows.Forms.Button buttonLoadFile;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripButton buttonNew;
+        private System.Windows.Forms.ToolStripButton buttonOpen;
+        private System.Windows.Forms.ToolStripButton buttonSave;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton buttonRun;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabel1;
     }
 }

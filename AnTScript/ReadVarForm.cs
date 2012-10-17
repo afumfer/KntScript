@@ -11,7 +11,9 @@ namespace AnTScript
 {
     internal partial class ReadVarForm : Form
     {
-        
+
+        TextBox textFirst;
+
         private List<ReadVarItem> _readVarItems;
         internal List<ReadVarItem> ReadVarItems
         {
@@ -28,23 +30,30 @@ namespace AnTScript
             GenControls();
         }
 
+        private void ReadVarForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void GenControls()
         {
             TextBox textBox;
             Label label;
             int topText = 15;
-            int leftText = 175;
+            int leftText = 275;
             int topLabel = 15;
             int leftLabel = 10;
-            int widthLabel = 150;
+            int widthLabel = 250;
             int widthText = 300;
             int inc = 30;
+            int i = 0;
+
 
             foreach (ReadVarItem var in _readVarItems)
             {
                 label = new Label();
-                //label.Font =
-                label.Text = var.Label.ToString() + ": ";
+                label.Font = new Font(new FontFamily("Courier New"), 10);                
+                label.Text = var.Label.ToString();
                 label.Top = topLabel;
                 label.Left = leftLabel;
                 label.Width = widthLabel;
@@ -59,9 +68,15 @@ namespace AnTScript
                 
                 panelControls.Controls.Add(label);
                 panelControls.Controls.Add(textBox);
+
+                if (i == 0)
+                    textFirst = textBox;
+
                 topText += inc;
                 topLabel += inc;
+                i++;
             }        
+
         }
 
         private void CaptureVars()

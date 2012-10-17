@@ -1,28 +1,35 @@
 ============================
 >>>> Versión 0.0.0.x
 
-- Generalizar la definición del ensamblado que contiene la librería de funciones por defecto. Emplear inyección de código para definir esa librería. Por defecto puede existir una. 
-- Estudiar el tema de la librería de funciones por defecto. Ver si se puede omitir librería por defecto y bucar función en todos los ensamblados. 
+- Mejorar la interfaz de usuario  (AnTScript - Console)
 
-- Depurar o limpiar ParserTree
-- Mejorar la interfaz de usuario  (TinyIDE)
+- Implementar printline
+- Implementar clear
 - Limpiar los TODO's
-- Depurar la librería con funciones básicas y genéricas.
+- Hacer sencible a mayúsculas.
+
+- Validar que el fichero de script pasado por parámetro existas.
+- Implementar sobrecarga o método nuevo para ejecutar un código pasado por parámetro (y no sólo el nombre de fichero).
+- Depurar la librería con funciones básicas.
 - Preparar scripts ejemplo y test.
 
 
 ============================
 >>>> Versión 0.0.1.x
+
 - Empotrar el código en ANotas
 - Volcar salida en un componente que contenga el Html control y la interfaz de entrada-salida de AnTScript.
-- Implementar librería de funciones de ANotas
-- Mecanismo provisional para trabajar con colecciones de Notas y coleeciones de Carpetas 
+- Implementar librería de funciones de ANotas (API ANotas para trablar con notas, carpetas, colecciones de notas y carpetas y búsquedas según criterio.
+- Implementar la inyección de la clase que contiene la librería de funciones de la aplicación. Esta clase debe heredar de Library. Así podemos invocar directamente al conjunto de funciones sin crear un objeto previamente. 
+- Implementar la ejecución del script en alarmas que tengan un bloque de script en la tarea. 
+- Implementar una método al que se le suministre un servidor, base de datos y SQL o procedimiento. El resultado debe ser caputado en un List<object> para luego poder recorrer el conjunto de resultados devueltos y tratarlos en el script.
+- Mejorar la interfaz de AnTScript-Console para bloquear los controles. 
+
 
 
 ============================
 >>>> Versión 0.0.2.x
 - Implementar tipos arrays e indizadores de colecciones .
-
 - Implementar comprobación de tipos
 - Implementar declaración automática de variables. Eliminar / Corregir implementación de CodeSpecialStoreObject()
 - Mejorar el tratamiento de errores
@@ -31,9 +38,10 @@
 - Implementar ámbito de variables locales
 - Implementar referencia de librerias de funciones AntTScript
 - Pasar IdentObject de CodeRun al Parser o al Scanner
-- Cambiar el tipo base interno de AntScript de las variables numéricas a "decimal" de .net ??? (en lugar de float)
+- Estudiar el tema de la librería de funciones por defecto. Ver si se puede omitir librería por defecto y bucar función en todos los ensamblados. 
 - Refactorizar código empleando patrónes para la ampliación del lenguaje. Estudiar posibles patrones para ampliar facilmente el lenguaje
 
+- Se podría añadir un punto de menú que ejecute un script por cada punto de menú. Los script's podría estar en un directorio y el nombre del menú podría ser el nombre del fichero.
 
 ////////////////////////////
 ////////////////////////////
@@ -110,3 +118,5 @@ X- Reorganizar ensamblados y separar la capa de usuario del núcleo del intérpret
 X- Añadido proyecto AntTScriptAppLibrary
 X- Reorganizar ensamblados y separar la capa de usuario del núcleo del intérprete (Segunda fase)
 X- Resolver problema de la instanciación de objetos de un ensamblado disferente al actual. 
+
+X- Limpiar ParserTree

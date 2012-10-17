@@ -36,7 +36,7 @@
             // buttonAccept
             // 
             this.buttonAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAccept.Location = new System.Drawing.Point(350, 445);
+            this.buttonAccept.Location = new System.Drawing.Point(447, 445);
             this.buttonAccept.Name = "buttonAccept";
             this.buttonAccept.Size = new System.Drawing.Size(76, 29);
             this.buttonAccept.TabIndex = 1;
@@ -48,7 +48,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(432, 445);
+            this.buttonCancel.Location = new System.Drawing.Point(529, 445);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(76, 29);
             this.buttonCancel.TabIndex = 2;
@@ -63,9 +63,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelControls.AutoScroll = true;
             this.panelControls.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.panelControls.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelControls.Location = new System.Drawing.Point(9, 10);
             this.panelControls.Name = "panelControls";
-            this.panelControls.Size = new System.Drawing.Size(498, 416);
+            this.panelControls.Size = new System.Drawing.Size(595, 416);
             this.panelControls.TabIndex = 3;
             // 
             // ReadVarForm
@@ -74,7 +75,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(520, 486);
+            this.ClientSize = new System.Drawing.Size(617, 486);
             this.Controls.Add(this.panelControls);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonAccept);
@@ -82,6 +83,7 @@
             this.Name = "ReadVarForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AnTScript - capture vars";
+            this.Load += new System.EventHandler(this.ReadVarForm_Load);
             this.ResumeLayout(false);
 
         }

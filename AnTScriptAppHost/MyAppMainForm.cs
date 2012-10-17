@@ -38,7 +38,8 @@ namespace AnTScriptAppHost
 
         private void buttonShowConsole_Click(object sender, EventArgs e)
         {
-            AnTScript.Engine.ShowConsole(sourceCodeFile);                                  
+            AnTScript.Engine.ShowConsole(sourceCodeFile);
+            //AnTScript.Engine.ShowConsole("var a = 0; print a;");
         }
 
     }
