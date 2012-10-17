@@ -25,6 +25,8 @@
 - Implementar una método al que se le suministre un servidor, base de datos y SQL o procedimiento. El resultado debe ser caputado en un List<object> para luego poder recorrer el conjunto de resultados devueltos y tratarlos en el script.
 - Mejorar la interfaz de AnTScript-Console para bloquear los controles. 
 
+- Plantear un script para buscar las tareas a revisar en cada planificación.
+
 
 
 ============================

@@ -146,9 +146,11 @@
             // 
             // textSourceCode
             // 
+            this.textSourceCode.AcceptsTab = true;
             this.textSourceCode.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textSourceCode.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textSourceCode.Location = new System.Drawing.Point(0, 0);
+            this.textSourceCode.Margin = new System.Windows.Forms.Padding(5);
             this.textSourceCode.Multiline = true;
             this.textSourceCode.Name = "textSourceCode";
             this.textSourceCode.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;

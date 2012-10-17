@@ -8,12 +8,16 @@ using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Remoting;
+using System.Runtime.InteropServices;
 
 namespace AnTScript
 {
-
     internal partial class AnTScriptForm : Form
     {
+        private const int EM_SETTABSTOPS = 0x00CB; 
+        [DllImport("User32.dll", CharSet = CharSet.Auto)] 
+        public static extern IntPtr SendMessage(IntPtr h, int msg, int wParam, int [] lParam);
+
         private string sourceCode = string.Empty;
 
         private InOutDefaultDeviceForm inOutDeviceForm;
@@ -25,11 +29,16 @@ namespace AnTScript
         {
             InitializeComponent();
 
-            sourceCode = source;
+            sourceCode = source;            
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // define value of the Tab indent  
+            int[] stops = { 12 };
+            // change the indent  
+            SendMessage(this.textSourceCode.Handle, EM_SETTABSTOPS, 1, stops); 
+
             if (File.Exists(sourceCode))
             {
                 LoadFile(sourceCode);
@@ -43,7 +52,7 @@ namespace AnTScript
             inOutDeviceForm.FormBorderStyle = FormBorderStyle.None;
             splitContainer1.Panel2.Controls.Add(inOutDeviceForm);
             inOutDeviceForm.Dock = DockStyle.Fill;
-            inOutDeviceForm.Show();
+            inOutDeviceForm.Show();          
         }
 
         private void buttonRun_Click(object sender, EventArgs e)
@@ -53,7 +62,6 @@ namespace AnTScript
             {
                 Engine antsEngine = new Engine(textSourceCode.Text, this.inOutDeviceForm);
                 antsEngine.Run();
-
             }
             catch (Exception err)
             {
@@ -63,7 +71,7 @@ namespace AnTScript
 
         private void LoadFile(string sourceCode)
         {
-            if(string.IsNullOrEmpty(sourceCode))
+            if (string.IsNullOrEmpty(sourceCode))
                 return;
 
             // TODO: pendiente validar que el nombre del fichero sea correcto. 

@@ -504,7 +504,10 @@ namespace AnTScript
                     t = DefaultFunctionLibraryType;
                     obj = DefaultFunctionLibrary;
                     funName = ident.Obj;
-                    mi = t.GetMethod(funName,types);
+                    if(types == null)
+                        mi = t.GetMethod(funName);
+                    else
+                        mi = t.GetMethod(funName,types);
                 }
                 else
                 {
@@ -1025,7 +1028,10 @@ namespace AnTScript
             else
             {                
                 objRet = objRoot;
-                methodInfo = t.GetMethod(ident.Member, types);
+                if(types == null)
+                    methodInfo = t.GetMethod(ident.Member);
+                else
+                    methodInfo = t.GetMethod(ident.Member, types);
             }
 
             return;
@@ -1101,7 +1107,6 @@ namespace AnTScript
             }
             return t != null;
         } 
-
 
         #endregion
 
