@@ -13,6 +13,7 @@ namespace AnTScript
 {
     internal sealed class CodeRun
     {
+
         #region Fields
         
         Dictionary<string, object> symbolTable;                
@@ -499,6 +500,7 @@ namespace AnTScript
                     types = null;
                 }
 
+                // Get method
                 if (string.IsNullOrEmpty(ident.Member))
                 {
                     t = DefaultFunctionLibraryType;
@@ -514,7 +516,8 @@ namespace AnTScript
                     objRoot = symbolTable[ident.Obj];
                     GetObjectMethod(objRoot, ident, out obj, out mi, types);
                 }
-                                
+                             
+                // Execute
                 object ret;
                 ret = mi.Invoke(obj, param);
                 if (ret != null)

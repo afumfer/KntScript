@@ -1,16 +1,15 @@
 ============================
 >>>> Versión 0.0.0.x
 
-- Mejorar la interfaz de usuario  (AnTScript - Console)
 
 - Implementar printline
 - Implementar clear
-- Limpiar los TODO's
 - Hacer sencible a mayúsculas.
+- Limpiar los TODO's
 
 - Validar que el fichero de script pasado por parámetro existas.
-- Implementar sobrecarga o método nuevo para ejecutar un código pasado por parámetro (y no sólo el nombre de fichero).
-- Depurar la librería con funciones básicas.
+- En el ejecutor directo implementar sobrecarga o método nuevo para ejecutar un código pasado por parámetro (y no sólo el nombre de fichero). Además debe haber un parámetro donde no se muestre la ventana de output.
+- Depurar la librería con funciones básicas, y que esta librería sea personalizable. La librería personalizable debe heredar de AnTScript.Library. 
 - Preparar scripts ejemplo y test.
 
 
@@ -122,3 +121,8 @@ X- Reorganizar ensamblados y separar la capa de usuario del núcleo del intérpret
 X- Resolver problema de la instanciación de objetos de un ensamblado disferente al actual. 
 
 X- Limpiar ParserTree
+
+X- Mejorar la interfaz de usuario  (AnTScript - Console)
+X- Definir un directorio temporal para grabar los script's
+X- Poner la extensión de los ficheros script a ants
+X- Al grabar, preguntar al usuairo si quiere sobreescribir el fichero.

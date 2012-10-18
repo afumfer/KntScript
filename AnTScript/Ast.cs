@@ -5,12 +5,13 @@ using System.Text;
 namespace AnTScript
 {
 
+    #region Stmt's
+
     /* <stmt> := var <ident> = <expr>
      *  | <ident> = <expr>
      *  | for <ident> = <expr> to <expr> <stmt> end for 
      *  | while <expr> <stmt> end while
-     *  | if <expr> <stmt> else <stmt> end if
-     *  | read_int <ident>
+     *  | if <expr> <stmt> else <stmt> end if     
      *  | readvar <expr>:<ident>, ...
      *  | print <expr>
      *  | <stmt> ; <stmt>
@@ -105,6 +106,9 @@ namespace AnTScript
         public Stmt Second;
     }
 
+    #endregion
+
+    #region Expr's
 
     /* <expr> := <string>
      *  | <int>
@@ -210,6 +214,10 @@ namespace AnTScript
         public Expr Expression;
     }
 
+    #endregion
+
+    #region Others
+
     // <bin_op> := + | - | * | / | && | ! | || 
     internal enum BinOp
     {
@@ -269,5 +277,8 @@ namespace AnTScript
             }
         }
     }
+
+    #endregion
+
 }
 

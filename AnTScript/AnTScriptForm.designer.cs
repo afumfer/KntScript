@@ -36,10 +36,12 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonRun = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.statusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusFileName = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.textSourceCode = new System.Windows.Forms.TextBox();
+            this.openFileDialogScript = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialogScript = new System.Windows.Forms.SaveFileDialog();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -70,6 +72,7 @@
             this.buttonNew.Name = "buttonNew";
             this.buttonNew.Size = new System.Drawing.Size(23, 22);
             this.buttonNew.Text = "New";
+            this.buttonNew.Click += new System.EventHandler(this.buttonNew_Click);
             // 
             // buttonOpen
             // 
@@ -79,6 +82,7 @@
             this.buttonOpen.Name = "buttonOpen";
             this.buttonOpen.Size = new System.Drawing.Size(23, 22);
             this.buttonOpen.Text = "Open";
+            this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
             // buttonSave
             // 
@@ -88,6 +92,7 @@
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(23, 22);
             this.buttonSave.Text = "Save";
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // toolStripSeparator1
             // 
@@ -107,20 +112,20 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusLabel1});
+            this.statusFileName});
             this.statusStrip1.Location = new System.Drawing.Point(0, 558);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(952, 22);
             this.statusStrip1.TabIndex = 10;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // statusLabel1
+            // statusFileName
             // 
-            this.statusLabel1.Name = "statusLabel1";
-            this.statusLabel1.Size = new System.Drawing.Size(937, 17);
-            this.statusLabel1.Spring = true;
-            this.statusLabel1.Text = "ANTScript";
-            this.statusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.statusFileName.Name = "statusFileName";
+            this.statusFileName.Size = new System.Drawing.Size(937, 17);
+            this.statusFileName.Spring = true;
+            this.statusFileName.Text = "ANTScript";
+            this.statusFileName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel1
             // 
@@ -156,6 +161,10 @@
             this.textSourceCode.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textSourceCode.Size = new System.Drawing.Size(488, 533);
             this.textSourceCode.TabIndex = 3;
+            // 
+            // openFileDialogScript
+            // 
+            this.openFileDialogScript.FileName = "AnTScript";
             // 
             // AnTScriptForm
             // 
@@ -197,6 +206,8 @@
         private System.Windows.Forms.ToolStripButton buttonSave;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton buttonRun;
-        private System.Windows.Forms.ToolStripStatusLabel statusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel statusFileName;
+        private System.Windows.Forms.OpenFileDialog openFileDialogScript;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogScript;
     }
 }

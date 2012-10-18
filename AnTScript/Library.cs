@@ -9,10 +9,6 @@ namespace AnTScript
 {
     public class Library
     {
-        public float DemoSumNum(float x, float y)
-        {
-            return x + y;
-        }
 
         public int RandomInt(int minValue, int maxValue)
         {
