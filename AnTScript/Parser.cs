@@ -58,6 +58,27 @@ namespace AnTScript
                 result = print;
             }
 
+            // printline
+            else if (tokens[index] == Tokens.PrintLine)
+            {
+                MoveNext();
+                PrintLine printLine = new PrintLine();
+                printLine.Expr = ParseExpr();
+                result = printLine;
+            }
+
+            // clear
+            else if (tokens[index] == Tokens.Clear)
+            {
+                Clear clearStmt = new Clear();
+                MoveNext();
+
+                clearStmt.Tag = "_Clear_";  // for debug
+
+                result = clearStmt;
+
+            }
+
             // var
             else if (tokens[index] == Tokens.Var)
             {

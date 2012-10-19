@@ -7,7 +7,7 @@ namespace AnTScript
 {
     public interface IInOutDevice
     {
-        void Print(string str);
+        void Print(string str, bool newLine = false);
         bool ReadVars(List<ReadVarItem> readVarItmes);
         void Clear();
     }

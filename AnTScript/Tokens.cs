@@ -44,6 +44,8 @@ namespace AnTScript
 
         internal static readonly KeywordToken EndSequence = new KeywordToken("ENDSEQUENCE");
         internal static readonly KeywordToken Print = new KeywordToken("PRINT");
+        internal static readonly KeywordToken PrintLine = new KeywordToken("PRINTLINE");
+        internal static readonly KeywordToken Clear = new KeywordToken("CLEAR");
         internal static readonly KeywordToken Var = new KeywordToken("VAR");
         internal static readonly KeywordToken ReadVar = new KeywordToken("READVAR");
         internal static readonly KeywordToken For = new KeywordToken("FOR");

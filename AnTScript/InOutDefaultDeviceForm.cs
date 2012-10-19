@@ -18,12 +18,11 @@ namespace AnTScript
 
         #region IInOutDevice members
 
-        public void Print(string str)
+        public void Print(string str, bool newLine = false)
         {
-            if (str == @"\")
+            textOut.AppendText(@str);
+            if (newLine)
                 textOut.AppendText("\r\n");
-            else
-                textOut.AppendText(@str);
         }
 
         public bool ReadVars(List<ReadVarItem> readVarItmes)

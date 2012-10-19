@@ -2,14 +2,10 @@
 >>>> Versión 0.0.0.x
 
 
-- Implementar printline
-- Implementar clear
-- Hacer sencible a mayúsculas.
-- Limpiar los TODO's
-
 - Validar que el fichero de script pasado por parámetro existas.
 - En el ejecutor directo implementar sobrecarga o método nuevo para ejecutar un código pasado por parámetro (y no sólo el nombre de fichero). Además debe haber un parámetro donde no se muestre la ventana de output.
 - Depurar la librería con funciones básicas, y que esta librería sea personalizable. La librería personalizable debe heredar de AnTScript.Library. 
+- Limpiar los TODO's
 - Preparar scripts ejemplo y test.
 
 
@@ -126,3 +122,7 @@ X- Mejorar la interfaz de usuario  (AnTScript - Console)
 X- Definir un directorio temporal para grabar los script's
 X- Poner la extensión de los ficheros script a ants
 X- Al grabar, preguntar al usuairo si quiere sobreescribir el fichero.
+
+X- Implementar printline
+X- Implementar clear
+X- Hacer sencible a mayúsculas.

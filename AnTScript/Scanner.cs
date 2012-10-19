@@ -126,51 +126,54 @@ namespace AnTScript
             }
 
             // literal operators 
-            if (accum.ToString().ToLower() == "or")
+            if (accum.ToString() == "or")
                 token = Tokens.Or;
-            else if (accum.ToString().ToLower() == "and")
+            else if (accum.ToString() == "and")
                 token = Tokens.And;
-            else if (accum.ToString().ToLower() == "not")
+            else if (accum.ToString() == "not")
                 token = Tokens.Not;
 
             // block 
             //else if (accum.ToString().ToLower() == "do")
             //    token = Tokens.BeginBlock;
-            else if (accum.ToString().ToLower() == "end")
+            else if (accum.ToString() == "end")
                 token = Tokens.EndSequence;
 
             // keywords
-            else if (accum.ToString().ToLower() == "print")
+            else if (accum.ToString() == "print")
                 token = Tokens.Print;
-            else if (accum.ToString().ToLower() == "var")
+            else if (accum.ToString() == "printline")
+                token = Tokens.PrintLine;
+            else if (accum.ToString() == "clear")
+                token = Tokens.Clear;
+            else if (accum.ToString() == "var")
                 token = Tokens.Var;
-            else if (accum.ToString().ToLower() == "readvar")
+            else if (accum.ToString() == "readvar")
                 token = Tokens.ReadVar;
-            else if (accum.ToString().ToLower() == "for")
+            else if (accum.ToString() == "for")
                 token = Tokens.For;
-            else if (accum.ToString().ToLower() == "to")
+            else if (accum.ToString() == "to")
                 token = Tokens.To;
-            else if (accum.ToString().ToLower() == "if")
+            else if (accum.ToString() == "if")
                 token = Tokens.If;
-            else if (accum.ToString().ToLower() == "then")
+            else if (accum.ToString() == "then")
                 token = Tokens.Then;
-            else if (accum.ToString().ToLower() == "else")
+            else if (accum.ToString() == "else")
                 token = Tokens.Else;
-            else if (accum.ToString().ToLower() == "while")
+            else if (accum.ToString() == "while")
                 token = Tokens.While;
-            else if (accum.ToString().ToLower() == "break")
+            else if (accum.ToString() == "break")
                 token = Tokens.Break;
-            else if (accum.ToString().ToLower() == "new")
+            else if (accum.ToString() == "new")
                 token = Tokens.New;
-            else if (accum.ToString().ToLower() == "true")               
+            else if (accum.ToString() == "true")               
                 token = new BoolToken("true");
-            else if (accum.ToString().ToLower() == "false")
+            else if (accum.ToString() == "false")
                 token = new BoolToken("false");
-            else if (accum.ToString().ToLower() == "foreach")
+            else if (accum.ToString() == "foreach")
                 token = Tokens.ForEach;
-            else if (accum.ToString().ToLower() == "in")
+            else if (accum.ToString() == "in")
                 token = Tokens.In;
-
 
             // identifier
             else

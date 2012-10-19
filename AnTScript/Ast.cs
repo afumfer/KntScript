@@ -35,6 +35,19 @@ namespace AnTScript
         public Expr Expr;
     }
 
+    // printline <expr>
+    internal class PrintLine : Stmt
+    {
+        public Expr Expr;
+    }
+
+    // clear
+    internal class Clear : Stmt
+    {
+        public string Tag;
+    }
+
+
     // <ident> = <expr>
     internal class Assign : Stmt
     {        
@@ -79,7 +92,7 @@ namespace AnTScript
     // break
     internal class BreakStmt : Stmt
     {
-        public string Tag;        
+        public string Tag;
     }
 
     // <FunctionStmt(<arg>)

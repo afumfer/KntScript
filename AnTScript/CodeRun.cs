@@ -122,12 +122,23 @@ namespace AnTScript
 
             #endregion
 
-            #region Print
+            #region Print / PrintLine / Clear
 
             else if (stmt is Print)
             {
                 Print print = (Print)stmt;
                 CodeExecutePrint(print);
+            }
+
+            else if (stmt is PrintLine)
+            {
+                PrintLine printLine = (PrintLine)stmt;
+                CodeExecutePrintLine(printLine);
+            }
+
+            else if (stmt is Clear)
+            {
+                CodeExecuteClear();
             }
 
             #endregion
@@ -830,8 +841,20 @@ namespace AnTScript
         private void CodeExecutePrint(Print print)
         {
             string s = GenExpr(print.Expr).ToString();
-            InOutDevice.Print(s);
+            InOutDevice.Print(s, false);
         }
+
+        private void CodeExecutePrintLine(PrintLine printLine)
+        {
+            string s = GenExpr(printLine.Expr).ToString();
+            InOutDevice.Print(s, true);
+        }
+
+        private void CodeExecuteClear()
+        {            
+            InOutDevice.Clear();
+        }
+
 
         private bool CodeExecuteReadVars(List<ReadVarItem> readVarItmes)
         {
