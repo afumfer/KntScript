@@ -28,44 +28,22 @@ namespace AnTScript
         private object _defaultFunctionLibrary;
         internal object DefaultFunctionLibrary
         {
-            get 
-            {
-                if (_defaultFunctionLibraryType == null || _defaultFunctionLibrary == null)
-                {
-                    _defaultFunctionLibraryType = Type.GetType("AnTScript.Library", false, true);
-                    _defaultFunctionLibrary = Activator.CreateInstance(_defaultFunctionLibraryType);
-                }
-                return _defaultFunctionLibrary;
-            }
-            set
-            {
-                _defaultFunctionLibrary = value;
-                _defaultFunctionLibraryType = _defaultFunctionLibrary.GetType();
-            }
-
+            get { return _defaultFunctionLibrary; }
         }
 
-        private Type _defaultFunctionLibraryType;
         internal Type DefaultFunctionLibraryType
         {
-            get
-            {
-                if (_defaultFunctionLibraryType == null || _defaultFunctionLibrary == null)
-                {
-                    _defaultFunctionLibraryType = Type.GetType("AnTScript.Library", false, true);
-                    _defaultFunctionLibrary = Activator.CreateInstance(_defaultFunctionLibraryType);
-                }
-                return _defaultFunctionLibraryType;
-            }
+            get { return _defaultFunctionLibrary.GetType(); }
         }
 
         #endregion
 
         #region Constructor
 
-        internal CodeRun(Stmt stmt, IInOutDevice outputDevice)
+        internal CodeRun(Stmt stmt, IInOutDevice outputDevice, Library library)
         {
             this.InOutDevice = outputDevice;
+            _defaultFunctionLibrary = library;
 
             symbolTable = new Dictionary<string, object>();
             
@@ -102,7 +80,7 @@ namespace AnTScript
 
                 CodeDeclareSymbol(declare);
                 
-                // TODO: Sustituir lo anterior por esto cuando se
+                // TODO: _ Sustituir lo anterior por esto cuando se
                 //       arregle el código de asignación + declaración.
                 //Assign assign = new Assign();
                 //assign.Ident = declare.Ident;
@@ -235,8 +213,7 @@ namespace AnTScript
             #endregion
 
             #region FoorEachLoop
-
-            // TODO: Provisional implementation of foreach loop
+            
             else if (stmt is ForEachLoop)
             {
                 // example: 
@@ -254,7 +231,7 @@ namespace AnTScript
                     if (flagBreak)
                         break;
                     
-                    // TODO: Pendiente susutiruir CodeSpecialStoreObject por CodeStoreSymbol
+                    // TODO: _ Pendiente susutiruir CodeSpecialStoreObject por CodeStoreSymbol
                     //       En el futuro, CodeStoreSymbol debe almacenar la variable si 
                     //       previamente no hubiera sido declarada. 
                     CodeSpecialStoreObject(forEachLoop.Ident, o);
@@ -335,7 +312,7 @@ namespace AnTScript
         private object GenExpr(Expr expr) 
         {
             // ...
-            // TODO: pendiente de implmentar la comprobación de tipos.
+            // TODO: _ Pendiente de decidir si se implmenta la comprobación de tipos.
             // Añadir el parámetro, ... "System.Type expectedType" como parámetro de entrada
             // de este método.
             // ...
@@ -380,7 +357,7 @@ namespace AnTScript
                 res = CodeExecuteUnaryExpr((UnaryExpr)expr);
 
                         
-            // TODO: Pendiente, para resolver conversión de tipos automárica en versiones futuras 
+            // TODO: _ Pendiente, para resolver conversión de tipos automárica en versiones futuras 
             deliveredType = res.GetType();
             //if (deliveredType != expectedType)
             //{
@@ -470,7 +447,7 @@ namespace AnTScript
 
         }
 
-        // TODO: !!! ojo implementación provisional, sólo para usar en el bucle foreach        
+        // TODO: _ ojo implementación provisional, sólo para usar en el bucle foreach        
         //           Se debe sustituir por CodeStoreSymbol
         private void CodeSpecialStoreObject(string ident, object value)
         {
@@ -855,7 +832,6 @@ namespace AnTScript
             InOutDevice.Clear();
         }
 
-
         private bool CodeExecuteReadVars(List<ReadVarItem> readVarItmes)
         {
             return InOutDevice.ReadVars(readVarItmes);
@@ -909,16 +885,12 @@ namespace AnTScript
                 }
             }
             else if (expr is FunctionExpr)
-            {
-                // TODO: averiguar el valor de retorno de la 
-                //       función que viene en expr y devolver ese tipo                
-                return typeof(object);
+            {                
+                return typeof(FunctionExpr);
             }
             else if (expr is NewObjectExpr)
-            {
-                // TODO: averiguar el valor de retorno de la 
-                //       objeto que viene en expr y devolver ese tipo                
-                return typeof(object);
+            {                
+                return typeof(NewObjectExpr);
             }
             else if (expr is BinaryExpr)
             {

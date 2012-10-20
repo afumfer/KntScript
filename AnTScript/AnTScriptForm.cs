@@ -16,54 +16,57 @@ namespace AnTScript
     {
 
         #region Private fields
+        
+        private string _sourceCodeDirWork = string.Empty;
 
         private const int EM_SETTABSTOPS = 0x00CB; 
         [DllImport("User32.dll", CharSet = CharSet.Auto)] 
-        public static extern IntPtr SendMessage(IntPtr h, int msg, int wParam, int [] lParam);
+        private static extern IntPtr SendMessage(IntPtr h, int msg, int wParam, int [] lParam);
 
-        private string sourceCode = string.Empty;
-        private string sourceCodeDirWork = string.Empty;
+        #endregion
 
-        private InOutDefaultDeviceForm inOutDeviceForm;
+        #region Properties
 
-        private Dictionary<string, Type> typeCache = new Dictionary<string,Type>();
-
+        private string SourceCode {get; set;}
+        private IInOutDevice InOutDevice { get; set; }
+        private Library FunctionLibrary { get; set; }
+        
         #endregion
 
         #region Constructor
 
-        public AnTScriptForm(string source)
+        public AnTScriptForm(string source, IInOutDevice inOutDevice, Library functionLibrary)
         {
             InitializeComponent();
 
-            sourceCode = source;            
+            this.SourceCode = source;
+            this.InOutDevice = inOutDevice;
+            this.FunctionLibrary = functionLibrary;
         }
 
         #endregion
 
         #region Form events controllers
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void AnTScriptForm_Load(object sender, EventArgs e)
         {
             // define value of the Tab indent and change the indent
             int[] stops = { 12 };            
             SendMessage(this.textSourceCode.Handle, EM_SETTABSTOPS, 1, stops);
 
-            if (File.Exists(sourceCode))                        
-                LoadFile(sourceCode);            
+            if (File.Exists(SourceCode))                        
+                LoadFile(SourceCode);            
             else
             {
-                textSourceCode.Text = sourceCode;
-                sourceCode = "";
+                textSourceCode.Text = SourceCode;
+                SourceCode = "";
                 statusFileName.Text = "";
             }
 
-            inOutDeviceForm = new InOutDefaultDeviceForm();
-            inOutDeviceForm.TopLevel = false;
-            inOutDeviceForm.FormBorderStyle = FormBorderStyle.None;
-            splitContainer1.Panel2.Controls.Add(inOutDeviceForm);
-            inOutDeviceForm.Dock = DockStyle.Fill;
-            inOutDeviceForm.Show();          
+            InOutDevice = new InOutDefaultDeviceForm();
+            InOutDevice.SetEmbeddedMode();
+            splitContainer1.Panel2.Controls.Add((Control)InOutDevice);
+            InOutDevice.Show();          
         }
 
         private void AnTScriptForm_KeyUp(object sender, KeyEventArgs e)
@@ -80,11 +83,11 @@ namespace AnTScript
                 return;
             }
 
-            inOutDeviceForm.Clear();
+            InOutDevice.Clear();
 
             try
             {
-                Engine antsEngine = new Engine(textSourceCode.Text, this.inOutDeviceForm);
+                Engine antsEngine = new Engine(textSourceCode.Text, this.InOutDevice, this.FunctionLibrary);
                 antsEngine.Run();
             }
             catch (Exception err)
@@ -98,15 +101,15 @@ namespace AnTScript
         {
             textSourceCode.Text = "";
             statusFileName.Text = "";
-            sourceCode = "";
+            SourceCode = "";
         }
 
         private void buttonOpen_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(sourceCodeDirWork))
-                sourceCodeDirWork = Application.StartupPath;
+            if (string.IsNullOrEmpty(_sourceCodeDirWork))
+                _sourceCodeDirWork = Application.StartupPath;
             openFileDialogScript.Title = "Open AnTScript file";
-            openFileDialogScript.InitialDirectory = sourceCodeDirWork;
+            openFileDialogScript.InitialDirectory = _sourceCodeDirWork;
             openFileDialogScript.Filter = "AnTScript file (*.ants)|*.ants";
             openFileDialogScript.FileName = "";
             openFileDialogScript.CheckFileExists = true;
@@ -117,10 +120,10 @@ namespace AnTScript
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(sourceCode))
+            if (string.IsNullOrEmpty(SourceCode))
             {
                 saveFileDialogScript.Title = "Open AnTScript file";
-                saveFileDialogScript.InitialDirectory = sourceCodeDirWork;
+                saveFileDialogScript.InitialDirectory = _sourceCodeDirWork;
                 saveFileDialogScript.Filter = "AnTScript file (*.ants)|*.ants";
                 saveFileDialogScript.FileName = "";
                 saveFileDialogScript.CheckFileExists = true;
@@ -130,12 +133,12 @@ namespace AnTScript
                     if (Path.GetExtension(saveFileDialogScript.FileName) == "")
                         saveFileDialogScript.FileName += @".ants";
                     SaveFile(saveFileDialogScript.FileName);
-                    sourceCode = saveFileDialogScript.FileName;
-                    statusFileName.Text = sourceCode;
+                    SourceCode = saveFileDialogScript.FileName;
+                    statusFileName.Text = SourceCode;
                 }
             }
             else
-                SaveFile(sourceCode);
+                SaveFile(SourceCode);
         }
 
         #endregion
@@ -152,8 +155,8 @@ namespace AnTScript
             
             textSourceCode.Select(0, 0);
             statusFileName.Text = sourceCodeFile;
-            sourceCode = sourceCodeFile;
-            sourceCodeDirWork = Path.GetDirectoryName(sourceCodeFile);
+            SourceCode = sourceCodeFile;
+            _sourceCodeDirWork = Path.GetDirectoryName(sourceCodeFile);
         }
 
         private void SaveFile(string sourceCodeFile)
@@ -169,6 +172,7 @@ namespace AnTScript
         }
 
         #endregion
+
 
     }
 

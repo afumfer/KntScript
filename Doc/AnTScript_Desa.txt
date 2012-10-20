@@ -2,25 +2,13 @@
 >>>> Versión 0.0.0.x
 
 
-- Validar que el fichero de script pasado por parámetro existas.
-- En el ejecutor directo implementar sobrecarga o método nuevo para ejecutar un código pasado por parámetro (y no sólo el nombre de fichero). Además debe haber un parámetro donde no se muestre la ventana de output.
-- Depurar la librería con funciones básicas, y que esta librería sea personalizable. La librería personalizable debe heredar de AnTScript.Library. 
-- Limpiar los TODO's
 - Preparar scripts ejemplo y test.
 
 
 ============================
 >>>> Versión 0.0.1.x
 
-- Empotrar el código en ANotas
-- Volcar salida en un componente que contenga el Html control y la interfaz de entrada-salida de AnTScript.
-- Implementar librería de funciones de ANotas (API ANotas para trablar con notas, carpetas, colecciones de notas y carpetas y búsquedas según criterio.
-- Implementar la inyección de la clase que contiene la librería de funciones de la aplicación. Esta clase debe heredar de Library. Así podemos invocar directamente al conjunto de funciones sin crear un objeto previamente. 
-- Implementar la ejecución del script en alarmas que tengan un bloque de script en la tarea. 
-- Implementar una método al que se le suministre un servidor, base de datos y SQL o procedimiento. El resultado debe ser caputado en un List<object> para luego poder recorrer el conjunto de resultados devueltos y tratarlos en el script.
-- Mejorar la interfaz de AnTScript-Console para bloquear los controles. 
-
-- Plantear un script para buscar las tareas a revisar en cada planificación.
+- Verificar funcionaliad en ANotas
 
 
 
@@ -126,3 +114,8 @@ X- Al grabar, preguntar al usuairo si quiere sobreescribir el fichero.
 X- Implementar printline
 X- Implementar clear
 X- Hacer sencible a mayúsculas.
+
+X- Validar que el fichero de script pasado por parámetro existas.
+X- En el ejecutor directo implementar sobrecarga o método nuevo para ejecutar un código pasado por parámetro (y no sólo el nombre de fichero). Además debe haber un parámetro donde no se muestre la ventana de output.
+X- Depurar la librería con funciones básicas, y que esta librería sea personalizable. La librería personalizable debe heredar de AnTScript.Library. 
+X- Limpiar los TODO's

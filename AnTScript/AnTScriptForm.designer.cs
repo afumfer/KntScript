@@ -178,7 +178,7 @@
             this.Name = "AnTScriptForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AnTScript - Console";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.AnTScriptForm_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.AnTScriptForm_KeyUp);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

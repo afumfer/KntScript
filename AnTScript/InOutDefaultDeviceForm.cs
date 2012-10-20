@@ -42,6 +42,13 @@ namespace AnTScript
         {
             textOut.Clear();
         }
+       
+        public void SetEmbeddedMode()
+        {
+            this.TopLevel = false;
+            this.FormBorderStyle = FormBorderStyle.None;            
+            this.Dock = DockStyle.Fill;
+        }
 
         #endregion
     }

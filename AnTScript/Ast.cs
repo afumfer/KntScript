@@ -251,7 +251,8 @@ namespace AnTScript
 
     //// utils 
 
-    // TODO: pendinte de mejorar 
+    // TODO: _ Pendinte de mejorar 
+    //         IndentObject se procesa en CodeRun, debería procesarse en el Parser.
 
     public class ReadVarItem
     {

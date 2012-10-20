@@ -12,17 +12,12 @@ namespace AnTScript
         private string _sourceCodeFile;
         public string SourceCodeFile
         {
-            get
-            {
-                return _sourceCodeFile;
-            }
+            get { return _sourceCodeFile; }
             set
             {
                 _sourceCodeFile = value;
-                using (TextReader input = File.OpenText(_sourceCodeFile))
-                {
-                    SourceCode = input.ReadToEnd().ToString();
-                }
+                using (TextReader input = File.OpenText(_sourceCodeFile))                
+                    SourceCode = input.ReadToEnd().ToString();                
             }
         }
 
@@ -33,24 +28,34 @@ namespace AnTScript
         {
             get
             {
-                if (_inOutDevice == null)
-                {
-                    _inOutDevice = new InOutDefaultDeviceForm();
-
-                }
+                if (_inOutDevice == null)                
+                    _inOutDevice = new InOutDefaultDeviceForm();                
                 return _inOutDevice;
             }
 
             set { _inOutDevice = value; }
         }
 
+        private Library _functionLibrary;
+        public Library FunctionLibrary 
+        {
+            get
+            {
+                if(_functionLibrary == null)
+                    _functionLibrary = new Library();
+                return _functionLibrary;
+            }
+            set {_functionLibrary = value;}
+        }
+
         public Engine()
         { }
 
-        public Engine(string sourceCode, IInOutDevice inOutDevice = null)
+        public Engine(string sourceCode, IInOutDevice inOutDevice, Library functionLibrary)
         {
             SourceCode = sourceCode;
             InOutDevice = inOutDevice;
+            FunctionLibrary = functionLibrary;
         }
 
         public void Run()
@@ -59,7 +64,7 @@ namespace AnTScript
             {
                 Scanner scanner = new Scanner(SourceCode);                
                 Parser parser = new Parser(scanner.TokensList);
-                CodeRun codeRun = new CodeRun(parser.Result, InOutDevice);
+                CodeRun codeRun = new CodeRun(parser.Result, InOutDevice, FunctionLibrary);
             }
             catch (Exception err)
             {
@@ -67,37 +72,68 @@ namespace AnTScript
             }        
         }
 
-        #region static Method
+        #region Static Methods
 
         public static void ShowConsole(string sourceFile)
         {
-            AnTScriptForm f = new AnTScriptForm(sourceFile);
+            InOutDefaultDeviceForm InOutDevice = new InOutDefaultDeviceForm();
+            Library functionLibrary = new Library();
+            ShowConsole(sourceFile, InOutDevice, functionLibrary);            
+        }
+
+        public static void ShowConsole(string sourceFile, Library functionLibrary)
+        {
+            InOutDefaultDeviceForm InOutDevice = new InOutDefaultDeviceForm();
+            ShowConsole(sourceFile, InOutDevice, functionLibrary);
+        }
+
+        public static void ShowConsole(string sourceFile, IInOutDevice inOutDevice, Library functionLibrary)
+        {
+            AnTScriptForm f = new AnTScriptForm(sourceFile, inOutDevice, functionLibrary);
             f.Show();
         }
 
-        public static void ExecuteCodeFile(string sourceFile)
-        {
-            string code;
+        public static void ExecuteCode(string sourceFile, bool visibleInOutDevice = true)
+        {            
             InOutDefaultDeviceForm InOutDevice = new InOutDefaultDeviceForm();
-            
-            using (TextReader input = File.OpenText(sourceFile))
-            {
-                code = input.ReadToEnd().ToString();
-            }
+            Library library = new Library();
+            ExecuteCode(sourceFile, InOutDevice, library, visibleInOutDevice);
+        }
 
-            InOutDevice.Show();
+        public static void ExecuteCode(string sourceFile, Library functionLibrary, bool visibleInOutDevice = true)
+        {
+            InOutDefaultDeviceForm InOutDevice = new InOutDefaultDeviceForm();            
+            ExecuteCode(sourceFile, InOutDevice, functionLibrary, visibleInOutDevice);
+        }
+
+        public static void ExecuteCode(string sourceFile, IInOutDevice InOutDevice, Library library, bool visibleInOutDevice = true)
+        {
+            string code;            
+
+            if (File.Exists(sourceFile))            
+                using (TextReader input = File.OpenText(sourceFile))                
+                    code = input.ReadToEnd().ToString();                            
+            else            
+                code = sourceFile;
+
+            if (visibleInOutDevice)
+                InOutDevice.Show();
 
             try
             {
                 Scanner scanner = new Scanner(code);
                 Parser parser = new Parser(scanner.TokensList);
-                CodeRun codeRun = new CodeRun(parser.Result, InOutDevice);
+                CodeRun codeRun = new CodeRun(parser.Result, InOutDevice, library);
             }
             catch (Exception err)
             {
-                throw err;
+                if(!visibleInOutDevice)
+                    InOutDevice.Show();
+                InOutDevice.Print(err.Message);
+                //throw err;
             }
         }
+
 
         #endregion
 

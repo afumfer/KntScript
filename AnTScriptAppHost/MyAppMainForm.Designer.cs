@@ -36,7 +36,7 @@
             // 
             // buttonRunScript
             // 
-            this.buttonRunScript.Location = new System.Drawing.Point(404, 115);
+            this.buttonRunScript.Location = new System.Drawing.Point(564, 53);
             this.buttonRunScript.Name = "buttonRunScript";
             this.buttonRunScript.Size = new System.Drawing.Size(144, 27);
             this.buttonRunScript.TabIndex = 0;
@@ -46,7 +46,7 @@
             // 
             // buttonShowConsole
             // 
-            this.buttonShowConsole.Location = new System.Drawing.Point(251, 115);
+            this.buttonShowConsole.Location = new System.Drawing.Point(564, 20);
             this.buttonShowConsole.Name = "buttonShowConsole";
             this.buttonShowConsole.Size = new System.Drawing.Size(144, 27);
             this.buttonShowConsole.TabIndex = 1;
@@ -57,7 +57,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 20);
+            this.label1.Location = new System.Drawing.Point(9, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 2;
@@ -65,16 +65,16 @@
             // 
             // textFileSourceCode
             // 
-            this.textFileSourceCode.Location = new System.Drawing.Point(18, 36);
+            this.textFileSourceCode.Location = new System.Drawing.Point(12, 27);
             this.textFileSourceCode.Name = "textFileSourceCode";
-            this.textFileSourceCode.Size = new System.Drawing.Size(530, 20);
+            this.textFileSourceCode.Size = new System.Drawing.Size(458, 20);
             this.textFileSourceCode.TabIndex = 3;
             // 
             // MyAppMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(568, 166);
+            this.ClientSize = new System.Drawing.Size(720, 259);
             this.Controls.Add(this.textFileSourceCode);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonShowConsole);

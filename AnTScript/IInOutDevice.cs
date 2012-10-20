@@ -10,5 +10,8 @@ namespace AnTScript
         void Print(string str, bool newLine = false);
         bool ReadVars(List<ReadVarItem> readVarItmes);
         void Clear();
+        void Show();
+        void Hide();
+        void SetEmbeddedMode();
     }
 }
