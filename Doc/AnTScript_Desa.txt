@@ -119,3 +119,8 @@ X- Validar que el fichero de script pasado por parámetro existas.
 X- En el ejecutor directo implementar sobrecarga o método nuevo para ejecutar un código pasado por parámetro (y no sólo el nombre de fichero). Además debe haber un parámetro donde no se muestre la ventana de output.
 X- Depurar la librería con funciones básicas, y que esta librería sea personalizable. La librería personalizable debe heredar de AnTScript.Library. 
 X- Limpiar los TODO's
+
+
+============================
+>>>> Versión 0.0.0.5
+(Versión estable)
