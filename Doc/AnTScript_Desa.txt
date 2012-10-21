@@ -124,3 +124,4 @@ X- Limpiar los TODO's
 ============================
 >>>> Versión 0.0.0.5
 (Versión estable)
+X- Corregir error al grabar script en la consola AnTScript

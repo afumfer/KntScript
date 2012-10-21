@@ -122,12 +122,11 @@ namespace AnTScript
         {
             if (string.IsNullOrEmpty(SourceCode))
             {
-                saveFileDialogScript.Title = "Open AnTScript file";
+                saveFileDialogScript.Title = "Save AnTScript file";
                 saveFileDialogScript.InitialDirectory = _sourceCodeDirWork;
                 saveFileDialogScript.Filter = "AnTScript file (*.ants)|*.ants";
                 saveFileDialogScript.FileName = "";
-                saveFileDialogScript.CheckFileExists = true;
-
+                
                 if (saveFileDialogScript.ShowDialog() == DialogResult.OK)
                 {
                     if (Path.GetExtension(saveFileDialogScript.FileName) == "")
