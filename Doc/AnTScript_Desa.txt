@@ -1,14 +1,9 @@
 ============================
->>>> Versión 0.0.0.x
-
-
-- Preparar scripts ejemplo y test.
-
-
-============================
 >>>> Versión 0.0.1.x
 
 - Verificar funcionaliad en ANotas
+- Preparar scripts ejemplo y test.
+
 
 
 
