@@ -7,6 +7,7 @@ namespace AnTScriptAppLibrary
 {
     public class MyLibrary: AnTScript.Library
     {
+        
         public List<Document> ColecNode()
         {
             List<Document> lisRes = new List<Document>();
@@ -22,6 +23,12 @@ namespace AnTScriptAppLibrary
         public float DemoSumNum(float x, float y)
         {
             return x + y;
+        }
+
+        public void DemoSumNum()
+        {
+            var a = "";
+            //return "blabla bla ";            
         }
 
     }

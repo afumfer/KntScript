@@ -1,6 +1,7 @@
 ============================
 >>>> Versión 0.0.1.x
 
+
 - Verificar funcionaliad en ANotas
 - Preparar scripts ejemplo y test.
 
@@ -120,3 +121,7 @@ X- Limpiar los TODO's
 >>>> Versión 0.0.0.5
 (Versión estable)
 X- Corregir error al grabar script en la consola AnTScript
+
+============================
+>>>> Versión 0.0.1.2
+X- Corregir ambiguedad en la reflexión cuando entre varios métodos con el mismo nombre, uno de ellos no tiene parámetros. 

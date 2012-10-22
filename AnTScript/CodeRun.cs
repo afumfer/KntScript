@@ -493,9 +493,9 @@ namespace AnTScript
                 {
                     t = DefaultFunctionLibraryType;
                     obj = DefaultFunctionLibrary;
-                    funName = ident.Obj;
+                    funName = ident.Obj;                    
                     if(types == null)
-                        mi = t.GetMethod(funName);
+                        mi = t.GetMethod(funName,Type.EmptyTypes);
                     else
                         mi = t.GetMethod(funName,types);
                 }
@@ -1026,8 +1026,8 @@ namespace AnTScript
             else
             {                
                 objRet = objRoot;
-                if(types == null)
-                    methodInfo = t.GetMethod(ident.Member);
+                if(types == null)                    
+                    methodInfo = t.GetMethod(ident.Member, Type.EmptyTypes);
                 else
                     methodInfo = t.GetMethod(ident.Member, types);
             }
