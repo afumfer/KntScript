@@ -50,6 +50,12 @@ namespace AnTScript
             this.Dock = DockStyle.Fill;
         }
 
+        public string GetOutContent()
+        {
+            return textOut.Text;
+        }
+
         #endregion
+
     }
 }

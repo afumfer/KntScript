@@ -13,5 +13,6 @@ namespace AnTScript
         void Show();
         void Hide();
         void SetEmbeddedMode();
+        string GetOutContent();
     }
 }

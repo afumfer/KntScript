@@ -10,6 +10,8 @@ namespace AnTScript
     public class Library
     {
 
+        internal IInOutDevice InOutDevice { get; set; }
+        
         public int RandomInt(int minValue, int maxValue)
         {
             Random random = new Random();
@@ -41,6 +43,14 @@ namespace AnTScript
         public List<object> NewCollectionObjects()
         {
             return new List<object>();            
+        }
+
+        public string GetOutContent()
+        {
+            if (InOutDevice != null)
+                return InOutDevice.GetOutContent();
+            else
+                return "ERROR: the output device is not linked to the function library.";
         }
 
     }

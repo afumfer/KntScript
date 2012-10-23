@@ -18,9 +18,9 @@ namespace AnTScript
         
         Dictionary<string, object> symbolTable;                
         bool flagBreak = false;        
-        IInOutDevice InOutDevice;
+        IInOutDevice inOutDevice;
         Dictionary<string, Type> typeCache = new Dictionary<string, Type>(); 
-
+         
         #endregion
 
         #region Properties
@@ -40,9 +40,10 @@ namespace AnTScript
 
         #region Constructor
 
-        internal CodeRun(Stmt stmt, IInOutDevice outputDevice, Library library)
+        internal CodeRun(Stmt stmt, IInOutDevice inOutputDevice, Library library)
         {
-            this.InOutDevice = outputDevice;
+            this.inOutDevice = inOutputDevice;
+            library.InOutDevice = this.inOutDevice;
             _defaultFunctionLibrary = library;
 
             symbolTable = new Dictionary<string, object>();
@@ -818,23 +819,23 @@ namespace AnTScript
         private void CodeExecutePrint(Print print)
         {
             string s = GenExpr(print.Expr).ToString();
-            InOutDevice.Print(s, false);
+            inOutDevice.Print(s, false);
         }
 
         private void CodeExecutePrintLine(PrintLine printLine)
         {
             string s = GenExpr(printLine.Expr).ToString();
-            InOutDevice.Print(s, true);
+            inOutDevice.Print(s, true);
         }
 
         private void CodeExecuteClear()
         {            
-            InOutDevice.Clear();
+            inOutDevice.Clear();
         }
 
         private bool CodeExecuteReadVars(List<ReadVarItem> readVarItmes)
         {
-            return InOutDevice.ReadVars(readVarItmes);
+            return inOutDevice.ReadVars(readVarItmes);
         }
 
         #endregion
