@@ -53,5 +53,15 @@ namespace AnTScript
                 return "ERROR: the output device is not linked to the function library.";
         }
 
+        public void ShowOutWindow()
+        {
+            InOutDevice.Show();
+        }
+
+        public void HideOutWindow()
+        {
+            InOutDevice.Hide();
+        }
+
     }
 }
