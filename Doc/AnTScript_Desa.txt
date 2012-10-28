@@ -5,7 +5,7 @@
 - Verificar funcionaliad en ANotas
 - Preparar scripts ejemplo y test.
 
-
+- Implementar tipo de datos null
 
 
 ============================
