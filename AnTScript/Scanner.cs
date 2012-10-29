@@ -174,7 +174,9 @@ namespace AnTScript
                 token = Tokens.ForEach;
             else if (accum.ToString() == "in")
                 token = Tokens.In;
-
+            else if (accum.ToString() == "null")
+                token = Tokens.Null;
+                
             // identifier
             else
             {

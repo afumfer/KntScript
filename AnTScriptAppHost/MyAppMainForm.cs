@@ -57,5 +57,12 @@ namespace AnTScriptAppHost
             //AnTScript.Engine.ShowConsole("var a = 123; printline a; print DemoSumNum(111,222);", new MyLibrary());
         }
 
+        private void buttonTest_Click(object sender, EventArgs e)
+        {
+            object a = true;
+
+
+        }
+
     }
 }

@@ -27,21 +27,19 @@ namespace AnTScript
         internal static readonly OperatorToken Or = new OperatorToken("OR", 0);
         internal static readonly OperatorToken OrBit = new OperatorToken("ORBIT", 0);
         internal static readonly OperatorToken Not = new OperatorToken("NOT", 5);
-
-
-
+        
+        // symbol tokens
         internal static readonly SymbolToken Semi = new SymbolToken("SEMI");
         internal static readonly SymbolToken Assignment = new SymbolToken("ASSIGNMENT");
-
         internal static readonly SymbolToken LeftBracket = new SymbolToken("LEFTBRACKET");
         internal static readonly SymbolToken RightBracket = new SymbolToken("RIGHBRACKET");
-
         internal static readonly SymbolToken Comma = new SymbolToken("COMMA");
         //public static readonly SymbolToken Dot = new SymbolToken("DOT");
         internal static readonly SymbolToken Colon = new SymbolToken("COLON");
         internal static readonly SymbolToken LeftCurlyBracket = new SymbolToken("LEFTCURLYBRACKET");
         internal static readonly SymbolToken RightCurlyBracket = new SymbolToken("RIGHTCURLYBRACKET");
 
+        // keyword tokens
         internal static readonly KeywordToken EndSequence = new KeywordToken("ENDSEQUENCE");
         internal static readonly KeywordToken Print = new KeywordToken("PRINT");
         internal static readonly KeywordToken PrintLine = new KeywordToken("PRINTLINE");
@@ -58,6 +56,8 @@ namespace AnTScript
         internal static readonly KeywordToken New = new KeywordToken("NEW");
         internal static readonly KeywordToken ForEach = new KeywordToken("FOREACH");
         internal static readonly KeywordToken In = new KeywordToken("IN");
+
+        internal static readonly KeywordToken Null = new KeywordToken("NULL");
     }
 
     internal class OperatorToken : Token
@@ -208,17 +208,28 @@ namespace AnTScript
         }
     }
 
+    //// null
+    //internal class NullToken : Token
+    //{
+    //    private object _value;
+
+    //    public NullToken()
+    //        : base("null")
+    //    {
+    //        _value = null;
+
+    //    }
+
+    //    public object Value
+    //    {
+    //        get { return _value; }
+    //    }
+    //}
 
     internal class SymbolToken : Token
     {
         public SymbolToken(string value)
             : base(value) { }
-    }
-
-    internal class NumToken : Token
-    {
-        public NumToken(string value)
-            : base(value) {}
     }
 
     internal abstract class Token

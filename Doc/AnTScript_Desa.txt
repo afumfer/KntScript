@@ -1,13 +1,7 @@
 ============================
 >>>> Versión 0.0.1.x
 
-
-- Verificar funcionaliad en ANotas
 - Preparar scripts ejemplo y test.
-
-- Implementar tipo de datos null
-
-- Crear un nuevo proyecto para la DLL y estudiar el tema de Any Plataform (*).
 
 
 ============================
@@ -129,3 +123,11 @@ X- Corregir error al grabar script en la consola AnTScript
 X- Corregir ambiguedad en la reflexión cuando entre varios métodos con el mismo nombre, uno de ellos no tiene parámetros. 
 X- Implementar Función de librería que devuelve el contenido de la ventana de Output.
 X- Funciones en la librería para mostrar o ocultar la ventana OutPut.
+X- Verificar funcionaliad en ANotas
+X- Crear un nuevo proyecto para la DLL y estudiar el tema de Any Plataform (*).
+
+
+============================
+>>>> Versión 0.0.1.3
+X- Implementar tipo de datos null
+X- Depuración en la evaluación de expresiones con datos bool

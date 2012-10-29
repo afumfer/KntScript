@@ -181,6 +181,12 @@ namespace AnTScript
         public bool Value;
     }
 
+    // <bool>
+    internal class NullVal : Expr
+    {
+        public object Value { get { return null; } }
+    }
+
     // <ident> := <char> <ident_rest>*
     // <ident_rest> := <char> | <digit>
     internal class Variable : Expr

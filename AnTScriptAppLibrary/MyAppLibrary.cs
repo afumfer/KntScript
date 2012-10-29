@@ -31,5 +31,9 @@ namespace AnTScriptAppLibrary
             //return "blabla bla ";            
         }
 
+        public object TestNull()
+        {
+            return null;
+        }
     }
 }

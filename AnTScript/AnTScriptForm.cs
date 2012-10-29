@@ -93,8 +93,7 @@ namespace AnTScript
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
-            }
-            
+            }            
         }
 
         private void buttonNew_Click(object sender, EventArgs e)

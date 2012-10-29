@@ -447,6 +447,12 @@ namespace AnTScript
                 MoveNext();
                 return bolVal;
             }
+            else if (this.tokens[this.index] == Tokens.Null)
+            {
+                NullVal nullVal = new NullVal();                                
+                MoveNext();
+                return nullVal;
+            }
             else if (this.tokens[this.index] is IdentifierToken)
             {            
                 string ident = ((IdentifierToken)tokens[index]).Name;
