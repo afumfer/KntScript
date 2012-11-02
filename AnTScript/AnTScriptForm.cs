@@ -27,21 +27,16 @@ namespace AnTScript
 
         #region Properties
 
-        private string SourceCode {get; set;}
-        private IInOutDevice InOutDevice { get; set; }
-        private Library FunctionLibrary { get; set; }
+        public Engine AnTSEngine {get; set;} 
         
         #endregion
 
         #region Constructor
 
-        public AnTScriptForm(string source, IInOutDevice inOutDevice, Library functionLibrary)
+        public AnTScriptForm(Engine engine)
         {
             InitializeComponent();
-
-            this.SourceCode = source;
-            this.InOutDevice = inOutDevice;
-            this.FunctionLibrary = functionLibrary;
+            AnTSEngine = engine;
         }
 
         #endregion
@@ -51,22 +46,18 @@ namespace AnTScript
         private void AnTScriptForm_Load(object sender, EventArgs e)
         {
             // define value of the Tab indent and change the indent
-            int[] stops = { 12 };            
+            int[] stops = { 12 };
             SendMessage(this.textSourceCode.Handle, EM_SETTABSTOPS, 1, stops);
-
-            if (File.Exists(SourceCode))                        
-                LoadFile(SourceCode);            
-            else
-            {
-                textSourceCode.Text = SourceCode;
-                SourceCode = "";
-                statusFileName.Text = "";
-            }
-
-            InOutDevice = new InOutDefaultDeviceForm();
-            InOutDevice.SetEmbeddedMode();
-            splitContainer1.Panel2.Controls.Add((Control)InOutDevice);
-            InOutDevice.Show();          
+                       
+            textSourceCode.Text = AnTSEngine.SourceCode;
+            statusFileName.Text = AnTSEngine.SourceCodeFile;
+            if(!string.IsNullOrEmpty(AnTSEngine.SourceCodeFile))
+                _sourceCodeDirWork = Path.GetDirectoryName(AnTSEngine.SourceCodeFile);
+            
+            AnTSEngine.InOutDevice.SetEmbeddedMode();
+            splitContainer1.Panel2.Controls.Add((Control)AnTSEngine.InOutDevice);
+            AnTSEngine.InOutDevice.Show();
+            textSourceCode.Select(0, 0);            
         }
 
         private void AnTScriptForm_KeyUp(object sender, KeyEventArgs e)
@@ -79,28 +70,30 @@ namespace AnTScript
         {
             if (string.IsNullOrEmpty(textSourceCode.Text.Trim()))
             {
-                MessageBox.Show("No code to run", "AnTScript");
+                MessageBox.Show("No code found to run", "AnTScript");
                 return;
             }
 
-            InOutDevice.Clear();
+            AnTSEngine.InOutDevice.Clear();
+
+            AnTSEngine.SourceCode = textSourceCode.Text;
 
             try
-            {
-                Engine antsEngine = new Engine(textSourceCode.Text, this.InOutDevice, this.FunctionLibrary);
-                antsEngine.Run();
+            {                
+                AnTSEngine.Run();
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
-            }            
+            }
         }
 
         private void buttonNew_Click(object sender, EventArgs e)
         {
             textSourceCode.Text = "";
             statusFileName.Text = "";
-            SourceCode = "";
+            AnTSEngine.SourceCode = "";
+            AnTSEngine.SourceCodeFile = "";
         }
 
         private void buttonOpen_Click(object sender, EventArgs e)
@@ -119,24 +112,24 @@ namespace AnTScript
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(SourceCode))
+            if (string.IsNullOrEmpty(AnTSEngine.SourceCodeFile))
             {
                 saveFileDialogScript.Title = "Save AnTScript file";
                 saveFileDialogScript.InitialDirectory = _sourceCodeDirWork;
                 saveFileDialogScript.Filter = "AnTScript file (*.ants)|*.ants";
                 saveFileDialogScript.FileName = "";
-                
+
                 if (saveFileDialogScript.ShowDialog() == DialogResult.OK)
                 {
                     if (Path.GetExtension(saveFileDialogScript.FileName) == "")
                         saveFileDialogScript.FileName += @".ants";
                     SaveFile(saveFileDialogScript.FileName);
-                    SourceCode = saveFileDialogScript.FileName;
-                    statusFileName.Text = SourceCode;
+                    AnTSEngine.SourceCodeFile = saveFileDialogScript.FileName;
+                    statusFileName.Text = AnTSEngine.SourceCodeFile;
                 }
             }
             else
-                SaveFile(SourceCode);
+                SaveFile(AnTSEngine.SourceCodeFile);
         }
 
         #endregion
@@ -147,13 +140,15 @@ namespace AnTScript
         {
             if (string.IsNullOrEmpty(sourceCodeFile))
                 return;
-            
-            using (TextReader input = File.OpenText(sourceCodeFile))            
+
+            using (TextReader input = File.OpenText(sourceCodeFile))
                 textSourceCode.Text = input.ReadToEnd().ToString();
-            
-            textSourceCode.Select(0, 0);
-            statusFileName.Text = sourceCodeFile;
-            SourceCode = sourceCodeFile;
+
+            AnTSEngine.SourceCodeFile = sourceCodeFile;
+            AnTSEngine.SourceCode = textSourceCode.Text;
+            statusFileName.Text = sourceCodeFile;            
+
+            textSourceCode.Select(0, 0);            
             _sourceCodeDirWork = Path.GetDirectoryName(sourceCodeFile);
         }
 

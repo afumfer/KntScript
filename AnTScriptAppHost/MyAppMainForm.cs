@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 using AnTScriptAppLibrary;
+using System.Threading;
 
 namespace AnTScriptAppHost
 {
@@ -55,12 +56,11 @@ namespace AnTScriptAppHost
 
             // With code and MyLbrary reference
             //AnTScript.Engine.ShowConsole("var a = 123; printline a; print DemoSumNum(111,222);", new MyLibrary());
+
         }
 
         private void buttonTest_Click(object sender, EventArgs e)
         {
-            object a = true;
-
 
         }
 

@@ -1,6 +1,8 @@
 ============================
 >>>> Versión 0.0.1.x
 
+- Buscar una estrategia para hacer uso de los enumerados  de .NET (por ejemplo System.Text.Encoding.UTF8) 
+
 - Preparar scripts ejemplo y test.
 
 
@@ -19,6 +21,9 @@
 - Refactorizar código empleando patrónes para la ampliación del lenguaje. Estudiar posibles patrones para ampliar facilmente el lenguaje
 
 - Se podría añadir un punto de menú que ejecute un script por cada punto de menú. Los script's podría estar en un directorio y el nombre del menú podría ser el nombre del fichero.
+
+- Que cada script se ejecute en un thread diferente
+
 
 ////////////////////////////
 ////////////////////////////

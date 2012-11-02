@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using System.Windows.Forms;
+
 namespace AnTScriptAppLibrary
 {
     public class MyLibrary: AnTScript.Library
@@ -34,6 +36,11 @@ namespace AnTScriptAppLibrary
         public object TestNull()
         {
             return null;
+        }
+
+        public void TestMsg()
+        {
+            MessageBox.Show("XXXXXXXX-----XXXXXX");              
         }
     }
 }
