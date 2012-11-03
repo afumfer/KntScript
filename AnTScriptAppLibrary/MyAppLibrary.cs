@@ -42,5 +42,12 @@ namespace AnTScriptAppLibrary
         {
             MessageBox.Show("XXXXXXXX-----XXXXXX");              
         }
+
+        public static void TestStatic()
+        {
+            MessageBox.Show("Static");              
+        }
+
     }
+
 }

@@ -123,4 +123,31 @@ namespace AnTScriptAppLibrary
 
     }
 
+    public static class ClassStatic2
+    {
+        public static void TestStatic2()
+        {
+            MessageBox.Show("Static");
+        }
+
+        public static void TestStatic2(string msg)
+        {
+            MessageBox.Show("Static: " + msg);
+        }
+
+        public static string TestPropStatic2
+        {
+            get; set;            
+        }
+    }
+
+    public enum myEnum
+    { 
+        One,
+        Two,
+        Three,
+        Four, 
+        Five
+    }
+
 }

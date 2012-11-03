@@ -396,10 +396,10 @@ namespace AnTScript
             if (!string.IsNullOrEmpty(ident.Member))
                 throw new System.Exception(" variable declaration '" + declare.Ident + "' incorrect ");
 
-            if (!this.symbolTable.ContainsKey(ident.Obj))
+            if (!symbolTable.ContainsKey(ident.RootObj))
                 symbolTable.Add(declare.Ident, GenExpr(declare.Expr));
             else
-                throw new System.Exception(" variable '" + ident.Obj + "' already declared");
+                throw new System.Exception(" variable '" + ident.RootObj + "' already declared");
         }
 
         private void CodeStoreSymbol(Assign assign)
@@ -411,14 +411,14 @@ namespace AnTScript
         {
             IdentObject ident = new IdentObject(identString);
 
-            if (this.symbolTable.ContainsKey(ident.Obj))
+            if (this.symbolTable.ContainsKey(ident.RootObj))
                 if (string.IsNullOrEmpty(ident.Member))
-                    symbolTable[ident.Obj] = varValue;
+                    symbolTable[ident.RootObj] = varValue;
                 else
                 {
                     try
                     {
-                        SetValue(symbolTable[ident.Obj], ident, varValue);
+                        SetValue(symbolTable[ident.RootObj], ident, varValue);
                     }
                     catch (Exception ex)
                     {
@@ -426,23 +426,24 @@ namespace AnTScript
                     }
                 }
             else
-                throw new System.Exception(" undeclared variable '" + ident.Obj);
+                throw new System.Exception(" undeclared variable '" + ident.RootObj);
 
         }
 
         private object CodeReadSymbol(Variable variable)
         {
+            object resGetValue;
             IdentObject ident = new IdentObject(variable.Ident);
 
-            if (symbolTable.ContainsKey(ident.Obj))
+            if (symbolTable.ContainsKey(ident.RootObj))
                 if (string.IsNullOrEmpty(ident.Member))
-                    return symbolTable[ident.Obj];
+                    return symbolTable[ident.RootObj];
                 else
                 {
                     try
                     {
-                        object resGetValue;
-                        GetValue(symbolTable[ident.Obj], ident, out resGetValue);
+                        
+                        GetValue(symbolTable[ident.RootObj], ident, out resGetValue);
                         return resGetValue;
                     }
                     catch (Exception ex)
@@ -451,7 +452,10 @@ namespace AnTScript
                     }
                 }
             else
-                throw new System.Exception(" undeclared variable '" + ident.Obj);
+                if (GetStaticValue(ident, out resGetValue))
+                    return resGetValue;
+                else 
+                    throw new System.Exception(" undeclared variable '" + ident.RootObj);
 
         }
 
@@ -501,7 +505,7 @@ namespace AnTScript
                 {
                     t = DefaultFunctionLibraryType;
                     obj = DefaultFunctionLibrary;
-                    funName = ident.Obj;                    
+                    funName = ident.RootObj;                    
                     if(types == null)
                         mi = t.GetMethod(funName,Type.EmptyTypes);
                     else
@@ -509,11 +513,22 @@ namespace AnTScript
                 }
                 else
                 {
-                    objRoot = symbolTable[ident.Obj];
-                    GetObjectMethod(objRoot, ident, out obj, out mi, types);
+                    if (symbolTable.ContainsKey(ident.RootObj))
+                    {
+                        objRoot = symbolTable[ident.RootObj];
+                        GetObjectMethod(objRoot, ident, out obj, out mi, types);
+                    }
+                    // method in static class
+                    else
+                    {
+                        obj = null;
+                        GetMethodStaticClass(ident, out mi, types);
+                    }                    
                 }
                              
                 // Execute
+                
+                // TODO: Esta forma está obsoleta
                 //object ret;
                 //ret = mi.Invoke(obj, param);
                 //if (ret != null)
@@ -529,7 +544,7 @@ namespace AnTScript
                 throw ex;
             }
         }
-
+        
         private object CodeExecuteNewObject(NewObjectExpr newObject)
         {
             try
@@ -560,7 +575,6 @@ namespace AnTScript
             {
                 throw ex;
             }
-
         }
 
         private object CodeExecuteBinaryExpr(BinaryExpr be)
@@ -945,9 +959,9 @@ namespace AnTScript
             {
                 Variable var = (Variable)expr;
                 IdentObject io = new IdentObject(var.Ident);
-                if (this.symbolTable.ContainsKey(io.Obj))
+                if (this.symbolTable.ContainsKey(io.RootObj))
                 {
-                    return symbolTable[io.Obj].GetType();
+                    return symbolTable[io.RootObj].GetType();
                 }
                 else
                 {
@@ -1060,7 +1074,7 @@ namespace AnTScript
             return;
         }
 
-        private void GetValue(object varObj, IdentObject ident, out object newValue, int i = 0)
+        private void GetValue(object varObj, IdentObject ident, out object retValue, int i = 0)
         {
             Type t;
             PropertyInfo pi;
@@ -1075,16 +1089,42 @@ namespace AnTScript
                 pi = t.GetProperty(literalObjChild);
                 objChild = pi.GetValue(varObj, null);
                 i++;
-                GetValue(objChild, ident, out newValue, i);
+                GetValue(objChild, ident, out retValue, i);
             }
             else
             {
                 pi = t.GetProperty(ident.Member);                
-                newValue = pi.GetValue(varObj, null);
+                retValue = pi.GetValue(varObj, null);
             }
 
             return;
         }
+
+        private bool GetStaticValue(IdentObject ident, out object retValue)
+        {            
+            Type t;
+            retValue = null;
+            bool found = false;
+            PropertyInfo pi;
+            FieldInfo fi;
+
+            if (TryFindType(ident.PathObj, out t))
+            {
+                fi = t.GetField(ident.Member, BindingFlags.Static | BindingFlags.Public | BindingFlags.GetField | BindingFlags.GetProperty);
+                pi = t.GetProperty(ident.Member);
+
+                if (fi != null)
+                    retValue = fi.GetValue(null);
+                else if (pi != null)
+                    retValue = pi.GetValue(null, null);
+
+                if (retValue != null)
+                    found = true;
+            }
+
+            return found;
+        }
+
 
         private void GetObjectMethod(object objRoot, IdentObject ident, out object objRet, out MethodInfo methodInfo, Type[] types, int i = 0)
         {
@@ -1113,6 +1153,20 @@ namespace AnTScript
             }
 
             return;
+        }
+
+        private void GetMethodStaticClass(IdentObject ident, out MethodInfo methodInfo, Type[] types)
+        {
+            Type t;
+            methodInfo = null;
+
+            if (TryFindType(ident.PathObj, out t))
+            {
+                if (types == null)
+                    methodInfo = t.GetMethod(ident.Member, Type.EmptyTypes);
+                else
+                    methodInfo = t.GetMethod(ident.Member, types);
+            }
         }
 
         private Expr ValueToExpr(Type t, object newValue)

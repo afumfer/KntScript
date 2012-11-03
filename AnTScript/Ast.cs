@@ -255,8 +255,7 @@ namespace AnTScript
         GreaterThanOrEqual
     }
 
-    //// utils 
-
+    
     // TODO: _ Pendinte de mejorar 
     //         IndentObject se procesa en CodeRun, debería procesarse en el Parser.
 
@@ -271,13 +270,15 @@ namespace AnTScript
 
     internal class IdentObject
     {
-        public string Obj { get; set; }
+        public string RootObj { get; set; }
         public List<string> ChainObjs { get; set; }
         public string Member { get; set; }
+        public string PathObj { get; set; }
 
         public IdentObject(string ident)
         {
             string[] tmp;
+            int posMember;
 
             if (string.IsNullOrEmpty(ident))
                 return;
@@ -289,12 +290,22 @@ namespace AnTScript
             for (int i = 0; i < tmp.Length; i++)
             {
                 if (i == 0)
-                    Obj = tmp[i];
+                    RootObj = tmp[i];
                 else if (i == tmp.Length - 1)
                     Member = tmp[i];
                 else
                     ChainObjs.Add(tmp[i]);
             }
+            if (Member != null)
+            {
+                posMember = ident.IndexOf(Member);
+                if (posMember > 0)
+                    PathObj = ident.Substring(0, ident.Length - Member.Length - 1);
+                else
+                    PathObj = Member;
+            }
+            else
+                PathObj = RootObj;
         }
     }
 
