@@ -37,13 +37,24 @@ namespace AnTScriptAppHost
             //AnTScript.Engine.ExecuteCode(textFileSourceCode.Text);
 
             // With MyLbrary reference
-            AnTScript.Engine.ExecuteCode(textFileSourceCode.Text, new MyLibrary());
+            //AnTScript.Engine.ExecuteCode(textFileSourceCode.Text, new MyLibrary());
 
             // With MyLbrary reference, without Output device
             //AnTScript.Engine.ExecuteCode(textFileSourceCode.Text, new MyLibrary(), false);
 
             // With code and MyLbrary reference
             //AnTScript.Engine.ExecuteCode("var a = 123; printline a; print DemoSumNum(111,222);", new MyLibrary());
+
+            // With only code
+            AnTScript.Engine.ExecuteCode(@"
+                var a = 1;
+                var b = ""hola mundo"";
+                for a = 1 to 10
+                    printline a;
+                end for;
+                printline b;                
+            ");
+
         }
 
         private void buttonShowConsole_Click(object sender, EventArgs e)

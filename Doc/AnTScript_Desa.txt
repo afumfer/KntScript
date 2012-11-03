@@ -3,6 +3,10 @@
 
 - Poder asignar valores a propiedes estáticas ?? 
 
+- Que desde la aplicación Host se pueda inyectar objetos en la tabla de símbolos, y que el ésta tabla pueda ser leída por la aplicación host después de la finalización del script. Así podemos inyectar objetos que queramos manipular en el script y obtener al final su resultado. 
+
+
+
 - Preparar scripts ejemplo y test.
 
 
