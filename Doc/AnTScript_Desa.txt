@@ -1,11 +1,14 @@
 ============================
 >>>> Versión 0.0.1.x
 
-- Poder asignar valores a propiedes estáticas ?? 
 
 - Que desde la aplicación Host se pueda inyectar objetos en la tabla de símbolos, y que el ésta tabla pueda ser leída por la aplicación host después de la finalización del script. Así podemos inyectar objetos que queramos manipular en el script y obtener al final su resultado. 
 
+- Poner un parámetro donde los errores no se muestre con un MessageBox sino que se visualicen de otra forma de cara a no bloquear la ejecución debido a un diálogo modal.
 
+- Implementar operador xor.
+
+- Implementar CloseOutWindow()
 
 - Preparar scripts ejemplo y test.
 
@@ -143,4 +146,5 @@ X- Depuración en la evaluación de expresiones con datos bool
 ============================
 >>>> Versión 0.0.1.4
 X- Refactorizada la clase engine y el formulario consola AnTS
-X- Buscar una estrategia para hacer uso de los enumerados  de .NET (por ejemplo System.Text.Encoding.UTF8) 
+X- Buscar una estrategia para hacer uso de los enumerados  de .NET y propiedades de claes estáticas (por ejemplo System.Text.Encoding.UTF8) 
+X- Poder asignar valores a propiedes estáticas

@@ -426,8 +426,8 @@ namespace AnTScript
                     }
                 }
             else
-                throw new System.Exception(" undeclared variable '" + ident.RootObj);
-
+                if(!SetStaticValue(ident, varValue))
+                    throw new System.Exception(" undeclared variable '" + ident.RootObj);
         }
 
         private object CodeReadSymbol(Variable variable)
@@ -1074,6 +1074,47 @@ namespace AnTScript
             return;
         }
 
+        private bool SetStaticValue(IdentObject ident, object newValue)
+        {            
+            Type t;
+            PropertyInfo pi;
+            bool found = false;
+            FieldInfo fi;
+
+            string idObj;
+            string idMember;
+
+            if (ident.PathObj == ident.RootObj)
+            {
+                idObj = "AnTScript.Library";
+                idMember = ident.RootObj;
+            }
+            else
+            {
+                idObj = ident.PathObj;
+                idMember = ident.Member;
+            }
+
+            if (TryFindType(idObj, out t))
+            {
+                fi = t.GetField(idMember, BindingFlags.Static | BindingFlags.Public);
+                pi = t.GetProperty(idMember);
+
+                if (pi != null)
+                {
+                    pi.SetValue(null, newValue, null);
+                    found = true;
+                }
+                else if (fi != null)
+                {
+                    fi.SetValue(null, newValue);
+                    found = true;                
+                }
+            }
+
+            return found;
+        }
+
         private void GetValue(object varObj, IdentObject ident, out object retValue, int i = 0)
         {
             Type t;
@@ -1108,10 +1149,24 @@ namespace AnTScript
             PropertyInfo pi;
             FieldInfo fi;
 
-            if (TryFindType(ident.PathObj, out t))
+            string idObj;
+            string idMember;
+
+            if (ident.PathObj == ident.RootObj)
+            { 
+                idObj = "AnTScript.Library" ;
+                idMember = ident.RootObj;
+            }
+            else
             {
-                fi = t.GetField(ident.Member, BindingFlags.Static | BindingFlags.Public | BindingFlags.GetField | BindingFlags.GetProperty);
-                pi = t.GetProperty(ident.Member);
+                idObj = ident.PathObj;
+                idMember = ident.Member;
+            }
+
+            if (TryFindType(idObj, out t))
+            {
+                fi = t.GetField(idMember, BindingFlags.Static | BindingFlags.Public);
+                pi = t.GetProperty(idMember);
 
                 if (fi != null)
                     retValue = fi.GetValue(null);
@@ -1124,7 +1179,6 @@ namespace AnTScript
 
             return found;
         }
-
 
         private void GetObjectMethod(object objRoot, IdentObject ident, out object objRet, out MethodInfo methodInfo, Type[] types, int i = 0)
         {

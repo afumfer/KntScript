@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace AnTScript
 {
-    public class Engine
+    public class AnTSEngine
     {
 
         #region Properties
@@ -45,7 +45,7 @@ namespace AnTScript
 
         #region Constructor
 
-        internal Engine(string sourceCodeFile, string sourceCode, IInOutDevice inOutDevice, Library functionLibrary)
+        internal AnTSEngine(string sourceCodeFile, string sourceCode, IInOutDevice inOutDevice, Library functionLibrary)
         {
             SourceCodeFile = sourceCodeFile;
             SourceCode = sourceCode;
@@ -105,7 +105,7 @@ namespace AnTScript
                 sourceCodeFile = "";
             }
 
-            Engine engine = new Engine(sourceCodeFile, sourceCode, inOutDevice, functionLibrary);
+            AnTSEngine engine = new AnTSEngine(sourceCodeFile, sourceCode, inOutDevice, functionLibrary);
 
             AnTScriptForm f = new AnTScriptForm(engine);
             f.Show();
@@ -144,7 +144,7 @@ namespace AnTScript
 
             try
             {
-                Engine engine = new Engine(source, code, InOutDevice, library);
+                AnTSEngine engine = new AnTSEngine(source, code, InOutDevice, library);
                 engine.Run();
             }
             catch (Exception err)

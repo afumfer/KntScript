@@ -138,7 +138,7 @@ namespace AnTScriptAppLibrary
         public static string TestPropStatic2
         {
             get; set;            
-        }
+        }        
     }
 
     public enum myEnum

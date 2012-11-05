@@ -63,5 +63,7 @@ namespace AnTScript
             InOutDevice.Hide();
         }
 
+        public static string AnTS_Version = "0.0.1.4";
+
     }
 }

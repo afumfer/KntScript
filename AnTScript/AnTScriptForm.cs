@@ -27,13 +27,13 @@ namespace AnTScript
 
         #region Properties
 
-        public Engine AnTSEngine {get; set;} 
+        public AnTSEngine AnTSEngine {get; set;} 
         
         #endregion
 
         #region Constructor
 
-        public AnTScriptForm(Engine engine)
+        public AnTScriptForm(AnTSEngine engine)
         {
             InitializeComponent();
             AnTSEngine = engine;

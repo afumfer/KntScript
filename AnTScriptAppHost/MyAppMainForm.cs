@@ -46,13 +46,13 @@ namespace AnTScriptAppHost
             //AnTScript.Engine.ExecuteCode("var a = 123; printline a; print DemoSumNum(111,222);", new MyLibrary());
 
             // With only code
-            AnTScript.Engine.ExecuteCode(@"
+            AnTScript.AnTSEngine.ExecuteCode(@"
                 var a = 1;
-                var b = ""hola mundo"";
+                var b = ""hola mundo "";
                 for a = 1 to 10
-                    printline a;
+                    printline b + a;
                 end for;
-                printline b;                
+                printline ""<<fin>>"";             
             ");
 
         }
@@ -63,7 +63,7 @@ namespace AnTScriptAppHost
             //AnTScript.Engine.ShowConsole(textFileSourceCode.Text);
 
             // With MyLbrary reference
-            AnTScript.Engine.ShowConsole(textFileSourceCode.Text, new MyLibrary());
+            AnTScript.AnTSEngine.ShowConsole(textFileSourceCode.Text, new MyLibrary());
 
             // With code and MyLbrary reference
             //AnTScript.Engine.ShowConsole("var a = 123; printline a; print DemoSumNum(111,222);", new MyLibrary());
