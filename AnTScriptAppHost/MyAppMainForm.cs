@@ -37,7 +37,7 @@ namespace AnTScriptAppHost
             //AnTScript.Engine.ExecuteCode(textFileSourceCode.Text);
 
             // With MyLbrary reference
-            //AnTScript.Engine.ExecuteCode(textFileSourceCode.Text, new MyLibrary());
+            AnTScript.AnTSEngine.ExecuteCode(textFileSourceCode.Text, new MyLibrary());
 
             // With MyLbrary reference, without Output device
             //AnTScript.Engine.ExecuteCode(textFileSourceCode.Text, new MyLibrary(), false);
@@ -56,27 +56,27 @@ namespace AnTScriptAppHost
             //            ");
 
 
-            // Another way to do it, with added variable
-            var a = new Document();
-            a.Description = "Bla bla";
+//            // Another way to do it, with added variable
+//            var a = new Document();
+//            a.Description = "Bla bla";
 
-            var engine = new AnTScript.AnTSEngine(@"
-                var i = 0;                
-                var b = ""hola mundo "";
-                ' Esta variable viene de la aplicación anfitriona
-                _a.Description = ""Otro valor para a.Description"";
-                for i = 1 to 10
-                    printline b + _a.Description;
-                end for;
-                printline ""<<fin>>""; 
-                ");
+//            var engine = new AnTScript.AnTSEngine(@"
+//                var i = 0;                
+//                var b = ""hola mundo "";
+//                ' Esta variable viene de la aplicación anfitriona
+//                _a.Description = ""Otro valor para a.Description"";
+//                for i = 1 to 10
+//                    printline b + _a.Description;
+//                end for;
+//                printline ""<<fin>>""; 
+//                ");
 
-            engine.AddVar("_a", a);
+//            engine.AddVar("_a", a);
 
-            engine.Run();
+//            engine.Run();
 
-            var b = (Document)engine.GetVar("_a"); 
-            MessageBox.Show(a.Description + " -- " + b.Description);
+//            var b = (Document)engine.GetVar("_a"); 
+//            MessageBox.Show(a.Description + " -- " + b.Description);
 
         }
 

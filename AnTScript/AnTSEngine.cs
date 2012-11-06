@@ -15,6 +15,8 @@ namespace AnTScript
         
         public string SourceCode { get; set; }
 
+        public bool VisibleInOutDevice { get; set; }
+
         private IInOutDevice _inOutDevice;
         public IInOutDevice InOutDevice
         {
@@ -71,6 +73,9 @@ namespace AnTScript
 
         public void Run()
         {
+            if (VisibleInOutDevice)
+                InOutDevice.Show();
+
             try
             {
                 Scanner scanner = new Scanner(SourceCode);                
@@ -79,7 +84,10 @@ namespace AnTScript
             }
             catch (Exception err)
             {
-                throw err; 
+                if (!VisibleInOutDevice)
+                    InOutDevice.Show();
+                InOutDevice.Print(err.Message);
+                //throw err; 
             }        
         }
 
@@ -143,6 +151,7 @@ namespace AnTScript
             }
 
             AnTSEngine engine = new AnTSEngine(sourceCodeFile, sourceCode, inOutDevice, functionLibrary);
+            engine.VisibleInOutDevice = false;
 
             AnTScriptForm f = new AnTScriptForm(engine);
             f.Show();
@@ -186,10 +195,7 @@ namespace AnTScript
             }
             catch (Exception err)
             {
-                if(!visibleInOutDevice)
-                    InOutDevice.Show();
-                InOutDevice.Print(err.Message);
-                //throw err;
+                throw err;
             }
         }
 
