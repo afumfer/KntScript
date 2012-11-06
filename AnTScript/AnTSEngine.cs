@@ -103,6 +103,11 @@ namespace AnTScript
                 throw new System.Exception(" undeclared variable '" + ident);
         }
 
+        internal void ClearAllVars()
+        {
+            _symbolTable.Clear();
+        }
+
         #endregion
 
         #region Static Methods

@@ -27,7 +27,7 @@ namespace AnTScript
 
         #region Properties
 
-        public AnTSEngine AnTSEngine {get; set;} 
+        public AnTSEngine Engine {get; set;} 
         
         #endregion
 
@@ -36,7 +36,7 @@ namespace AnTScript
         public AnTScriptForm(AnTSEngine engine)
         {
             InitializeComponent();
-            AnTSEngine = engine;
+            Engine = engine;
         }
 
         #endregion
@@ -49,14 +49,14 @@ namespace AnTScript
             int[] stops = { 12 };
             SendMessage(this.textSourceCode.Handle, EM_SETTABSTOPS, 1, stops);
                        
-            textSourceCode.Text = AnTSEngine.SourceCode;
-            statusFileName.Text = AnTSEngine.SourceCodeFile;
-            if(!string.IsNullOrEmpty(AnTSEngine.SourceCodeFile))
-                _sourceCodeDirWork = Path.GetDirectoryName(AnTSEngine.SourceCodeFile);
+            textSourceCode.Text = Engine.SourceCode;
+            statusFileName.Text = Engine.SourceCodeFile;
+            if(!string.IsNullOrEmpty(Engine.SourceCodeFile))
+                _sourceCodeDirWork = Path.GetDirectoryName(Engine.SourceCodeFile);
             
-            AnTSEngine.InOutDevice.SetEmbeddedMode();
-            splitContainer1.Panel2.Controls.Add((Control)AnTSEngine.InOutDevice);
-            AnTSEngine.InOutDevice.Show();
+            Engine.InOutDevice.SetEmbeddedMode();
+            splitContainer1.Panel2.Controls.Add((Control)Engine.InOutDevice);
+            Engine.InOutDevice.Show();
             textSourceCode.Select(0, 0);            
         }
 
@@ -74,13 +74,14 @@ namespace AnTScript
                 return;
             }
 
-            AnTSEngine.InOutDevice.Clear();
+            Engine.InOutDevice.Clear();
 
-            AnTSEngine.SourceCode = textSourceCode.Text;
+            Engine.SourceCode = textSourceCode.Text;
 
             try
-            {                
-                AnTSEngine.Run();
+            {
+                Engine.ClearAllVars();
+                Engine.Run();
             }
             catch (Exception err)
             {
@@ -92,8 +93,8 @@ namespace AnTScript
         {
             textSourceCode.Text = "";
             statusFileName.Text = "";
-            AnTSEngine.SourceCode = "";
-            AnTSEngine.SourceCodeFile = "";
+            Engine.SourceCode = "";
+            Engine.SourceCodeFile = "";
         }
 
         private void buttonOpen_Click(object sender, EventArgs e)
@@ -112,7 +113,7 @@ namespace AnTScript
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(AnTSEngine.SourceCodeFile))
+            if (string.IsNullOrEmpty(Engine.SourceCodeFile))
             {
                 saveFileDialogScript.Title = "Save AnTScript file";
                 saveFileDialogScript.InitialDirectory = _sourceCodeDirWork;
@@ -124,12 +125,12 @@ namespace AnTScript
                     if (Path.GetExtension(saveFileDialogScript.FileName) == "")
                         saveFileDialogScript.FileName += @".ants";
                     SaveFile(saveFileDialogScript.FileName);
-                    AnTSEngine.SourceCodeFile = saveFileDialogScript.FileName;
-                    statusFileName.Text = AnTSEngine.SourceCodeFile;
+                    Engine.SourceCodeFile = saveFileDialogScript.FileName;
+                    statusFileName.Text = Engine.SourceCodeFile;
                 }
             }
             else
-                SaveFile(AnTSEngine.SourceCodeFile);
+                SaveFile(Engine.SourceCodeFile);
         }
 
         #endregion
@@ -144,8 +145,8 @@ namespace AnTScript
             using (TextReader input = File.OpenText(sourceCodeFile))
                 textSourceCode.Text = input.ReadToEnd().ToString();
 
-            AnTSEngine.SourceCodeFile = sourceCodeFile;
-            AnTSEngine.SourceCode = textSourceCode.Text;
+            Engine.SourceCodeFile = sourceCodeFile;
+            Engine.SourceCode = textSourceCode.Text;
             statusFileName.Text = sourceCodeFile;            
 
             textSourceCode.Select(0, 0);            
