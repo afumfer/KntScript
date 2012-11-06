@@ -58,7 +58,7 @@
     <Compile Include="AnTScriptForm.designer.cs">
       <DependentUpon>AnTScriptForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Engine.cs" />
+    <Compile Include="AnTSEngine.cs" />
     <Compile Include="IInOutDevice.cs" />
     <Compile Include="InOutDefaultDeviceForm.cs">
       <SubType>Form</SubType>

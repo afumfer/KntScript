@@ -46,14 +46,37 @@ namespace AnTScriptAppHost
             //AnTScript.Engine.ExecuteCode("var a = 123; printline a; print DemoSumNum(111,222);", new MyLibrary());
 
             // With only code
-            AnTScript.AnTSEngine.ExecuteCode(@"
-                var a = 1;
+//            AnTScript.AnTSEngine.ExecuteCode(@"
+//                var a = 1;
+//                var b = ""hola mundo "";
+//                for a = 1 to 10
+//                    printline b + a;
+//                end for;
+//                printline ""<<fin>>"";             
+//            ");
+
+
+            // Another way to do it, with added variable
+            var a = new Document();
+            a.Description = "Bla bla";
+
+            var engine = new AnTScript.AnTSEngine(@"
+                var i = 0;                
                 var b = ""hola mundo "";
-                for a = 1 to 10
-                    printline b + a;
+                ' Esta variable viene de la aplicación anfitriona
+                _a.Description = ""Otro valor para a.Description"";
+                for i = 1 to 10
+                    printline b + _a.Description;
                 end for;
-                printline ""<<fin>>"";             
-            ");
+                printline ""<<fin>>""; 
+                ");
+
+            engine.AddVar("_a", a);
+
+            engine.Run();
+
+            var b = (Document)engine.GetVar("_a"); 
+            MessageBox.Show(a.Description + " -- " + b.Description);
 
         }
 

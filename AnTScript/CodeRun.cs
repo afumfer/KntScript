@@ -16,7 +16,7 @@ namespace AnTScript
 
         #region Fields
         
-        Dictionary<string, object> symbolTable;                
+        Dictionary<string, object> symbolTable;
         bool flagBreak = false;        
         IInOutDevice inOutDevice;
         Dictionary<string, Type> typeCache = new Dictionary<string, Type>(); 
@@ -40,13 +40,16 @@ namespace AnTScript
 
         #region Constructor
 
-        internal CodeRun(Stmt stmt, IInOutDevice inOutputDevice, Library library)
+        internal CodeRun(Stmt stmt, IInOutDevice inOutputDevice, Library library, Dictionary<string, object> vars = null)
         {
             this.inOutDevice = inOutputDevice;
             library.InOutDevice = this.inOutDevice;
             _defaultFunctionLibrary = library;
 
-            symbolTable = new Dictionary<string, object>();
+            if (vars == null)
+                symbolTable = new Dictionary<string, object>();
+            else
+                symbolTable = vars;
             
             // Go Run!
             RunStmt(stmt);

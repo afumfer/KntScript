@@ -9,7 +9,6 @@ namespace AnTScript
 {
     public class AnTSEngine
     {
-
         #region Properties
 
         public string SourceCodeFile {get; set;}
@@ -41,34 +40,67 @@ namespace AnTScript
             set {_functionLibrary = value;}
         }
 
+        private Dictionary<string, object> _symbolTable;
+        public Dictionary<string, object> SymbolTable
+        {
+            get { return _symbolTable; }        
+        }
+
         #endregion
 
         #region Constructor
 
-        internal AnTSEngine(string sourceCodeFile, string sourceCode, IInOutDevice inOutDevice, Library functionLibrary)
+        public AnTSEngine(string sourceCodeFile, string sourceCode, IInOutDevice inOutDevice, Library functionLibrary)
         {
             SourceCodeFile = sourceCodeFile;
             SourceCode = sourceCode;
             InOutDevice = inOutDevice;
             FunctionLibrary = functionLibrary;
+            _symbolTable = new Dictionary<string, object>();
+        }
+
+        public AnTSEngine(string sourceCode)
+            : this("", sourceCode, new InOutDefaultDeviceForm(), new Library())
+        {
+
         }
 
         #endregion
 
-        #region Internal method
+        #region Public methods
 
-        internal void Run()
+        public void Run()
         {
             try
             {
                 Scanner scanner = new Scanner(SourceCode);                
                 Parser parser = new Parser(scanner.TokensList);
-                CodeRun codeRun = new CodeRun(parser.Result, InOutDevice, FunctionLibrary);
+                CodeRun codeRun = new CodeRun(parser.Result, InOutDevice, FunctionLibrary, _symbolTable);
             }
             catch (Exception err)
             {
                 throw err; 
             }        
+        }
+
+        public void AddVar(string ident, object value)
+        {            
+            if (string.IsNullOrEmpty(ident))
+                throw new System.Exception(" variable is required ");
+
+            if (!_symbolTable.ContainsKey(ident))
+                _symbolTable.Add(ident, value);
+            else
+                throw new System.Exception(" variable '" + ident + "' already declared");            
+        }
+
+        public object GetVar(string ident)
+        {
+            if (_symbolTable.ContainsKey(ident))                
+                return _symbolTable[ident];
+            else
+                //return null;
+                throw new System.Exception(" undeclared variable '" + ident);
         }
 
         #endregion
