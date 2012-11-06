@@ -185,12 +185,10 @@ namespace AnTScript
                 source = "";
             }
 
-            if (visibleInOutDevice)
-                InOutDevice.Show();
-
             try
             {
                 AnTSEngine engine = new AnTSEngine(source, code, InOutDevice, library);
+                engine.VisibleInOutDevice = visibleInOutDevice;
                 engine.Run();
             }
             catch (Exception err)
