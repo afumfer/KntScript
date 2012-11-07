@@ -63,6 +63,11 @@ namespace AnTScript
             InOutDevice.Hide();
         }
 
+        public void CloseOutWindow()
+        {
+            InOutDevice.Close();
+        }
+
         public static string AnTS_Version = "0.0.1.4";
 
     }

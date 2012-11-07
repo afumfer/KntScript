@@ -37,7 +37,7 @@ namespace AnTScriptAppHost
             //AnTScript.Engine.ExecuteCode(textFileSourceCode.Text);
 
             // With MyLbrary reference
-            AnTScript.AnTSEngine.ExecuteCode(textFileSourceCode.Text, new MyLibrary());
+            //AnTScript.AnTSEngine.ExecuteCode(textFileSourceCode.Text, new MyLibrary());
 
             // With MyLbrary reference, without Output device
             //AnTScript.Engine.ExecuteCode(textFileSourceCode.Text, new MyLibrary(), false);
@@ -46,14 +46,16 @@ namespace AnTScriptAppHost
             //AnTScript.Engine.ExecuteCode("var a = 123; printline a; print DemoSumNum(111,222);", new MyLibrary());
 
             // With only code
-            //            AnTScript.AnTSEngine.ExecuteCode(@"
-            //                var a = 1;
-            //                var b = ""hola mundo "";
-            //                for a = 1 to 10
-            //                    printline b + a;
-            //                end for;
-            //                printline ""<<fin>>"";             
-            //            ");
+            AnTScript.AnTSEngine.ExecuteCode(@"
+                            var a = 1;
+                            var b = ""hola mundo "";
+                            for a = 1 to 10
+                                printline b + a;
+                            end for;
+                            printline ""<<fin>>"";
+                            readvar {""Texto"": b };
+                            CloseOutWindow();             
+                        ");
 
 
 //            // Another way to do it, with added variable

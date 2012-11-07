@@ -2,21 +2,19 @@
 >>>> Versión 0.0.1.x
 
 
-- Poner un parámetro donde los errores no se muestre con un MessageBox sino que se visualicen de otra forma de cara a no bloquear la ejecución debido a un diálogo modal.
+- Implementar tipos arrays e indizadores de colecciones .
 
 - Implementar operador xor.
-
-- Implementar CloseOutWindow()
 
 - Preparar scripts ejemplo y test.
 
 
 ============================
 >>>> Versión 0.0.2.x
-- Implementar tipos arrays e indizadores de colecciones .
+
 - Implementar comprobación de tipos
 - Implementar declaración automática de variables. Eliminar / Corregir implementación de CodeSpecialStoreObject()
-- Mejorar el tratamiento de errores
+- Mejorar el tratamiento de errores. Mejora en el sistema de notificación de errores.
 - Informar de la línea / columna del error
 - Implementar definición de funciones
 - Implementar ámbito de variables locales
@@ -28,6 +26,7 @@
 - Se podría añadir un punto de menú que ejecute un script por cada punto de menú. Los script's podría estar en un directorio y el nombre del menú podría ser el nombre del fichero.
 
 - Que cada script se ejecute en un thread diferente
+
 
 
 ////////////////////////////
@@ -147,3 +146,5 @@ X- Refactorizada la clase engine y el formulario consola AnTS
 X- Buscar una estrategia para hacer uso de los enumerados  de .NET y propiedades de claes estáticas (por ejemplo System.Text.Encoding.UTF8) 
 X- Poder asignar valores a propiedes estáticas
 X- Que desde la aplicación Host se pueda inyectar objetos en la tabla de símbolos, y que el ésta tabla pueda ser leída por la aplicación host después de la finalización del script. 
+X- Implementar CloseOutWindow()
+
