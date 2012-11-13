@@ -158,9 +158,10 @@
             this.textSourceCode.Margin = new System.Windows.Forms.Padding(5);
             this.textSourceCode.Multiline = true;
             this.textSourceCode.Name = "textSourceCode";
-            this.textSourceCode.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textSourceCode.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textSourceCode.Size = new System.Drawing.Size(488, 533);
             this.textSourceCode.TabIndex = 3;
+            this.textSourceCode.WordWrap = false;
             // 
             // openFileDialogScript
             // 
