@@ -50,6 +50,11 @@ namespace AnTScript
                 symbolTable = new Dictionary<string, object>();
             else
                 symbolTable = vars;
+
+            // Add here system variables ?? 
+            CodeSpecialStoreObject("_ANTERRORTRAP", false);
+            CodeSpecialStoreObject("_ANTERRORCODE", 0);
+            CodeSpecialStoreObject("_ANTERRORDESCRIPTION", "");
             
             // Go Run!
             RunStmt(stmt);
@@ -364,7 +369,7 @@ namespace AnTScript
                 res = CodeExecuteUnaryExpr((UnaryExpr)expr);
 
                         
-            // TODO: _ Pendiente, para resolver conversión de tipos automárica en versiones futuras 
+            // TODO: _ Pendiente, para resolver conversión de tipos automática en versiones futuras 
             if (res != null)
                 deliveredType = res.GetType();
             else
@@ -444,8 +449,7 @@ namespace AnTScript
                 else
                 {
                     try
-                    {
-                        
+                    {                        
                         GetValue(symbolTable[ident.RootObj], ident, out resGetValue);
                         return resGetValue;
                     }
@@ -474,6 +478,10 @@ namespace AnTScript
 
         private object CodeExecuteFunction(FunctionExpr function)
         {
+
+            CodeSpecialStoreObject("_ANTERRORCODE", 0);
+            CodeSpecialStoreObject("_ANTERRORDESCRIPTION", "");
+
             try
             {
                 Type t;
@@ -529,22 +537,23 @@ namespace AnTScript
                     }                    
                 }
                              
-                // Execute
-                
-                // TODO: Esta forma está obsoleta
-                //object ret;
-                //ret = mi.Invoke(obj, param);
-                //if (ret != null)
-                //    return ret;
-                //else
-                //    return 1;
-
+                // Execute                
                 return mi.Invoke(obj, param);
 
             }
             catch (Exception ex)
             {
-                throw ex;
+                //bool errorTrap;
+                //errorTrap = (bool)CodeReadSymbol(new Variable { Ident = "_ANTERRORTRAP" });
+                //if (!errorTrap)
+                if ( !((bool)CodeReadSymbol(new Variable { Ident = "_ANTERRORTRAP" })))
+                    throw ex;
+                else
+                {
+                    CodeSpecialStoreObject("_ANTERRORCODE", 10);
+                    CodeSpecialStoreObject("_ANTERRORDESCRIPTION", ex.Message);
+                    return null;
+                }
             }
         }
         
@@ -898,9 +907,6 @@ namespace AnTScript
 
         private void CodeExecutePrint(Print print)
         {            
-            //string s = GenExpr(print.Expr).ToString();
-            //inOutDevice.Print(s, false);
-
             object s = GenExpr(print.Expr);
             if (s != null)
                 inOutDevice.Print(s.ToString(), false);
