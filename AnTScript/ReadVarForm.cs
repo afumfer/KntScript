@@ -76,7 +76,6 @@ namespace AnTScript
                 topLabel += inc;
                 i++;
             }        
-
         }
 
         private void CaptureVars()

@@ -80,12 +80,18 @@ namespace AnTScript
 
             try
             {
+                toolStrip1.Enabled = false;
+                
                 Engine.ClearAllVars();
                 Engine.Run();
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
+            }
+            finally
+            {
+                toolStrip1.Enabled = true;
             }
         }
 
