@@ -4,7 +4,6 @@ using System.Text;
 
 namespace AnTScript
 {
-
     #region Stmt's
 
     /* <stmt> := var <ident> = <expr>
@@ -310,6 +309,5 @@ namespace AnTScript
     }
 
     #endregion
-
 }
 

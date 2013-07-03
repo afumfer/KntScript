@@ -8,12 +8,10 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-
 namespace AnTScript
 {
     internal sealed class CodeRun
     {
-
         #region Fields
         
         Dictionary<string, object> symbolTable;
@@ -1304,7 +1302,5 @@ namespace AnTScript
         } 
 
         #endregion
-
-    } // CodeRun class
-
-} // namespace
+    } 
+} 
