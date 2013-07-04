@@ -197,6 +197,11 @@ namespace AnTScript
             }
         }
 
+        public static void EngineRun(object engine)
+        {
+            ((AnTSEngine)engine).Run();
+        }
+
         #endregion
 
     }

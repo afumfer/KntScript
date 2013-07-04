@@ -9,6 +9,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Remoting;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace AnTScript
 {
@@ -74,14 +75,12 @@ namespace AnTScript
                 return;
             }
 
-            Engine.InOutDevice.Clear();
-
-            Engine.SourceCode = textSourceCode.Text;
-
             try
             {
                 toolStrip1.Enabled = false;
-                
+
+                Engine.InOutDevice.Clear();
+                Engine.SourceCode = textSourceCode.Text;
                 Engine.ClearAllVars();
                 Engine.Run();
             }

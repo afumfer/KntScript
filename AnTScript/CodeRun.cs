@@ -67,6 +67,8 @@ namespace AnTScript
             if (flagBreak)
                 return;
 
+            Application.DoEvents();
+
             #region Sequence
 
             if (stmt is Sequence)
