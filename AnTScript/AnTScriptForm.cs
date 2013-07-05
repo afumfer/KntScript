@@ -15,7 +15,6 @@ namespace AnTScript
 {
     internal partial class AnTScriptForm : Form
     {
-
         #region Private fields
         
         private string _sourceCodeDirWork = string.Empty;
@@ -171,7 +170,6 @@ namespace AnTScript
         }
 
         #endregion
-
     }
 
 }
