@@ -542,9 +542,6 @@ namespace AnTScript
             }
             catch (Exception ex)
             {
-                //bool errorTrap;
-                //errorTrap = (bool)CodeReadSymbol(new Variable { Ident = "_ANTERRORTRAP" });
-                //if (!errorTrap)
                 if ( !((bool)CodeReadSymbol(new Variable { Ident = "_ANTERRORTRAP" })))
                     throw ex;
                 else
