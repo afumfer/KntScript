@@ -6,7 +6,6 @@ namespace AnTScript
 {
     internal sealed class Parser
     {
-
         #region Private fields
 
         private int index;
@@ -658,6 +657,5 @@ namespace AnTScript
         }
 
         #endregion
-
     }
 }

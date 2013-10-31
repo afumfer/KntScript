@@ -11,15 +11,23 @@ namespace AnTScript
 {
     internal partial class ReadVarForm : Form
     {
+        #region Variables y objectos privados
 
         TextBox textFirst;
+
+        #endregion 
+
+        #region Propiedades
 
         private List<ReadVarItem> _readVarItems;
         internal List<ReadVarItem> ReadVarItems
         {
             get { return _readVarItems; }
         }
-        
+
+        #endregion 
+
+        #region Constructor
 
         internal ReadVarForm(List<ReadVarItem> readVarItems)
         {
@@ -30,10 +38,29 @@ namespace AnTScript
             GenControls();
         }
 
+        #endregion 
+
+        #region Manejadores de eventos del formulario
+
         private void ReadVarForm_Load(object sender, EventArgs e)
         {
 
         }
+
+        private void buttonAccept_Click(object sender, EventArgs e)
+        {
+            CaptureVars();
+            DialogResult = System.Windows.Forms.DialogResult.OK;
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = System.Windows.Forms.DialogResult.Cancel;
+        }
+
+        #endregion
+
+        #region Métodos privados
 
         private void GenControls()
         {
@@ -93,16 +120,6 @@ namespace AnTScript
             }
         }
 
-        private void buttonAccept_Click(object sender, EventArgs e)
-        {
-            CaptureVars();                    
-            DialogResult = System.Windows.Forms.DialogResult.OK;
-        }
-
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = System.Windows.Forms.DialogResult.Cancel;
-        }
-
+        #endregion 
     }
 }

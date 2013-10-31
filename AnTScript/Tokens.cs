@@ -4,7 +4,6 @@ using System.Text;
 
 namespace AnTScript
 {
-
     internal sealed class Tokens
     {
         // Constants to represent arithmitic tokens. 

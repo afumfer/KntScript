@@ -68,6 +68,5 @@ namespace AnTScript
         {
             InOutDevice.Close();
         }        
-
     }
 }

@@ -439,7 +439,5 @@ namespace AnTScript
         }
 
         #endregion
-
     }
-
 }
