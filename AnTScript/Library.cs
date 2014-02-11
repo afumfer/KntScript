@@ -46,6 +46,18 @@ namespace AnTScript
             return new List<object>();            
         }
 
+        public List<string> SplitWords(string str)
+        {
+            List<string> outWords = new List<string>();
+            string[] sep = { " ", "\n", "\r" };
+            string[] a = str.Split(sep, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string s in a)
+                outWords.Add(s);
+
+            return outWords;
+        }
+
         public string GetOutContent()
         {
             if (InOutDevice != null)
