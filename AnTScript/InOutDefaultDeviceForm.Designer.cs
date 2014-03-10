@@ -52,6 +52,7 @@
             this.Name = "InOutDefaultDeviceForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AnTScript - Out";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InOutDefaultDeviceForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

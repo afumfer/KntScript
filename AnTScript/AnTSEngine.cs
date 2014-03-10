@@ -73,22 +73,32 @@ namespace AnTScript
 
         public void Run()
         {
-            if (VisibleInOutDevice)
-                InOutDevice.Show();
 
             try
             {
+                if (VisibleInOutDevice)
+                {
+                    InOutDevice.Show();
+                    InOutDevice.LockForm(true);
+                }
+
                 Scanner scanner = new Scanner(SourceCode);                
                 Parser parser = new Parser(scanner.TokensList);
                 CodeRun codeRun = new CodeRun(parser.Result, InOutDevice, FunctionLibrary, _symbolTable);
+
+                if (VisibleInOutDevice)                                    
+                    InOutDevice.LockForm(false);
+                
             }
             catch (Exception err)
             {
                 if (!VisibleInOutDevice)
                     InOutDevice.Show();
+                InOutDevice.LockForm(false);
                 InOutDevice.Print(err.Message);
                 //throw err; 
-            }        
+            }
+        
         }
 
         public void AddVar(string ident, object value)
@@ -153,7 +163,7 @@ namespace AnTScript
             AnTSEngine engine = new AnTSEngine(sourceCodeFile, sourceCode, inOutDevice, functionLibrary);
             engine.VisibleInOutDevice = false;
 
-            AnTScriptForm f = new AnTScriptForm(engine);
+            AnTScriptConsoleForm f = new AnTScriptConsoleForm(engine);
             f.Show();
         }
 
@@ -198,7 +208,7 @@ namespace AnTScript
         }
 
         public static void EngineRun(object engine)
-        {
+        {            
             ((AnTSEngine)engine).Run();
         }
 

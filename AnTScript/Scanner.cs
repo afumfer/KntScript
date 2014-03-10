@@ -219,7 +219,7 @@ namespace AnTScript
         private Token ReadNumericLiteral(TextReader input, char ch)
         {
             StringBuilder accum = new StringBuilder();
-            // TODO: _ Pendiente, controlar que no haya dos puntos seguidos
+            // TODO: (Z) Pendiente, controlar que no haya dos puntos seguidos
             while (char.IsDigit(ch) || ch == '.')
             {
                 accum.Append(ch);

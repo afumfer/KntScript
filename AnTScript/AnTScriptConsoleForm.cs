@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace AnTScript
 {
-    internal partial class AnTScriptForm : Form
+    internal partial class AnTScriptConsoleForm : Form
     {
         #region Private fields
         
@@ -33,7 +33,7 @@ namespace AnTScript
 
         #region Constructor
 
-        public AnTScriptForm(AnTSEngine engine)
+        public AnTScriptConsoleForm(AnTSEngine engine)
         {
             InitializeComponent();
             Engine = engine;

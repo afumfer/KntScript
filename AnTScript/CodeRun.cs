@@ -88,7 +88,7 @@ namespace AnTScript
 
                 CodeDeclareSymbol(declare);
                 
-                // TODO: _ Sustituir lo anterior por esto cuando se
+                //TODO: (Z) Sustituir lo anterior por esto cuando se
                 //       arregle el código de asignación + declaración.
                 //Assign assign = new Assign();
                 //assign.Ident = declare.Ident;
@@ -239,7 +239,7 @@ namespace AnTScript
                     if (flagBreak)
                         break;
                     
-                    // TODO: _ Pendiente susutiruir CodeSpecialStoreObject por CodeStoreSymbol
+                    // TODO: (Z) Pendiente susutiruir CodeSpecialStoreObject por CodeStoreSymbol
                     //       En el futuro, CodeStoreSymbol debe almacenar la variable si 
                     //       previamente no hubiera sido declarada. 
                     CodeSpecialStoreObject(forEachLoop.Ident, o);
@@ -320,7 +320,7 @@ namespace AnTScript
         private object GenExpr(Expr expr) 
         {
             // ...
-            // TODO: _ Pendiente de decidir si se implmenta la comprobación de tipos.
+            // TODO: (Z) Pendiente de decidir si se implmenta la comprobación de tipos.
             // Añadir el parámetro, ... "System.Type expectedType" como parámetro de entrada
             // de este método.
             // ...
@@ -368,7 +368,7 @@ namespace AnTScript
                 res = CodeExecuteUnaryExpr((UnaryExpr)expr);
 
                         
-            // TODO: _ Pendiente, para resolver conversión de tipos automática en versiones futuras 
+            // TODO: (Z) Pendiente, para resolver conversión de tipos automática en versiones futuras 
             if (res != null)
                 deliveredType = res.GetType();
             else
@@ -465,7 +465,7 @@ namespace AnTScript
 
         }
 
-        // TODO: _ ojo implementación provisional, sólo para usar en el bucle foreach        
+        // TODO: (Z) ojo implementación provisional, sólo para usar en el bucle foreach        
         //           Se debe sustituir por CodeStoreSymbol
         private void CodeSpecialStoreObject(string ident, object value)
         {
@@ -1032,7 +1032,7 @@ namespace AnTScript
                 )
                 return typeof(decimal);
 
-            // TODO: Pendiente de verificar los siguientes casos.
+            // TODO: (Z) Pendiente de verificar los siguientes casos.
 
             // string  !!! 
             else if (left.GetType() == typeof(string) || right.GetType() == typeof(string))

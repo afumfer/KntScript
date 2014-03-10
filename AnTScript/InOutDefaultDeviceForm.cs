@@ -11,9 +11,11 @@ namespace AnTScript
 {
     internal partial class InOutDefaultDeviceForm : Form, IInOutDevice
     {
+        private bool FlagClose = false;
+
         public InOutDefaultDeviceForm()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         #region IInOutDevice members
@@ -55,6 +57,20 @@ namespace AnTScript
             return textOut.Text;
         }
 
+        public void LockForm(bool lockFrm)
+        {            
+            FlagClose = lockFrm;
+        }
+
         #endregion
+
+        private void InOutDefaultDeviceForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (FlagClose)
+            {
+                MessageBox.Show("No se pude cerrar esta ventana hasta finalizar la ejecución del script.", "ANotas");
+                e.Cancel = true;
+            }
+        }
     }
 }

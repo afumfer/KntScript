@@ -14,6 +14,7 @@ namespace AnTScript
         void Hide();
         void SetEmbeddedMode();
         string GetOutContent();
+        void LockForm(bool lockFrm);
         void Close();
     }
 }
