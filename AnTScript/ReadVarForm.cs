@@ -111,7 +111,7 @@ namespace AnTScript
             {
                 foreach(ReadVarItem var in _readVarItems)
                 {
-                    if(var.VarIdent == c.Tag)
+                    if(var.VarIdent == (string) c.Tag)
                     {                        
                         var.VarNewValueText = c.Text;
                         break;
