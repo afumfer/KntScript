@@ -48,10 +48,27 @@ namespace AnTScript
             return new List<object>();            
         }
 
+        public List<string> SplitText(string str, string sepString)
+        {            
+            string[] sep = { sepString };
+            return Split(str, sep);
+        }
+
         public List<string> SplitWords(string str)
-        {
-            List<string> outWords = new List<string>();
+        {            
             string[] sep = { " ", "\n", "\r" };
+            return Split(str, sep);
+        }
+
+        public List<string> SplitLines(string str)
+        {
+            string[] sep = { "\n", "\r" };
+            return Split(str, sep);
+        }
+
+        private List<string> Split(string str, string[] sep)
+        {
+            List<string> outWords = new List<string>();            
             string[] a = str.Split(sep, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string s in a)
