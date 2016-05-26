@@ -33,9 +33,10 @@
             // 
             // textOut
             // 
-            this.textOut.BackColor = System.Drawing.SystemColors.Control;
+            this.textOut.BackColor = System.Drawing.Color.Black;
             this.textOut.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textOut.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textOut.ForeColor = System.Drawing.Color.White;
             this.textOut.Location = new System.Drawing.Point(0, 0);
             this.textOut.Multiline = true;
             this.textOut.Name = "textOut";
@@ -47,8 +48,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(570, 487);
             this.Controls.Add(this.textOut);
+            this.ForeColor = System.Drawing.SystemColors.WindowText;
             this.Name = "InOutDefaultDeviceForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AnTScript - Out";
