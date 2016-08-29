@@ -376,14 +376,43 @@ namespace AnTScript
                     return left;
 
                 int prec = ot.Precedence;
-                if (prec >= precedence)
+                //if (prec >= precedence)
+                if (prec > precedence)
                 {
+                    // --- Versión antigua.
+                    //BinaryExpr binExpr = new BinaryExpr();
+                    //binExpr.Op = TokenToBinOp(tokens[index]);
+                    //MoveNext();
+                    //Expr right = ParseExpr(prec);
+                    //binExpr.Left = left;
+                    //binExpr.Right = right;
+                    //left = binExpr;
+                    //----------------------------------------
+
+                    // --- Nueva versión, sustitución del nodo resta por suma con el opuesto
+                    //     del sustraendo. x - y  => x + -y
+                    BinOp tmpOp = TokenToBinOp(tokens[index]);
+
                     BinaryExpr binExpr = new BinaryExpr();
-                    binExpr.Op = TokenToBinOp(tokens[index]);
-                    MoveNext();
-                    Expr right = ParseExpr(prec);
                     binExpr.Left = left;
-                    binExpr.Right = right;
+
+                    if (tmpOp == BinOp.Sub)
+                    {
+                        binExpr.Op = BinOp.Add;
+                        MoveNext();
+                        UnaryExpr unEx = new UnaryExpr();
+                        unEx.Op = BinOp.Sub;                        
+                        unEx.Expression = ParseExpr(prec);
+                        binExpr.Right = unEx;
+                    }
+                    else
+                    {
+                        binExpr.Op = tmpOp;
+                        MoveNext();
+                        Expr right = ParseExpr(prec);
+                        binExpr.Right = right;
+                    }
+
                     left = binExpr;
                 }
                 else
