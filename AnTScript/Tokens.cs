@@ -7,26 +7,26 @@ namespace AnTScript
     internal sealed class Tokens
     {
         // Constants to represent arithmitic tokens. 
-        internal static readonly OperatorToken Add = new OperatorToken("ADD", 3);
-        internal static readonly OperatorToken Sub = new OperatorToken("SUB", 3);
-        internal static readonly OperatorToken Mul = new OperatorToken("MUL", 4);
-        internal static readonly OperatorToken Div = new OperatorToken("DIV", 4);
+        internal static readonly OperatorToken Add = new OperatorToken("ADD", 4);
+        internal static readonly OperatorToken Sub = new OperatorToken("SUB", 4);
+        internal static readonly OperatorToken Mul = new OperatorToken("MUL", 5);
+        internal static readonly OperatorToken Div = new OperatorToken("DIV", 5);
 
         // relational operators
-        internal static readonly OperatorToken LessThan = new OperatorToken("LESSTHAN", 2);
-        internal static readonly OperatorToken GreaterThan = new OperatorToken("GREATERTHAN", 2);
-        internal static readonly OperatorToken LessThanOrEqual = new OperatorToken("LESSTHANOREQUAL", 2);
-        internal static readonly OperatorToken GreaterThanOrEqual = new OperatorToken("GREATERTHANOREQUAL", 2);
-        internal static readonly OperatorToken Equal = new OperatorToken("EQUAL", 2);
-        internal static readonly OperatorToken NotEqual = new OperatorToken("NOTEQUAL", 2);
+        internal static readonly OperatorToken LessThan = new OperatorToken("LESSTHAN", 3);
+        internal static readonly OperatorToken GreaterThan = new OperatorToken("GREATERTHAN", 3);
+        internal static readonly OperatorToken LessThanOrEqual = new OperatorToken("LESSTHANOREQUAL", 3);
+        internal static readonly OperatorToken GreaterThanOrEqual = new OperatorToken("GREATERTHANOREQUAL", 3);
+        internal static readonly OperatorToken Equal = new OperatorToken("EQUAL", 3);
+        internal static readonly OperatorToken NotEqual = new OperatorToken("NOTEQUAL", 3);
 
         // logical operators
-        internal static readonly OperatorToken And = new OperatorToken("AND", 1);
-        internal static readonly OperatorToken AndBit = new OperatorToken("ANDBIT", 1);
-        internal static readonly OperatorToken Or = new OperatorToken("OR", 0);
-        internal static readonly OperatorToken OrBit = new OperatorToken("ORBIT", 0);
-        internal static readonly OperatorToken Not = new OperatorToken("NOT", 5);
-        
+        internal static readonly OperatorToken And = new OperatorToken("AND", 2);
+        internal static readonly OperatorToken AndBit = new OperatorToken("ANDBIT", 2);
+        internal static readonly OperatorToken Or = new OperatorToken("OR", 1);
+        internal static readonly OperatorToken OrBit = new OperatorToken("ORBIT", 1);
+        internal static readonly OperatorToken Not = new OperatorToken("NOT", 6);
+
         // symbol tokens
         internal static readonly SymbolToken Semi = new SymbolToken("SEMI");
         internal static readonly SymbolToken Assignment = new SymbolToken("ASSIGNMENT");
