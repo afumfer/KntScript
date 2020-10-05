@@ -30,14 +30,12 @@
         {
             this.buttonRunScript = new System.Windows.Forms.Button();
             this.buttonShowConsole = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textFileSourceCode = new System.Windows.Forms.TextBox();
-            this.buttonTest = new System.Windows.Forms.Button();
+            this.buttonRunScriptFile = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonRunScript
             // 
-            this.buttonRunScript.Location = new System.Drawing.Point(564, 53);
+            this.buttonRunScript.Location = new System.Drawing.Point(12, 12);
             this.buttonRunScript.Name = "buttonRunScript";
             this.buttonRunScript.Size = new System.Drawing.Size(144, 27);
             this.buttonRunScript.TabIndex = 0;
@@ -47,7 +45,7 @@
             // 
             // buttonShowConsole
             // 
-            this.buttonShowConsole.Location = new System.Drawing.Point(564, 20);
+            this.buttonShowConsole.Location = new System.Drawing.Point(12, 78);
             this.buttonShowConsole.Name = "buttonShowConsole";
             this.buttonShowConsole.Size = new System.Drawing.Size(144, 27);
             this.buttonShowConsole.TabIndex = 1;
@@ -55,47 +53,28 @@
             this.buttonShowConsole.UseVisualStyleBackColor = true;
             this.buttonShowConsole.Click += new System.EventHandler(this.buttonShowConsole_Click);
             // 
-            // label1
+            // buttonRunScriptFile
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Script file:";
-            // 
-            // textFileSourceCode
-            // 
-            this.textFileSourceCode.Location = new System.Drawing.Point(12, 27);
-            this.textFileSourceCode.Name = "textFileSourceCode";
-            this.textFileSourceCode.Size = new System.Drawing.Size(458, 20);
-            this.textFileSourceCode.TabIndex = 3;
-            // 
-            // buttonTest
-            // 
-            this.buttonTest.Location = new System.Drawing.Point(26, 212);
-            this.buttonTest.Name = "buttonTest";
-            this.buttonTest.Size = new System.Drawing.Size(109, 29);
-            this.buttonTest.TabIndex = 4;
-            this.buttonTest.Text = "Test";
-            this.buttonTest.UseVisualStyleBackColor = true;
-            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
+            this.buttonRunScriptFile.Location = new System.Drawing.Point(12, 45);
+            this.buttonRunScriptFile.Name = "buttonRunScriptFile";
+            this.buttonRunScriptFile.Size = new System.Drawing.Size(144, 27);
+            this.buttonRunScriptFile.TabIndex = 2;
+            this.buttonRunScriptFile.Text = "Run script file";
+            this.buttonRunScriptFile.UseVisualStyleBackColor = true;
+            this.buttonRunScriptFile.Click += new System.EventHandler(this.buttonRunScriptFile_Click);
             // 
             // MyAppMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 259);
-            this.Controls.Add(this.buttonTest);
-            this.Controls.Add(this.textFileSourceCode);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(342, 237);
+            this.Controls.Add(this.buttonRunScriptFile);
             this.Controls.Add(this.buttonShowConsole);
             this.Controls.Add(this.buttonRunScript);
             this.Name = "MyAppMainForm";
-            this.Text = "My App Main Form";
+            this.Text = "My App Main Form Test";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -103,9 +82,7 @@
 
         private System.Windows.Forms.Button buttonRunScript;
         private System.Windows.Forms.Button buttonShowConsole;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textFileSourceCode;
-        private System.Windows.Forms.Button buttonTest;
+        private System.Windows.Forms.Button buttonRunScriptFile;
     }
 }
 

@@ -18,16 +18,16 @@ namespace AnTScriptAppHost
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            string strFich = "";
+            //string strFich = "";
 
-            if (args.Length > 0)
-                strFich = Application.StartupPath + @"\" + args[0];
+            //if (args.Length > 0)
+            //    strFich = Application.StartupPath + @"\" + args[0];
 
 
-            if (string.IsNullOrEmpty(strFich))
-                strFich = Application.StartupPath + @"\test.ants";
+            //if (string.IsNullOrEmpty(strFich))
+            //    strFich = Application.StartupPath + @"\test.ants";
 
-            Application.Run(new MyAppMainForm(strFich));
+            Application.Run(new MyAppMainForm());
         }
     }
 }
