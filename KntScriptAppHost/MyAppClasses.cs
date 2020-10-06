@@ -112,15 +112,6 @@ namespace KntScriptAppHost
         {
             return "XXX --- YYY --- ZZZ: " + param;
         }
-
-        public void DemoMethod()
-        {
-            var a = "aaa";
-            // return "XXX --- YYY --- ZZZ: " + param;
-            //return 123f;
-        }
-
-
     }
 
     public static class ClassStatic2
