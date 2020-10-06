@@ -109,13 +109,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AnTScriptAppLibrary\KntScriptAppLibrary.csproj">
+    <ProjectReference Include="..\AnTScriptAppLibrary\AntScriptAppLibrary.csproj">
       <Project>{2EB29A63-57A0-4795-89B3-25A0DDA3CC9A}</Project>
-      <Name>KntScriptAppLibrary</Name>
+      <Name>AntScriptAppLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AnTScript\KntScript.csproj">
+    <ProjectReference Include="..\AnTScript\AntScript.csproj">
       <Project>{409FDBEB-5D2B-45B1-9AA9-4E57299DB6A6}</Project>
-      <Name>KntScript</Name>
+      <Name>AntScript</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

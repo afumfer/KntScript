@@ -49,9 +49,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AnTScript\KntScript.csproj">
+    <ProjectReference Include="..\AnTScript\AntScript.csproj">
       <Project>{409FDBEB-5D2B-45B1-9AA9-4E57299DB6A6}</Project>
-      <Name>KntScript</Name>
+      <Name>AntScript</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

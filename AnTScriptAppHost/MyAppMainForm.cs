@@ -105,16 +105,6 @@ namespace AnTScriptAppHost
 
             AnTScriptConsoleForm f = new AnTScriptConsoleForm(kntEngine);
             f.Show();
-
-
-            // Simple 
-            //AnTScript.Engine.ShowConsole(textFileSourceCode.Text);
-
-            // With MyLbrary reference
-            //AnTScript.AnTSEngine.ShowConsole(textFileSourceCode.Text, new MyLibrary());
-
-            // With code and MyLbrary reference
-            //AnTScript.Engine.ShowConsole("var a = 123; printline a; print DemoSumNum(111,222);", new MyLibrary());
         }
 
     }
