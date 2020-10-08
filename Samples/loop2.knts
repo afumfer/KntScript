@@ -1,9 +1,0 @@
-var a = 1;
-var b = "hola mundo";
-
-for a = 1 to 10
-	printline b + a;
-end for;
-printline "<<fin>>";
-readvar {"Texto": b };
-printline b;

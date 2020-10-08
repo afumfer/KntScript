@@ -1,4 +1,0 @@
-var b = 0;
-print b;
-print "\";
-print 3 + 2;

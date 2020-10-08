@@ -13,5 +13,5 @@ expr =
 	
 demo progs:
 
-print "hello, world"
+print "hello, world";
 

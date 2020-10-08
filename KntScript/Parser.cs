@@ -580,8 +580,6 @@ namespace KntScript
             return newObj;
         } 
 
-
-
         #endregion
 
         #region Utils
@@ -624,7 +622,6 @@ namespace KntScript
                 return BinOp.GreaterThanOrEqual;
             else
                 throw new System.Exception("invalid code operator");
-
         }
 
         private void MoveNext()

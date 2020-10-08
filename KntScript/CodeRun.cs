@@ -36,7 +36,7 @@ namespace KntScript
 
         #region Constructor
 
-        internal CodeRun(Stmt stmt, IInOutDevice inOutputDevice, Library library, Dictionary<string, object> vars = null)
+        internal CodeRun(IInOutDevice inOutputDevice, Library library, Dictionary<string, object> vars = null)
         {
             this.inOutDevice = inOutputDevice;
             library.InOutDevice = this.inOutDevice;
@@ -47,18 +47,25 @@ namespace KntScript
             else
                 symbolTable = vars;
 
-            // Add here system variables ?? 
-            CodeSpecialStoreObject("_ANTERRORTRAP", false);
-            CodeSpecialStoreObject("_ANTERRORCODE", 0);
-            CodeSpecialStoreObject("_ANTERRORDESCRIPTION", "");
-            
-            // Go Run!
-            RunStmt(stmt);
+            // Add here system variables 
+            CodeSpecialStoreObject("_KNTERRORTRAP", false);
+            CodeSpecialStoreObject("_KNTERRORCODE", 0);
+            CodeSpecialStoreObject("_KNTERRORDESCRIPTION", "");            
         }
 
         #endregion
 
-        #region CodeRun main methods
+        #region Public methods
+
+        public void Run(Stmt stmt)
+        {
+            // Go Run!
+            RunStmt(stmt);
+        }
+
+        #endregion 
+
+        #region CodeRun private methods
 
         private void RunStmt(Stmt stmt)
         {
@@ -464,8 +471,8 @@ namespace KntScript
 
         }
 
-        // TODO: (Z) ojo implementación provisional, sólo para usar en el bucle foreach        
-        //           Se debe sustituir por CodeStoreSymbol
+        // TODO: Provisional implementation, only for use in the foreach loop. 
+        //       Should be replaced by CodeStoreSymbol
         private void CodeSpecialStoreObject(string ident, object value)
         {
             if (!this.symbolTable.ContainsKey(ident))
@@ -477,8 +484,8 @@ namespace KntScript
         private object CodeExecuteFunction(FunctionExpr function)
         {
 
-            CodeSpecialStoreObject("_ANTERRORCODE", 0);
-            CodeSpecialStoreObject("_ANTERRORDESCRIPTION", "");
+            CodeSpecialStoreObject("_KNTERRORCODE", 0);
+            CodeSpecialStoreObject("_KNTERRORDESCRIPTION", "");
 
             try
             {
@@ -541,12 +548,12 @@ namespace KntScript
             }
             catch (Exception ex)
             {
-                if ( !((bool)CodeReadSymbol(new Variable { Ident = "_ANTERRORTRAP" })))
+                if ( !((bool)CodeReadSymbol(new Variable { Ident = "_KNTERRORTRAP" })))
                     throw ex;
                 else
                 {
-                    CodeSpecialStoreObject("_ANTERRORCODE", 10);
-                    CodeSpecialStoreObject("_ANTERRORDESCRIPTION", ex.Message);
+                    CodeSpecialStoreObject("_KNTERRORCODE", 10);
+                    CodeSpecialStoreObject("_KNTERRORDESCRIPTION", ex.Message);
                     return null;
                 }
             }
@@ -557,7 +564,7 @@ namespace KntScript
             try
             {
                 Type t;      
-                // find type in all asemblies                                          
+                // Find type in all asemblies                                          
                 if (TryFindType(newObject.ClassName, out t))
                 {
                     // Params
@@ -1031,7 +1038,7 @@ namespace KntScript
                 )
                 return typeof(decimal);
 
-            // TODO: (Z) Pendiente de verificar los siguientes casos.
+            // TODO: Pending verification, following cases.
 
             // string  !!! 
             else if (left.GetType() == typeof(string) || right.GetType() == typeof(string))
@@ -1047,9 +1054,7 @@ namespace KntScript
 
             // object
             else
-                return typeof(object);
-            
-
+                return typeof(object);            
         }
 
         private void SetValue(object varObj, IdentObject ident, object newValue, int i = 0)
@@ -1276,8 +1281,7 @@ namespace KntScript
                 StringVal stringVal = new StringVal();
                 stringVal.Value = Convert.ToString(newValue);
                 return stringVal;
-            }
-            
+            }            
         }
 
         private bool TryFindType(string typeName, out Type t)
@@ -1292,7 +1296,7 @@ namespace KntScript
                         if (t != null)
                             break;
                     }
-                    typeCache[typeName] = t; // perhaps null 
+                    typeCache[typeName] = t; // perhaps null  ??
                 }
             }
             return t != null;

@@ -54,22 +54,6 @@ namespace KntScript
 
         #region Public methods
 
-        public void RunFile(string sourceCodeFile)
-        {
-            if (File.Exists(sourceCodeFile))
-            {                
-                using (TextReader input = File.OpenText(sourceCodeFile))
-                {
-                    var sourceCode = input.ReadToEnd().ToString();
-                    Run(sourceCode);
-                }
-            }
-            else
-            {
-                throw new Exception("Source code file no exist.");
-            }
-        }
-
         public void Run(string sourceCode)
         {
             try
@@ -81,8 +65,9 @@ namespace KntScript
                 }
 
                 Scanner scanner = new Scanner(sourceCode);                
-                Parser parser = new Parser(scanner.TokensList);
-                CodeRun codeRun = new CodeRun(parser.Result, _inOutDevice, _functionLibrary, _symbolTable);
+                Parser parser = new Parser(scanner.TokensList);                
+                CodeRun codeRun = new CodeRun(_inOutDevice, _functionLibrary, _symbolTable);
+                codeRun.Run(parser.Result);
 
                 if (_visibleInOutDevice)                                    
                     _inOutDevice.LockForm(false);
@@ -94,8 +79,24 @@ namespace KntScript
                     _inOutDevice.Show();
                 _inOutDevice.LockForm(false);
                 _inOutDevice.Print(err.Message);
-                //throw err; 
+                //throw err; // ??
             }        
+        }
+
+        public void RunFile(string sourceCodeFile)
+        {
+            if (File.Exists(sourceCodeFile))
+            {
+                using (TextReader input = File.OpenText(sourceCodeFile))
+                {
+                    var sourceCode = input.ReadToEnd().ToString();
+                    Run(sourceCode);
+                }
+            }
+            else
+            {
+                throw new Exception("Source code file no exist.");
+            }
         }
 
         public void AddVar(string ident, object value)

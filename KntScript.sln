@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{1ED6751E-D06A-4860-88E5-51DD313EEAE4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{1ED6751E-D06A-4860-88E5-51DD313EEAE4}"
 	ProjectSection(SolutionItems) = preProject
 		Doc\easygrammar.txt = Doc\easygrammar.txt
 		Doc\grammar.txt = Doc\grammar.txt
@@ -13,6 +13,17 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KntScript", "KntScript\KntScript.csproj", "{EF254BFB-BC84-4696-B784-1A8F17EEE24A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KntScriptAppHost", "KntScriptAppHost\KntScriptAppHost.csproj", "{EE392CDE-C384-4315-B7D6-FCD6562B8585}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{DA433C33-CDF8-4D7E-9869-38F6982982C6}"
+	ProjectSection(SolutionItems) = preProject
+		Samples\ex01_HelloWorld.knts = Samples\ex01_HelloWorld.knts
+		Samples\ex02_HelloWorld2.knts = Samples\ex02_HelloWorld2.knts
+		Samples\ex03_Loops.knts = Samples\ex03_Loops.knts
+		Samples\ex04_IfElse.knts = Samples\ex04_IfElse.knts
+		Samples\ex05_ReadVars.knts = Samples\ex05_ReadVars.knts
+		Samples\ex06_DateTime.knts = Samples\ex06_DateTime.knts
+		Samples\ex07_GetOutput.knts = Samples\ex07_GetOutput.knts
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

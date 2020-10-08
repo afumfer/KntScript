@@ -10,9 +10,9 @@ using KntScript;
 
 namespace KntScriptAppHost
 {
-    public partial class Test : Form
+    public partial class DemoForm : Form
     {
-        public Test()
+        public DemoForm()
         {
             InitializeComponent();
         }
@@ -86,17 +86,17 @@ namespace KntScriptAppHost
         private void buttonRunScriptFile_Click(object sender, EventArgs e)
         {
             var kntScript = new KntSEngine(new InOutDeviceForm());
-
-            kntScript.RunFile(@"D:\Dev\KntScript\kntscript_dev\Samples\loop2.knts");
+            
+            kntScript.RunFile(@"..\..\..\..\Samples\ex02_HelloWorld2.knts");
         }
 
         private void buttonShowConsole_Click(object sender, EventArgs e)
         {
+
             var kntEngine = new KntSEngine(new InOutDeviceForm());
 
             KntScriptConsoleForm f = new KntScriptConsoleForm(kntEngine);
             f.Show();
         }
-
     }
 }

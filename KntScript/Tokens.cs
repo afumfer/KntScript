@@ -33,7 +33,7 @@ namespace KntScript
         internal static readonly SymbolToken LeftBracket = new SymbolToken("LEFTBRACKET");
         internal static readonly SymbolToken RightBracket = new SymbolToken("RIGHBRACKET");
         internal static readonly SymbolToken Comma = new SymbolToken("COMMA");
-        //public static readonly SymbolToken Dot = new SymbolToken("DOT");
+        //public static readonly SymbolToken Dot = new SymbolToken("DOT");  // Discarded in this version
         internal static readonly SymbolToken Colon = new SymbolToken("COLON");
         internal static readonly SymbolToken LeftCurlyBracket = new SymbolToken("LEFTCURLYBRACKET");
         internal static readonly SymbolToken RightCurlyBracket = new SymbolToken("RIGHTCURLYBRACKET");
@@ -207,7 +207,7 @@ namespace KntScript
         }
     }
 
-    //// null
+    //// Discarded in this version
     //internal class NullToken : Token
     //{
     //    private object _value;
@@ -249,7 +249,5 @@ namespace KntScript
         {
             return _name;
         }
-
     }
-
 }

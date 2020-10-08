@@ -133,9 +133,7 @@ namespace KntScript
             else if (accum.ToString() == "not")
                 token = Tokens.Not;
 
-            // block 
-            //else if (accum.ToString().ToLower() == "do")
-            //    token = Tokens.BeginBlock;
+            // end block 
             else if (accum.ToString() == "end")
                 token = Tokens.EndSequence;
 
@@ -185,7 +183,6 @@ namespace KntScript
             }
 
             return token;
-
         }
 
         private StringToken ReadStringLiteral(TextReader input, char ch)
@@ -219,7 +216,7 @@ namespace KntScript
         private Token ReadNumericLiteral(TextReader input, char ch)
         {
             StringBuilder accum = new StringBuilder();
-            // TODO: (Z) Pendiente, controlar que no haya dos puntos seguidos
+            // TODO: check that there are no two continuous points
             while (char.IsDigit(ch) || ch == '.')
             {
                 accum.Append(ch);
@@ -435,7 +432,6 @@ namespace KntScript
             }
 
             return token;
-
         }
 
         #endregion
