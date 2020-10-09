@@ -21,7 +21,7 @@ namespace KntScript
         
         private string _sourceCodeDirWork;
         private string _sourceCodeFile;
-        private KntSEngine _engine;
+        private KntSEngine _engine;        
 
         private const int EM_SETTABSTOPS = 0x00CB; 
         [DllImport("User32.dll", CharSet = CharSet.Auto)] 
@@ -31,10 +31,11 @@ namespace KntScript
 
         #region Constructor
 
-        public KntScriptConsoleForm(KntSEngine engine)
+        public KntScriptConsoleForm(KntSEngine engine, string file = null)
         {
             InitializeComponent();
             _engine = engine;
+            _sourceCodeFile = file;
         }
 
         #endregion
@@ -49,8 +50,10 @@ namespace KntScript
 
             _engine.InOutDevice.SetEmbeddedMode();
             splitContainer1.Panel2.Controls.Add((Control)_engine.InOutDevice);
-            _engine.InOutDevice.Show();
-            textSourceCode.Select(0, 0);
+
+            LoadFile(_sourceCodeFile);
+
+            _engine.InOutDevice.Show();            
         }
 
         private void KntScriptForm_KeyUp(object sender, KeyEventArgs e)
@@ -87,6 +90,7 @@ namespace KntScript
 
         private void buttonNew_Click(object sender, EventArgs e)
         {
+            _sourceCodeFile = "";
             textSourceCode.Text = "";
             statusFileName.Text = "";
         }
@@ -97,13 +101,12 @@ namespace KntScript
                 _sourceCodeDirWork = Application.StartupPath;
             openFileDialogScript.Title = "Open AnTScript file";
             openFileDialogScript.InitialDirectory = _sourceCodeDirWork;
-            openFileDialogScript.Filter = "AnTScript file (*.ants)|*.ants";
+            openFileDialogScript.Filter = "AnTScript file (*.knts)|*.knts";
             openFileDialogScript.FileName = "";
             openFileDialogScript.CheckFileExists = true;
 
             if (openFileDialogScript.ShowDialog() == DialogResult.OK)                            
-                LoadFile(openFileDialogScript.FileName);                           
-            
+                LoadFile(openFileDialogScript.FileName);                                       
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -118,9 +121,10 @@ namespace KntScript
                 if (saveFileDialogScript.ShowDialog() == DialogResult.OK)
                 {
                     if (Path.GetExtension(saveFileDialogScript.FileName) == "")
-                        saveFileDialogScript.FileName += @".ants";
-                    SaveFile(saveFileDialogScript.FileName);
+                        saveFileDialogScript.FileName += @".ants";                    
                     _sourceCodeFile = saveFileDialogScript.FileName;
+                    _sourceCodeDirWork = Path.GetDirectoryName(_sourceCodeFile);
+                    SaveFile(_sourceCodeFile);
                     statusFileName.Text = _sourceCodeFile;
                 }
             }
@@ -137,9 +141,23 @@ namespace KntScript
             if (string.IsNullOrEmpty(sourceCodeFile))
                 return;
 
-            using (TextReader input = File.OpenText(sourceCodeFile))
-                textSourceCode.Text = input.ReadToEnd().ToString();
+            if (!string.IsNullOrEmpty(_sourceCodeFile))
+            {
+                if (File.Exists(_sourceCodeFile))
+                {
+                    using (TextReader input = File.OpenText(_sourceCodeFile))
+                    {
+                        textSourceCode.Text = input.ReadToEnd().ToString();
+                        textSourceCode.Select(0, 0);
+                    }
+                }
+                else
+                {
+                    throw new Exception("Source code file no exist.");
+                }
 
+            }
+            
             _sourceCodeFile = sourceCodeFile;            
             statusFileName.Text = sourceCodeFile;
 

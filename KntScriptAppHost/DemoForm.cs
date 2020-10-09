@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
@@ -12,9 +13,23 @@ namespace KntScriptAppHost
 {
     public partial class DemoForm : Form
     {
+        #region Private fields
+
+        private string _pathSampleScripts = @"..\..\..\..\Samples\";
+        private string _selectedFile;
+
+        #endregion 
+
         public DemoForm()
         {
             InitializeComponent();
+        }
+
+        #region Form events handlers
+
+        private void DemoForm_Load(object sender, EventArgs e)
+        {
+            LoadListScripts(_pathSampleScripts);
         }
 
         private void buttonRunScript_Click(object sender, EventArgs e)
@@ -87,16 +102,69 @@ namespace KntScriptAppHost
         {
             var kntScript = new KntSEngine(new InOutDeviceForm());
             
-            kntScript.RunFile(@"..\..\..\..\Samples\ex02_HelloWorld2.knts");
+            kntScript.RunFile(_pathSampleScripts + @"ex02_HelloWorld2.knts");
         }
 
         private void buttonShowConsole_Click(object sender, EventArgs e)
         {
-
             var kntEngine = new KntSEngine(new InOutDeviceForm());
 
             KntScriptConsoleForm f = new KntScriptConsoleForm(kntEngine);
             f.Show();
         }
+
+        private void buttonShowSample_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(_selectedFile))
+            {
+                MessageBox.Show("File no seleted.");
+                return;
+            }
+
+            var kntEngine = new KntSEngine(new InOutDeviceForm());
+
+            KntScriptConsoleForm f = new KntScriptConsoleForm(kntEngine, _pathSampleScripts + _selectedFile);
+            f.Show();
+        }
+
+        private void buttonRunSample_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(_selectedFile))
+            {
+                MessageBox.Show("File no seleted.");
+                return;                   
+            }
+
+            var kntScript = new KntSEngine(new InOutDeviceForm());
+
+            kntScript.RunFile(_pathSampleScripts + _selectedFile);
+        }
+
+        private void listSamples_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _selectedFile = listSamples.SelectedItem.ToString();
+        }
+
+        #endregion 
+
+        #region Private methods
+
+        private void LoadListScripts(string pathSampleScripts)
+        {
+            if (Directory.Exists(pathSampleScripts))
+            {
+                DirectoryInfo directory = new DirectoryInfo(pathSampleScripts);
+                FileInfo[] files = directory.GetFiles("*.knts");
+                
+                foreach (var file in files)
+                    listSamples.Items.Add(file.Name);
+            }
+            else            
+                MessageBox.Show("{0} is not a valid directory.", _pathSampleScripts);            
+        }
+
+        #endregion
+
+
     }
 }

@@ -1,2 +1,4 @@
-  var x = "hello world!";
-  print x; 
+var x = "hello world!";
+print x;
+print "<< end >>";
+
