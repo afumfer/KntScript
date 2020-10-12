@@ -6,16 +6,17 @@ var a = 0;
 var b = 0;
 var c = 0;
 
-a = (((10 + 4) * 5) + 12);
-b = RandomInt(1,100);
+a = (((10 + 4) * 5) + 19);
+b = RandomInt(50,100);
 
-printline " a value is  : " + a;
-printline " b value is : " + b;
-
+printline "Check expression: (a > b) and (b + 1 < 90 and b - 1 > 70)";
+printline "  a value is  : " + a;
+printline "  b value is : " + b;
 printline "";
 
 if (a > b) and (b + 1 < 90 and b - 1 > 70) then
-	print "Expression  (a > b) and (b + 1 < 90 and b - 1 > 70)  is true";
+	print "<< Expression is true >>";
 else
-	print "Expression  (a > b) and (b + 1 < 90 and b - 1 > 70)  is false";
+	print "<< Expression is false >>";
 end if;
+

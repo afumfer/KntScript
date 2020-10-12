@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KntScriptConsoleForm));
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripConsole = new System.Windows.Forms.ToolStrip();
             this.buttonNew = new System.Windows.Forms.ToolStripButton();
             this.buttonOpen = new System.Windows.Forms.ToolStripButton();
             this.buttonSave = new System.Windows.Forms.ToolStripButton();
@@ -42,7 +42,7 @@
             this.textSourceCode = new System.Windows.Forms.TextBox();
             this.openFileDialogScript = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogScript = new System.Windows.Forms.SaveFileDialog();
-            this.toolStrip1.SuspendLayout();
+            this.toolStripConsole.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -50,19 +50,19 @@
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // toolStrip1
+            // toolStripConsole
             // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripConsole.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.buttonNew,
             this.buttonOpen,
             this.buttonSave,
             this.toolStripSeparator1,
             this.buttonRun});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1111, 25);
-            this.toolStrip1.TabIndex = 9;
-            this.toolStrip1.Text = "toolStrip1";
+            this.toolStripConsole.Location = new System.Drawing.Point(0, 0);
+            this.toolStripConsole.Name = "toolStripConsole";
+            this.toolStripConsole.Size = new System.Drawing.Size(1111, 25);
+            this.toolStripConsole.TabIndex = 9;
+            this.toolStripConsole.Text = "KntSctipt console";
             // 
             // buttonNew
             // 
@@ -178,7 +178,7 @@
             this.ClientSize = new System.Drawing.Size(1111, 669);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.toolStripConsole);
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "KntScriptConsoleForm";
@@ -186,8 +186,8 @@
             this.Text = "KntScript - Console";
             this.Load += new System.EventHandler(this.KntScriptForm_Load);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KntScriptForm_KeyUp);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.toolStripConsole.ResumeLayout(false);
+            this.toolStripConsole.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -202,7 +202,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStrip toolStripConsole;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.SplitContainer splitContainer1;

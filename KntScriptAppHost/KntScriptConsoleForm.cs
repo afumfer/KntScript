@@ -34,6 +34,8 @@ namespace KntScript
         public KntScriptConsoleForm(KntSEngine engine, string file = null)
         {
             InitializeComponent();
+            PersonalizeTabStop();
+
             _engine = engine;
             _sourceCodeFile = file;
         }
@@ -44,10 +46,6 @@ namespace KntScript
 
         private void KntScriptForm_Load(object sender, EventArgs e)
         {
-            // define value of the Tab indent and change the indent
-            int[] stops = { 12 };
-            SendMessage(this.textSourceCode.Handle, EM_SETTABSTOPS, 1, stops);
-
             _engine.InOutDevice.SetEmbeddedMode();
             splitContainer1.Panel2.Controls.Add((Control)_engine.InOutDevice);
 
@@ -72,7 +70,7 @@ namespace KntScript
 
             try
             {
-                toolStrip1.Enabled = false;
+                toolStripConsole.Enabled = false;
 
                 _engine.InOutDevice.Clear();                
                 _engine.ClearAllVars();
@@ -84,7 +82,7 @@ namespace KntScript
             }
             finally
             {
-                toolStrip1.Enabled = true;
+                toolStripConsole.Enabled = true;
             }
         }
 
@@ -135,6 +133,13 @@ namespace KntScript
         #endregion
 
         #region Private methods
+
+        private void PersonalizeTabStop()
+        {
+            // define value of the Tab indent and change the indent
+            int[] stops = { 12 };
+            SendMessage(this.textSourceCode.Handle, EM_SETTABSTOPS, 1, stops);
+        }
 
         private void LoadFile(string sourceCodeFile)
         {

@@ -9,53 +9,48 @@ using System.Windows.Forms;
 
 namespace KntScriptAppHost
 {
-    public class Document
+    // Dummy classes for tests
+
+    public class DocumentDummy
     {
         public float IdDocument { get; set; }
         public string Topic { get; set; }
         public string Description { get; set; }
-        public DateTime CreationDateTiem { get; set; }
-        public Folder Folder { get; set; }
+        public DateTime CreationDateTime { get; set; }
+        public FolderDummy Folder { get; set; }
+        public myEnum Type { get; set; }
 
-        public Document(bool b)
+        public DocumentDummy()
         {
             IdDocument = 1;
             Topic = string.Empty;
-            CreationDateTiem = DateTime.Now;
-            Folder = new Folder();
-            Folder.Name = "Constructor  bool";
-            Description = "______ (bool)" + IdDocument.ToString();
+            CreationDateTime = DateTime.Now;
+            Folder = new FolderDummy();
+            Folder.Name = "Default Folder ";
+            Description = "___ () " + IdDocument.ToString();
+            Type = myEnum.TypeOne;
         }
 
-        public Document()
-        {
-            IdDocument = 1;
-            Topic = string.Empty;
-            CreationDateTiem = DateTime.Now;
-            Folder = new Folder();
-            Folder.Name = "Constructor";
-            Description = "_____ () " + IdDocument.ToString();
-        }
-
-
-        public Document(int id)
+        public DocumentDummy(int id)
         {
             IdDocument = id;
             Topic = string.Empty;
-            CreationDateTiem = DateTime.Now;
-            Folder = new Folder();
-            Folder.Name = "Constructor id";
-            Description = "________  (id) " + IdDocument.ToString();
+            CreationDateTime = DateTime.Now;
+            Folder = new FolderDummy();
+            Folder.Name = "Default Folder - constructor id";
+            Description = "___  (id) " + IdDocument.ToString();
+            Type = myEnum.TypeTwo;
         }
 
-        public Document(Folder C)
+        public DocumentDummy(FolderDummy folder)
         {
             IdDocument = 1;
             Topic = string.Empty;
             Description = string.Empty;
-            CreationDateTiem = DateTime.Now;
-            Folder = C;
-            Description = "_______ (Folder)";
+            CreationDateTime = DateTime.Now;
+            Folder = folder;
+            Description = "___ (folder)";
+            Type = myEnum.TypeThree;
         }
 
         public override string ToString()
@@ -63,38 +58,40 @@ namespace KntScriptAppHost
             return IdDocument.ToString() + " : " + Topic.ToString() + " : " + Description.ToString();
         }
 
-        public float TestMethodA(string param)
+        public float DocumentTestMethodA(string param)
         {
             MessageBox.Show("param = " + param);
             return 9;
         }
 
-        public void TestMethodB(object param)
+        public void DocumentTestMethodB(object param)
         {
             Form a = new Form();
             a.Show();
         }
 
-        public string TestMethodB(string param)
+        public string DocumentTestMethodB(string param)
         {
             return ">> " + param;
         }
     }
 
-    public class Folder
+    public class FolderDummy
     {
         public int IdFolder { get; set; }
         public string Name { get; set; }
-        public string Comments { get; set; }
-        public Archiver Archiver { get; set; }
+        public string Comments { get; set; }        
 
-        public Folder()
+        public FolderDummy()
         {
             IdFolder = 1;
-            Name = "Folder name XXXXXX";
+            Name = "Folder name: (default)";
             Comments = string.Empty;
-            Archiver = new Archiver();
-            Archiver.Name = "Archiver Folder Name YYYYYYYYYY";
+        }
+
+        public string FolderTestMethodB(string param)
+        {
+            return ">>> " + param;
         }
 
         public override string ToString()
@@ -103,19 +100,10 @@ namespace KntScriptAppHost
         }
     }
 
-    public class Archiver
+    public static class TestStaticClass
     {
-        public int IdArchiver { get; set; }
-        public string Name { get; set; }
+        public static string TestPropStatic2 { get; set; }
 
-        public string DemoMethod(string param)
-        {
-            return "XXX --- YYY --- ZZZ: " + param;
-        }
-    }
-
-    public static class ClassStatic2
-    {
         public static void TestStatic2()
         {
             MessageBox.Show("Static");
@@ -124,21 +112,15 @@ namespace KntScriptAppHost
         public static void TestStatic2(string msg)
         {
             MessageBox.Show("Static: " + msg);
-        }
-
-        public static string TestPropStatic2
-        {
-            get; set;            
-        }        
+        }      
     }
 
     public enum myEnum
     { 
-        One,
-        Two,
-        Three,
-        Four, 
-        Five
+        TypeOne,
+        TypeTwo,
+        TypeThree,
+        TypeFour,
+        TypeFive
     }
-
 }
