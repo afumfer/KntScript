@@ -103,7 +103,7 @@
             // 
             // statusInfo
             // 
-            this.statusInfo.Location = new System.Drawing.Point(0, 511);
+            this.statusInfo.Location = new System.Drawing.Point(0, 430);
             this.statusInfo.Name = "statusInfo";
             this.statusInfo.Size = new System.Drawing.Size(450, 22);
             this.statusInfo.TabIndex = 4;

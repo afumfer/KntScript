@@ -100,7 +100,7 @@ namespace KntScriptAppHost
 
         private void buttonShowConsole_Click(object sender, EventArgs e)
         {
-            var kntEngine = new KntSEngine(new InOutDeviceForm());
+            var kntEngine = new KntSEngine(new InOutDeviceForm(), new MyLibrary());
 
             KntScriptConsoleForm f = new KntScriptConsoleForm(kntEngine);
             f.Show();
@@ -114,7 +114,7 @@ namespace KntScriptAppHost
                 return;
             }
 
-            var kntEngine = new KntSEngine(new InOutDeviceForm());
+            var kntEngine = new KntSEngine(new InOutDeviceForm(), new MyLibrary());
 
             KntScriptConsoleForm f = new KntScriptConsoleForm(kntEngine, _pathSampleScripts + _selectedFile);
             f.Show();
@@ -128,7 +128,7 @@ namespace KntScriptAppHost
                 return;                   
             }
 
-            var kntScript = new KntSEngine(new InOutDeviceForm());
+            var kntScript = new KntSEngine(new InOutDeviceForm(), new MyLibrary());
 
             kntScript.RunFile(_pathSampleScripts + _selectedFile);
         }

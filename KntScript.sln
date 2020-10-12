@@ -23,6 +23,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{DA43
 		Samples\ex05_ReadVars.knts = Samples\ex05_ReadVars.knts
 		Samples\ex06_DateTime.knts = Samples\ex06_DateTime.knts
 		Samples\ex07_GetOutput.knts = Samples\ex07_GetOutput.knts
+		Samples\ex08_ForEachAndColec.knts = Samples\ex08_ForEachAndColec.knts
+		Samples\ex09_CaptureError.knts = Samples\ex09_CaptureError.knts
+		Samples\ex10_SendEmail.knts = Samples\ex10_SendEmail.knts
+		Samples\ex11_SendEmail2.knts = Samples\ex11_SendEmail2.knts
+		Samples\ex12_WorkingWithDataBase1.knts = Samples\ex12_WorkingWithDataBase1.knts
+		Samples\ex13_WorkingWithDataBase2.knts = Samples\ex13_WorkingWithDataBase2.knts
+		Samples\ex14_FileCopy.knts = Samples\ex14_FileCopy.knts
+		Samples\ex15_DirectoryFiles.knts = Samples\ex15_DirectoryFiles.knts
 	EndProjectSection
 EndProject
 Global
