@@ -46,31 +46,10 @@ namespace KntScriptAppHost
             MessageBox.Show("Static");
         }
 
-        public bool SendGMailMessage(string toUser, string subject, string body)
-        {
-            List<object> listUsers = new List<object>();
-            listUsers.Add(toUser);
-            return SendGMailMessage(listUsers, subject, body, false);
-        }
-
-        public bool SendGMailMessage(List<object> toUsers, string subject, string body)
-        {
-            return SendGMailMessage(toUsers, subject, body, false);
-        }
-
-        public bool SendGMailMessage(List<object> toUsers, string subject, string body, bool isBodyHtml)
-        {
-            if (GetPasswordUserG() != "" && GetUserG() != "")
-                return SendGMailMessage(GetUserG(), GetUserG(), GetPasswordUserG(), toUsers, subject, body, isBodyHtml);
-            else
-                return false;
-
-        }
-
         public bool SendGMailMessage(string fromEmail, string fromName, string fromPwd,
-            List<object> toUsers, string subject, string body, bool isBodyHtml)
+            List<object> toUsers, string subject, string body)
         {
-            return SendMailMessage(fromEmail, fromName, fromPwd, toUsers, subject, body, isBodyHtml, 587, "smtp.gmail.com", true);
+            return SendMailMessage(fromEmail, fromName, fromPwd, toUsers, subject, body, false, 587, "smtp.gmail.com", true);
         }
 
 
@@ -104,7 +83,6 @@ namespace KntScriptAppHost
             {
                 return false;
             }
-
         }
 
         public DbConnection GetSQLConnection(string connectionString)

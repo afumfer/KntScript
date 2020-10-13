@@ -34,8 +34,8 @@
             this.buttonRunSample = new System.Windows.Forms.Button();
             this.buttonShowSample = new System.Windows.Forms.Button();
             this.listSamples = new System.Windows.Forms.ListBox();
-            this.statusInfo = new System.Windows.Forms.StatusStrip();
             this.buttonInteract = new System.Windows.Forms.Button();
+            this.buttonRunBackground = new System.Windows.Forms.Button();
             this.groupSamples.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +51,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(12, 86);
+            this.button3.Location = new System.Drawing.Point(12, 123);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(305, 29);
             this.button3.TabIndex = 1;
@@ -64,7 +64,7 @@
             this.groupSamples.Controls.Add(this.buttonRunSample);
             this.groupSamples.Controls.Add(this.buttonShowSample);
             this.groupSamples.Controls.Add(this.listSamples);
-            this.groupSamples.Location = new System.Drawing.Point(12, 145);
+            this.groupSamples.Location = new System.Drawing.Point(12, 176);
             this.groupSamples.Name = "groupSamples";
             this.groupSamples.Size = new System.Drawing.Size(425, 276);
             this.groupSamples.TabIndex = 3;
@@ -101,14 +101,6 @@
             this.listSamples.TabIndex = 2;
             this.listSamples.SelectedIndexChanged += new System.EventHandler(this.listSamples_SelectedIndexChanged);
             // 
-            // statusInfo
-            // 
-            this.statusInfo.Location = new System.Drawing.Point(0, 430);
-            this.statusInfo.Name = "statusInfo";
-            this.statusInfo.Size = new System.Drawing.Size(450, 22);
-            this.statusInfo.TabIndex = 4;
-            this.statusInfo.Text = "...";
-            // 
             // buttonInteract
             // 
             this.buttonInteract.Location = new System.Drawing.Point(12, 52);
@@ -119,23 +111,33 @@
             this.buttonInteract.UseVisualStyleBackColor = true;
             this.buttonInteract.Click += new System.EventHandler(this.buttonInteract_Click);
             // 
+            // buttonRunBackground
+            // 
+            this.buttonRunBackground.Location = new System.Drawing.Point(12, 86);
+            this.buttonRunBackground.Name = "buttonRunBackground";
+            this.buttonRunBackground.Size = new System.Drawing.Size(305, 31);
+            this.buttonRunBackground.TabIndex = 6;
+            this.buttonRunBackground.Text = "Run simple script in bakground";
+            this.buttonRunBackground.UseVisualStyleBackColor = true;
+            this.buttonRunBackground.Click += new System.EventHandler(this.buttonRunBackground_Click);
+            // 
             // DemoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(450, 452);
+            this.ClientSize = new System.Drawing.Size(451, 464);
+            this.Controls.Add(this.buttonRunBackground);
             this.Controls.Add(this.buttonInteract);
-            this.Controls.Add(this.statusInfo);
             this.Controls.Add(this.groupSamples);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "DemoForm";
             this.Text = "KntScript demo";
             this.Load += new System.EventHandler(this.DemoForm_Load);
             this.groupSamples.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -147,7 +149,7 @@
         private System.Windows.Forms.Button buttonRunSample;
         private System.Windows.Forms.Button buttonShowSample;
         private System.Windows.Forms.ListBox listSamples;
-        private System.Windows.Forms.StatusStrip statusInfo;
         private System.Windows.Forms.Button buttonInteract;
+        private System.Windows.Forms.Button buttonRunBackground;
     }
 }

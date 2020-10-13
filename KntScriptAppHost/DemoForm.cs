@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 using KntScript;
@@ -46,8 +47,7 @@ namespace KntScriptAppHost
                             str = ""(type text here ...) "";
                             readvar {""Example input str var:"": str };
                             printline str;
-                            printline ""<< end >>"";
-                            'CloseOutWindow();             
+                            printline ""<< end >>"";                            
                         ");            
         }
 
@@ -96,6 +96,28 @@ namespace KntScriptAppHost
 
             var b = (DocumentDummy)kntScript.GetVar("_a");  // -> a 
             MessageBox.Show(a.Description + " <==> " + b.Description);
+        }
+
+        private void buttonRunBackground_Click(object sender, EventArgs e)
+        {
+            var kntScript = new KntSEngine(new InOutDeviceForm());
+
+            var code = @"
+                        var i = 1;
+                        var str = ""Hello world "";
+                        for i = 1 to 3000
+                            printline str + i;
+                        end for;                            
+                        printline ""<< end >>"";
+                    ";
+
+            // --- Synchronous version
+            // kntScript.Run(code);
+
+            // --- Asynchronous version
+            var t = new Thread(() => kntScript.Run(code));
+            t.IsBackground = false;
+            t.Start();            
         }
 
         private void buttonShowConsole_Click(object sender, EventArgs e)

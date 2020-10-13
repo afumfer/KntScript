@@ -1,7 +1,10 @@
 <stmt> := var <ident> = <expr>
 	| <ident> = <expr>
-	| for <ident> = <expr> to <expr> do <stmt> end
-	| read_int <ident>
+	| for <ident> = <expr> to <expr> <stmt> end
+	| while <expr> <stmt> end
+	| foreach <ident> in <ident> <stmt> end
+	| readvar <block_var>
+	| if <expr> <stmt> else <stmt> end 
 	| print <expr>
 	| <stmt> ; <stmt>
     | <func_call>
@@ -18,6 +21,11 @@
 <ident_rest> := <char> | <digit>
 
 <func_call> := <ident> (<args>)
+
+' ????
+<block_var> := { <block_items>}
+<block_item> := <string_elem> : <ident>
+<block_items> := <block_items> , <block_item>
 
 <int> := <digit>+
 <digit> := 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9

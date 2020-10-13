@@ -1,5 +1,5 @@
 ' --- Example obtain data from SQL Server.
-'     (Customize your Server and Database al select statement).
+'     (Customize your server, database and select statement).
 
 var conn = "Server=.\SQLEXPRESS;Database=KNote02DB;trusted_connection=Yes";
 

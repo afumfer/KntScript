@@ -1,0 +1,33 @@
+' --- Send an email using .NET objects
+
+' Customize your account and credentials here ---------
+var user = "xxxxxx";
+var pwd = "xxxxxx";
+var fromEmail = "xxxxxx";
+var fromName = "xxxxxx"
+var toEmail = "xxxxxx";
+var host = "xxxxxx";
+var port = 25;
+' -----------------------------------------------------
+
+var msg = new System.Net.Mail.MailMessage(); 
+var client = new System.Net.Mail.SmtpClient(); 
+
+printline "Sending message ...  ";
+
+msg.To.Add(toEmail);
+msg.From = new System.Net.Mail.MailAddress(fromEmail , fromName); 
+msg.Subject = "Subject: test KntScript, sending message"; 
+msg.Body = "Body: test KntScript, sending message"; 
+msg.IsBodyHtml = false;              
+
+client.Credentials = new System.Net.NetworkCredential(user, pwd);
+client.Port = port;
+client.Host = host;
+client.EnableSsl = true;
+
+client.Send(msg);            
+
+printline "--- email sent ---";
+
+printline  "<< end >>";
