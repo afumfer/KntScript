@@ -1,0 +1,5 @@
+printline "Exec some external apps ...";
+
+Exec ("http://www.microsoft.com/", "");
+Exec ("cmd", "");
+Exec ("notepad.exe", "..\..\..\..\Samples\ex01_HelloWorld.knts");
