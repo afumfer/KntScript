@@ -54,8 +54,8 @@
             this.button3.Location = new System.Drawing.Point(12, 123);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(305, 29);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "Show console";
+            this.button3.TabIndex = 3;
+            this.button3.Text = "Show KntConsole";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.buttonShowConsole_Click);
             // 
@@ -66,28 +66,28 @@
             this.groupSamples.Controls.Add(this.listSamples);
             this.groupSamples.Location = new System.Drawing.Point(12, 176);
             this.groupSamples.Name = "groupSamples";
-            this.groupSamples.Size = new System.Drawing.Size(425, 276);
+            this.groupSamples.Size = new System.Drawing.Size(451, 276);
             this.groupSamples.TabIndex = 3;
             this.groupSamples.TabStop = false;
             this.groupSamples.Text = "Samples";
             // 
             // buttonRunSample
             // 
-            this.buttonRunSample.Location = new System.Drawing.Point(262, 19);
+            this.buttonRunSample.Location = new System.Drawing.Point(262, 59);
             this.buttonRunSample.Name = "buttonRunSample";
-            this.buttonRunSample.Size = new System.Drawing.Size(148, 30);
-            this.buttonRunSample.TabIndex = 3;
+            this.buttonRunSample.Size = new System.Drawing.Size(173, 30);
+            this.buttonRunSample.TabIndex = 5;
             this.buttonRunSample.Text = "Run sample";
             this.buttonRunSample.UseVisualStyleBackColor = true;
             this.buttonRunSample.Click += new System.EventHandler(this.buttonRunSample_Click);
             // 
             // buttonShowSample
             // 
-            this.buttonShowSample.Location = new System.Drawing.Point(262, 55);
+            this.buttonShowSample.Location = new System.Drawing.Point(262, 22);
             this.buttonShowSample.Name = "buttonShowSample";
-            this.buttonShowSample.Size = new System.Drawing.Size(148, 31);
+            this.buttonShowSample.Size = new System.Drawing.Size(173, 31);
             this.buttonShowSample.TabIndex = 4;
-            this.buttonShowSample.Text = "Show sample in console";
+            this.buttonShowSample.Text = "Show sample in KntConsole";
             this.buttonShowSample.UseVisualStyleBackColor = true;
             this.buttonShowSample.Click += new System.EventHandler(this.buttonShowSample_Click);
             // 
@@ -106,7 +106,7 @@
             this.buttonInteract.Location = new System.Drawing.Point(12, 52);
             this.buttonInteract.Name = "buttonInteract";
             this.buttonInteract.Size = new System.Drawing.Size(305, 28);
-            this.buttonInteract.TabIndex = 5;
+            this.buttonInteract.TabIndex = 1;
             this.buttonInteract.Text = "Interacting with kntscript (embedded code)";
             this.buttonInteract.UseVisualStyleBackColor = true;
             this.buttonInteract.Click += new System.EventHandler(this.buttonInteract_Click);
@@ -116,7 +116,7 @@
             this.buttonRunBackground.Location = new System.Drawing.Point(12, 86);
             this.buttonRunBackground.Name = "buttonRunBackground";
             this.buttonRunBackground.Size = new System.Drawing.Size(305, 31);
-            this.buttonRunBackground.TabIndex = 6;
+            this.buttonRunBackground.TabIndex = 2;
             this.buttonRunBackground.Text = "Run simple script in bakground";
             this.buttonRunBackground.UseVisualStyleBackColor = true;
             this.buttonRunBackground.Click += new System.EventHandler(this.buttonRunBackground_Click);
@@ -125,7 +125,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(451, 464);
+            this.ClientSize = new System.Drawing.Size(475, 464);
             this.Controls.Add(this.buttonRunBackground);
             this.Controls.Add(this.buttonInteract);
             this.Controls.Add(this.groupSamples);

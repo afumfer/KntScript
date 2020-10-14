@@ -1,26 +1,46 @@
-var x = "abc ";
-var y = x;
-var z = y;
+' Simple demo example with:
+' --- variables
+' --- expressions
+' --- for loop / foreach loop
+' --- while loop
+' --- call function library
+' --- if statement
 
-print x;
-print y;
-print z;
+' Some variables
+var a = 0;
+var b = ((5 + 2) * 3) - 1; 
+var c = "Some text";
+var d = true;
+var e = NewCollectionObjects();
+var files = System.IO.Directory.GetFiles(".\");
 
-' This is a comment
+printline "For loop:";
 
-var a = 1 ;
-var b = "Hello world ";
-var c = "type some text here ...";
-
-for a = 1 to 10
-	printline b + a;
+for a = 1 to 5
+    c = "Hi, for loop " + a;    
+    e.Add(c);
+    printline c;
 end for;
 
 printline "";
+printline "foreach loop:";
 
-printline "-- readvar --";
-readvar {"Input text:" : c };
-printline c;
+foreach f in files
+	printline f;
+end foreach;
 
 printline "";
-printline "<< END >>";
+printline "While loop / if statement / call library method:";
+
+a = 0;
+' call RandomInt (function library)
+b = RandomInt(10,20);
+
+while (a < 50)
+    if a > b then
+        printline " >> BREAK AT " + a;
+        break;
+    end if;
+    printline "Hi, while loop with break " + a;
+    a = a + 1;
+end while;
