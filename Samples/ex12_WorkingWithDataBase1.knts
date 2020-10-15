@@ -3,9 +3,9 @@
 
 var conn = "Server=.\SQLEXPRESS;Database=KNote02DB;trusted_connection=Yes";
 
-var db = new System.Data.SqlClient.SqlConnection(conn);
-' Or this MyLibrary method 
-'var db = GetSQLConnection(conn);
+var db = GetSQLConnection(conn);
+' ... or with .net class connection
+'var db = new System.Data.SqlClient.SqlConnection(conn);
 
 var cmd = db.CreateCommand();
 
@@ -30,5 +30,6 @@ db.Close();
 
 printline "";		
 printline "<< end >>";
+
 
 

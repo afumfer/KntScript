@@ -75,7 +75,6 @@ namespace KntScript
                 clearStmt.Tag = "_Clear_";  // for debug
 
                 result = clearStmt;
-
             }
 
             // var
@@ -200,7 +199,6 @@ namespace KntScript
                 MoveNext();
                 if (!MaybeEat(Tokens.For))
                     throw new System.Exception("unterminated 'for' body");
-
             }
 
             // foreach
@@ -243,9 +241,7 @@ namespace KntScript
                 MoveNext();
                 if (!MaybeEat(Tokens.ForEach))
                     throw new System.Exception("unterminated 'for' body");
-
             }
-
 
             // if
             else if (tokens[index] == Tokens.If)
@@ -335,7 +331,6 @@ namespace KntScript
                 }
                 else
                     throw new System.Exception("expected assing or function call");
-
             }
 
             else

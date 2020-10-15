@@ -46,7 +46,6 @@ namespace KntScript
         public string Tag;
     }
 
-
     // <ident> = <expr>
     internal class Assign : Stmt
     {        

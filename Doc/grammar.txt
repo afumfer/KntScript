@@ -6,8 +6,9 @@
 	| readvar <block_var>
 	| if <expr> <stmt> else <stmt> end 
 	| print <expr>
-	| <stmt> ; <stmt>
+	| printline <expr>	
     | <func_call>
+	| <stmt> ; <stmt>
  
 <expr> := <string>
 	| <int>
@@ -22,10 +23,9 @@
 
 <func_call> := <ident> (<args>)
 
-' ????
-<block_var> := { <block_items>}
+<block_var> := { <block_items> }
+<block_items> := <block_items> , <block_item> | <block_item>
 <block_item> := <string_elem> : <ident>
-<block_items> := <block_items> , <block_item>
 
 <int> := <digit>+
 <digit> := 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9

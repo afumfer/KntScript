@@ -105,7 +105,7 @@ namespace KntScriptAppHost
             var code = @"
                         var i = 1;
                         var str = ""Hello world "";
-                        for i = 1 to 3000
+                        for i = 1 to 1000
                             printline str + i;
                         end for;                            
                         printline ""<< end >>"";
