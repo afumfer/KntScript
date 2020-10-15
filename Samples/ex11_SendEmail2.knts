@@ -1,19 +1,19 @@
 ' --- Send an email using MyLibrary method
 
 ' Customize your account and credentials here ---------
-var user = "xxxx";
-var pwd = "xxxxx";
-var fromEmail = "xxxxxx";
-var fromName = "xxxxx";
+var user = "fooUserxx";
+var pwd = "tutuPwdxx";
+var fromEmail = "foo@mycompany.co";
+var fromName = "Mr. Foo";
 var toEmail = NewCollectionObjects();
-var host = "xxxxxx";
+var host = "xxx.myhost.com";
 var port = 25;
 var stringsubject = "Subject: test KntScript, sending message (with MyLibrary method)";
 var body = "Body: test KntScript, sending message (with MyLibrary method).";
 var isBodyHtml = false;
 var enbleSsl = false;
 
-toEmail.Add("xxxxxx");
+toEmail.Add("tutuxx@mycompany.com");
 
 ' -----------------------------------------------------
 
@@ -38,3 +38,4 @@ else
 end if;
 
 printline  "<< end >>";
+

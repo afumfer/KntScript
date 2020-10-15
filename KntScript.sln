@@ -5,9 +5,8 @@ VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Doc", "Doc", "{1ED6751E-D06A-4860-88E5-51DD313EEAE4}"
 	ProjectSection(SolutionItems) = preProject
-		Doc\easygrammar.txt = Doc\easygrammar.txt
 		Doc\grammar.txt = Doc\grammar.txt
-		Doc\README.txt = Doc\README.txt
+		Doc\HelpAndResources.md = Doc\HelpAndResources.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KntScript", "KntScript\KntScript.csproj", "{EF254BFB-BC84-4696-B784-1A8F17EEE24A}"
@@ -17,7 +16,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{DA433C33-CDF8-4D7E-9869-38F6982982C6}"
 	ProjectSection(SolutionItems) = preProject
 		Samples\ex01_HelloWorld.knts = Samples\ex01_HelloWorld.knts
-		Samples\ex02_HelloWorld2.knts = Samples\ex02_HelloWorld2.knts
+		Samples\ex02_Miscellaneous.knts = Samples\ex02_Miscellaneous.knts
 		Samples\ex03_Loops.knts = Samples\ex03_Loops.knts
 		Samples\ex04_IfElse.knts = Samples\ex04_IfElse.knts
 		Samples\ex05_ReadVars.knts = Samples\ex05_ReadVars.knts
@@ -36,6 +35,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{DA43
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8588293D-E27C-41D4-85A1-373E9D431DD1}"
 	ProjectSection(SolutionItems) = preProject
+		LICENSE.txt = LICENSE.txt
 		README.md = README.md
 	EndProjectSection
 EndProject

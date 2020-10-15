@@ -1,4 +1,5 @@
 var x = "hello world!";
-print x;
-print "<< end >>";
+printline x;
+printline "<< end >>";
+
 

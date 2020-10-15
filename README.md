@@ -17,6 +17,7 @@ To discover the qualities of KntScript, you can see the code of the `DemoForm` f
 
 ## Some examples
 
+Miscellaneous examples.
 
 ```
 ' Simple demo example with:
@@ -67,6 +68,37 @@ while (a < 50)
 end while;
 ```
 
+Accessing SQL Server databases.
+
+```
+' --- Example obtain data from SQL Server (store procedure)
+'     (You need to customize your server, database and store procedure).
+
+var db = GetSQLConnection("Server=.\SQLEXPRESS;Database=MyDataBase;trusted_connection=Yes");
+var cmd = new System.Data.SqlClient.SqlCommand("sp_tables", db);
+cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+var param = new System.Data.SqlClient.SqlParameter("@table_owner", System.Data.SqlDbType.VarChar);
+param.Value = "dbo";
+
+SetParameter(cmd, param);
+
+db.Open();
+var reader = cmd.ExecuteReader();
+
+while reader.Read()                        
+	printline reader.GetString(2);
+end while;
+
+reader.Close();
+db.Close();
+
+printline "";		
+printline "<< end >>";
+```
+
+Send email using .NET objects.
+
 ```
 ' --- Send an email using .NET objects
 '     (You need to customize your email, pwd, ...).
@@ -103,31 +135,3 @@ printline "--- email sent ---";
 
 printline  "<< end >>";
 ```
-
-```
-' --- Example obtain data from SQL Server (store procedure)
-'     (You need to customize your server, database and store procedure).
-
-var db = GetSQLConnection("Server=.\SQLEXPRESS;Database=MyDataBase;trusted_connection=Yes");
-var cmd = new System.Data.SqlClient.SqlCommand("sp_tables", db);
-cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-var param = new System.Data.SqlClient.SqlParameter("@table_owner", System.Data.SqlDbType.VarChar);
-param.Value = "dbo";
-
-SetParameter(cmd, param);
-
-db.Open();
-var reader = cmd.ExecuteReader();
-
-while reader.Read()                        
-	printline reader.GetString(2);
-end while;
-
-reader.Close();
-db.Close();
-
-printline "";		
-printline "<< end >>";
-```
-

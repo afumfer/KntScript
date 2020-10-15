@@ -1,12 +1,12 @@
 ' --- Send an email using .NET objects
 
 ' Customize your account and credentials here ---------
-var user = "xxxxxx";
-var pwd = "xxxxxx";
-var fromEmail = "xxxxxx";
-var fromName = "xxxxxx"
-var toEmail = "xxxxxx";
-var host = "xxxxxx";
+var user = "fooUserxx";
+var pwd = "tutuPwdxx";
+var fromEmail = "foo@mycompany.com";
+var fromName = "Mr. Foo"
+var toEmail = "tutuxx@mycompany.com";
+var host = "xxx.myhost.com";
 var port = 25;
 ' -----------------------------------------------------
 
@@ -31,3 +31,4 @@ client.Send(msg);
 printline "--- email sent ---";
 
 printline  "<< end >>";
+
