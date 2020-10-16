@@ -244,10 +244,10 @@ namespace KntScript
                 {
                     if (flagBreak)
                         break;
-                    
-                    // TODO: (Z) Pendiente susutiruir CodeSpecialStoreObject por CodeStoreSymbol
-                    //       En el futuro, CodeStoreSymbol debe almacenar la variable si 
-                    //       previamente no hubiera sido declarada. 
+
+                    // TODO: Pending susutiruir CodeSpecialStoreObject by CodeStoreSymbol
+                    //       In the future, CodeStoreSymbol should store the variable 
+                    //       if it had not previously been declared.
                     CodeSpecialStoreObject(forEachLoop.Ident, o);
                     // CodeStoreSymbol(forEachLoop.Ident, o);
 
@@ -326,9 +326,8 @@ namespace KntScript
         private object GenExpr(Expr expr) 
         {
             // ...
-            // TODO: (Z) Pendiente de decidir si se implmenta la comprobación de tipos.
-            // Añadir el parámetro, ... "System.Type expectedType" como parámetro de entrada
-            // de este método.
+            // TODO: To decide whether to implement type checking.
+            // Add the parameter, ... "System.Type expectedType" as an input parameter of this method..
             // ...
 
             Type deliveredType;
@@ -373,13 +372,13 @@ namespace KntScript
             else if (expr is UnaryExpr)
                 res = CodeExecuteUnaryExpr((UnaryExpr)expr);
 
-                        
-            // TODO: (Z) Pendiente, para resolver conversión de tipos automática en versiones futuras 
+
+            // TODO: Pending, to resolve automatic type conversion in future versions 
             if (res != null)
                 deliveredType = res.GetType();
             else
                 deliveredType = null;
-
+            // ...
             //if (deliveredType != expectedType)
             //{
             //    if (deliveredType == typeof(int) &&
@@ -393,6 +392,7 @@ namespace KntScript
             //        throw new System.Exception("can't coerce a " + deliveredType.Name + " to a " + expectedType.Name);
             //    }
             //} 
+            // ...
 
             return res;            
 
@@ -1037,10 +1037,8 @@ namespace KntScript
                 (left.GetType() == typeof(int) || right.GetType() == typeof(int) || left.GetType() == typeof(float) || right.GetType() == typeof(float) || left.GetType() == typeof(double) || right.GetType() == typeof(double))
                 )
                 return typeof(decimal);
-
-            // TODO: Pending verification, following cases.
-
-            // string  !!! 
+            
+            // string 
             else if (left.GetType() == typeof(string) || right.GetType() == typeof(string))
                 return typeof(string);
 

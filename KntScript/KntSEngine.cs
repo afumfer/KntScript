@@ -114,8 +114,7 @@ namespace KntScript
         {
             if (_symbolTable.ContainsKey(ident))                
                 return _symbolTable[ident];
-            else
-                //return null;
+            else                
                 throw new System.Exception(" undeclared variable '" + ident);
         }
 

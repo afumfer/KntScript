@@ -179,7 +179,7 @@ namespace KntScript
         public bool Value;
     }
 
-    // <bool>
+    // <null>
     internal class NullVal : Expr
     {
         public object Value { get { return null; } }
@@ -253,9 +253,8 @@ namespace KntScript
         GreaterThanOrEqual
     }
 
-    
-    // TODO: (Z) Pendinte de mejorar 
-    //         IndentObject se procesa en CodeRun, debería procesarse en el Parser.
+    // TODO: Pending improvement 
+    //       IndentObject is processed in CodeRun, it should be processed in Parser.
 
     public class ReadVarItem
     {

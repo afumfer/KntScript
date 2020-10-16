@@ -66,7 +66,7 @@
             this.groupSamples.Controls.Add(this.listSamples);
             this.groupSamples.Location = new System.Drawing.Point(12, 176);
             this.groupSamples.Name = "groupSamples";
-            this.groupSamples.Size = new System.Drawing.Size(451, 276);
+            this.groupSamples.Size = new System.Drawing.Size(451, 307);
             this.groupSamples.TabIndex = 3;
             this.groupSamples.TabStop = false;
             this.groupSamples.Text = "Samples";
@@ -97,7 +97,7 @@
             this.listSamples.ItemHeight = 15;
             this.listSamples.Location = new System.Drawing.Point(13, 19);
             this.listSamples.Name = "listSamples";
-            this.listSamples.Size = new System.Drawing.Size(230, 244);
+            this.listSamples.Size = new System.Drawing.Size(230, 274);
             this.listSamples.TabIndex = 2;
             this.listSamples.SelectedIndexChanged += new System.EventHandler(this.listSamples_SelectedIndexChanged);
             // 
@@ -125,7 +125,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 464);
+            this.ClientSize = new System.Drawing.Size(475, 495);
             this.Controls.Add(this.buttonRunBackground);
             this.Controls.Add(this.buttonInteract);
             this.Controls.Add(this.groupSamples);
