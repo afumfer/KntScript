@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -37,7 +36,7 @@ namespace KntScriptAppHost
             Thread.Sleep(sleep);
         }
 
-        public void AddInfo (string info)
+        public void AddInfo(string info)
         {
             listBox1.Items.Add(info);
             listBox1.Refresh();
