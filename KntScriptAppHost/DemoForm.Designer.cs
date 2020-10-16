@@ -134,7 +134,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "DemoForm";
-            this.Text = "KntScript demo";
+            this.Text = "KntScript AppHost demo";
             this.Load += new System.EventHandler(this.DemoForm_Load);
             this.groupSamples.ResumeLayout(false);
             this.ResumeLayout(false);
