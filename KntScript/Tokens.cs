@@ -170,8 +170,7 @@ namespace KntScript
             get { return _value; }
         }
     }
-
-    //#dd/mm/yyyy#
+    
     internal class DateTimeToken : Token
     {
         private DateTime _value;
@@ -179,8 +178,8 @@ namespace KntScript
         public DateTimeToken(string value)
             : base(value)
         {
+            //#dd/mm/yyyy#
             _value = DateTime.Parse(value);
-
         }
 
         public DateTime Value
@@ -188,8 +187,7 @@ namespace KntScript
             get { return _value; }
         }
     }
-
-    // true - false
+    
     internal class BoolToken : Token
     {        
         private bool _value;
@@ -197,8 +195,8 @@ namespace KntScript
         public BoolToken(string value)
             : base(value)
         {
+            // true - false
             _value = bool.Parse(value);
-
         }
 
         public bool Value
@@ -206,24 +204,6 @@ namespace KntScript
             get { return _value; }
         }
     }
-
-    //// Discarded in this version
-    //internal class NullToken : Token
-    //{
-    //    private object _value;
-
-    //    public NullToken()
-    //        : base("null")
-    //    {
-    //        _value = null;
-
-    //    }
-
-    //    public object Value
-    //    {
-    //        get { return _value; }
-    //    }
-    //}
 
     internal class SymbolToken : Token
     {

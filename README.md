@@ -68,41 +68,48 @@ while (a < 50)
 end while;
 ```
 
-Accessing SQL Server databases.
+Windows Form automatization example. 
 
 ```
-' --- Example obtain data from SQL Server (store procedure)
-'     (You need to customize your server, database and store procedure).
+' --- Execute some dummy action in apphost form   
 
-var db = GetSQLConnection("Server=.\SQLEXPRESS;Database=MyDataBase;trusted_connection=Yes");
-var cmd = new System.Data.SqlClient.SqlCommand("sp_tables", db);
-cmd.CommandType = System.Data.CommandType.StoredProcedure;
+var i = 0;
+var j = 0;
+var x = 0; 
+var y = 0;
+var info = "";
 
-var param = new System.Data.SqlClient.SqlParameter("@table_owner", System.Data.SqlDbType.VarChar);
-param.Value = "dbo";
+var doc = new KntScriptAppHost.DocumentDummy();
 
-SetParameter(cmd, param);
+doc.Topic = "KntScript document";
+doc.Description = "This my document created in KntScript and pass to this form";
 
-db.Open();
-var reader = cmd.ExecuteReader();
+var form = new KntScriptAppHost.MyAppDummyForm(doc);
 
-while reader.Read()                        
-	printline reader.GetString(2);
-end while;
+form.Show();
 
-reader.Close();
-db.Close();
+for j = 0 to 5
+	form.ClearInfo();
+	form.Top = j * 50;
+	form.Left = j * 50;
+	for i = 1 to 20
+		info = "Hello from KntScript " + j + " - " + i;
+		form.AddInfo(info);
+		x = RandomInt(10,200);
+		y = RandomInt(10,200);
+		printline "Sending: " + info + " - Pic: " + x + " " + y;
+		form.MovePic(x, y);
+		form.Sleep(200);
+	end for;
+end for;
 
-printline "";		
 printline "<< end >>";
+
 ```
 
 Send email using .NET objects.
 
 ```
-' --- Send an email using .NET objects
-'     (You need to customize your email, pwd, ...).
-
 ' Customize your account and credentials here ---------
 var user = "fooUserxx";
 var pwd = "tutuPwdxx";

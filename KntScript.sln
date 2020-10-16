@@ -31,6 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{DA43
 		Samples\ex14_FileCopy.knts = Samples\ex14_FileCopy.knts
 		Samples\ex15_DirectoryFiles.knts = Samples\ex15_DirectoryFiles.knts
 		Samples\ex16_ExecExternalapp.knts = Samples\ex16_ExecExternalapp.knts
+		Samples\ex17_MyFormAutomatization.knts = Samples\ex17_MyFormAutomatization.knts
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8588293D-E27C-41D4-85A1-373E9D431DD1}"

@@ -6,8 +6,8 @@
 	| readvar <block_var>
 	| if <expr> <stmt> else <stmt> end 
 	| print <expr>
-	| printline <expr>	
-    | <func_call>
+	| printline <expr>
+	| <func_call>
 	| <stmt> ; <stmt>
  
 <expr> := <string>
