@@ -61,7 +61,7 @@ namespace KntScriptAppHost
 
         #endregion
 
-        #region Métodos privados
+        #region Private methods
 
         private void GenControls()
         {

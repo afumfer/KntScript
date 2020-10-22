@@ -1093,7 +1093,7 @@ namespace KntScript
 
             if (ident.PathObj == ident.RootObj)
             {
-                idObj = "AnTScript.Library";
+                idObj = "KntScript.Library";
                 idMember = ident.RootObj;
             }
             else
@@ -1161,7 +1161,7 @@ namespace KntScript
 
             if (ident.PathObj == ident.RootObj)
             { 
-                idObj = "AnTScript.Library" ;
+                idObj = "KntScript.Library" ;
                 idMember = ident.RootObj;
             }
             else
