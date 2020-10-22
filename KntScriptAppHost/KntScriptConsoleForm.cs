@@ -64,7 +64,7 @@ namespace KntScript
         {
             if (string.IsNullOrEmpty(textSourceCode.Text.Trim()))
             {
-                MessageBox.Show("No code found to run", "AnTScript");
+                MessageBox.Show("No code found to run", "KntScript");
                 return;
             }
 
@@ -97,9 +97,9 @@ namespace KntScript
         {
             if (string.IsNullOrEmpty(_sourceCodeDirWork))
                 _sourceCodeDirWork = Application.StartupPath;
-            openFileDialogScript.Title = "Open AnTScript file";
+            openFileDialogScript.Title = "Open KntScript file";
             openFileDialogScript.InitialDirectory = _sourceCodeDirWork;
-            openFileDialogScript.Filter = "AnTScript file (*.knts)|*.knts";
+            openFileDialogScript.Filter = "KntScript file (*.knts)|*.knts";
             openFileDialogScript.FileName = "";
             openFileDialogScript.CheckFileExists = true;
 
@@ -111,9 +111,9 @@ namespace KntScript
         {
             if (string.IsNullOrEmpty(_sourceCodeFile))
             {
-                saveFileDialogScript.Title = "Save AnTScript file";
+                saveFileDialogScript.Title = "Save KntScript file";
                 saveFileDialogScript.InitialDirectory = _sourceCodeDirWork;
-                saveFileDialogScript.Filter = "AnTScript file (*.ants)|*.ants";
+                saveFileDialogScript.Filter = "KntScript file (*.ants)|*.ants";
                 saveFileDialogScript.FileName = "";
 
                 if (saveFileDialogScript.ShowDialog() == DialogResult.OK)

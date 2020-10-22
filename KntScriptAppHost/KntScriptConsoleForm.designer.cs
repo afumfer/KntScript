@@ -125,7 +125,7 @@
             this.statusFileName.Name = "statusFileName";
             this.statusFileName.Size = new System.Drawing.Size(1094, 17);
             this.statusFileName.Spring = true;
-            this.statusFileName.Text = "ANTScript";
+            this.statusFileName.Text = "KntScript";
             this.statusFileName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel1
@@ -169,7 +169,7 @@
             // 
             // openFileDialogScript
             // 
-            this.openFileDialogScript.FileName = "AnTScript";
+            this.openFileDialogScript.FileName = "KntScript";
             // 
             // KntScriptConsoleForm
             // 

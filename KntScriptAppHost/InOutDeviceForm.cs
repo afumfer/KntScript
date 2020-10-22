@@ -69,7 +69,7 @@ namespace KntScriptAppHost
         {
             if (FlagClose)
             {
-                MessageBox.Show("No se pude cerrar esta ventana hasta finalizar la ejecución del script.", "ANotas");
+                MessageBox.Show("You cannot close this window until script execution is finished.", "KntScript");
                 e.Cancel = true;
             }
         }

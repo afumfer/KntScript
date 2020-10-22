@@ -111,7 +111,7 @@ namespace KntScriptAppHost
             catch (Exception ex)
             {
                 if (showError == true)
-                    MessageBox.Show("Ha ocurrido el siguiente error: " + ex.Message, "ANotas");
+                    MessageBox.Show("The following error has occurred: " + ex.Message, "KntScript");
                 else
                     throw ex;
             }
