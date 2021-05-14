@@ -1,4 +1,4 @@
-﻿namespace KntScript
+﻿namespace KntScriptAppHost
 {
     partial class KntScriptConsoleForm
     {

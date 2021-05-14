@@ -13,7 +13,7 @@ using System.Threading;
 
 using KntScript;
 
-namespace KntScript
+namespace KntScriptAppHost
 {
     internal partial class KntScriptConsoleForm : Form
     {
